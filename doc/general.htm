@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<head>
+   <title>Surface Evolver Documentation</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+<body>
+<a   id="miscellaneous-top"></a>
+
+<h1 class="center"> 
+<a href="http://www.susqu.edu/brakke/evolver/evolver.htm" class="comic">
+Surface Evolver</a> Documentation</h1> 
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+<h2> Some miscellaneous topics: </h2>
+<ul>
+<li><a href="#options">Command line options.</a>
+<li><a href="#bugs">Bugs.</a>
+<li><a href="#newsletters">Newsletters.</a>
+<li><a href="#error-handling">Error handling.</a>
+<li><a href="#initialization">Surface initialization.</a>
+<li><a href="#interrupts">Interrupting execution.</a>
+<li><a href="#parallel">Parallel computation.</a>
+</ul>
+<hr>
+
+<a   id="options"></a>
+<h2>Command line options</h2>
+
+<p>The syntax for starting the Evolver from the system command prompt is:
+</p>
+
+<pre>
+     evolver [-f<i>filename</i>] [-a-] [-d] [-e] [-i] [-m] [-p<i>n</i>] [-q] [-Q] [-w] [-x] [-y] [<em>datafile</em>]
+</pre>
+
+<p>The current directory and <a HREF="install.htm#EVOLVERPATH" 
+  class="keyword">EVOLVERPATH</a>
+will be searched for datafile. If the datafile is not found, then a new
+search with extension <code>.fe</code> is done.
+  Wildcard matching is in effect
+on some systems (Windows, linux, maybe others), but be very careful when
+using wildcards since there can be unexpected matches.
+ If the datafile is still not found, or the
+datafile is not given on the command line, then the user will be prompted.
+Options: </p>
+
+<dl>
+<dt>
+<a   id="no-autoconvert-option"></a>
+<code> -a-</code>
+</dt>
+<dd>
+Do not enable automatic conversion to 
+<a href="quants.htm#named-methods">named methods</a> and 
+<a href="quants.htm#named-quantities">quantities</a> mode when a
+situation requiring it arises (for debugging).
+<p></dd>
+<dt>
+<a   id="debug-option"></a>
+<code>-d</code> </dt>
+
+<dd>Prints YACC debugging trace as datafile is parsed. May be helpful if
+you can't figure out why your datafile doesn't get read in properly AND
+you know YACC. 
+<p></dd>
+
+<dt><a   id="echo-option"></a>
+<code>-e</code></dt>
+<dd>
+ Echo input.  Meant for echoing commands of piped input to 
+ screen so the user can follow what is going on in case Evolver is being
+ controlled by another process.
+<p></dd>
+
+<dt><a   id="file-option"></a>
+<code>-f</code><i>filename</i> </dt>
+
+<dd>Specifies the name of a file to be used as command input after the
+datafile is read. At the end of this file, input reverts to standard input.
+The effect is the same as redirecting input from the file, except that
+<code>-f</code> will echo commands to the screen and revert to standard input at the
+end.  Also note that errors will cause input to revert to standard input.
+<p></dd>
+
+<dt><a   id="no-renumbering-option"></a>
+<code>-i</code></dt>
+
+<dd>  Keeps elements numbers as listed in the datafile, instead
+   of renumbering them consecutively.  The same effect can be achieved
+   by putting the keyword 
+   <a href="datafile.htm" class="keyword">keep_originals</a> 
+in the top of the datafile.
+<p></dd>
+
+<dt><a   id="memory-debug-option"></a>
+<code>-m</code> </dt>
+
+<dd>Turn memory debugging on at start of program. Same effect as Evolver
+<a HREF="toggle.htm#memdebug" class="keyword">memdebug</a> toggle command. 
+<p></dd>
+
+<dt><a   id="multiprocessor-option"></a>
+<code>-p</code><i>n</i> </dt>
+
+<dd>Forces use of n processes for an Evolver compiled in multi-processor
+mode. <i>n</i> may be larger or smaller than the physically available number of
+processors. The default is 1.  This option should be regarded as experimental; 
+there is still too much overhead for it to be useful usually.
+<p></dd>
+
+<dt><a   id="named-quantities-option"></a>
+<code>-q</code> </dt>
+
+<dd>Convert everything to <a HREF="quants.htm">named quantities</a> internally.
+There are a few things for which no quantities exist yet; they will produce
+error messages. 
+<p></dd>
+
+<dt><a   id="quietload-option"></a>
+<code>-Q</code> </dt>
+
+<dd>Suppresses echoing of <a href="datafile.htm#read-section" class="keyword">
+read</a> section of datafile, and of
+files input with the <a href="commands.htm" class="keyword">read</a> command; 
+same as
+<a href="toggle.htm#quietload" class="keyword">quietload</a> toggle.
+<p></dd>
+
+<dt>
+<a   id="exit-warning-option"></a>
+<code>-w</code> </dt>
+
+<dd>Causes Evolver to exit whenever a warning occurs. Meant to be used when
+Evolver is run in a shell script. 
+<p></dd>
+
+<dt><a   id="exit-error-option"></a>
+<code>-x</code> </dt>
+
+<dd>Causes Evolver to exit whenever an error occurs. Meant to be used when
+Evolver is run in a shell script, so that Evolver doesn't get hung up waiting
+for input in response to an error. 
+<p></dd>
+
+<dt><a   id="break-after-warning-option"></a>
+<code>-y</code> </dt>
+
+<dd>Causes Evolver to cease execution of commands and return to command
+prompt after any warning message.  Same effect as 
+<a href="toggle.htm#break_after_warning" class="keyword">break_after_warning</a> 
+runtime toggle.
+<p></dd>
+
+
+</dl>
+
+<p>
+<hr><h2><a   id="bugs"></a>
+Bugs</h2>
+Bug reports should be submitted by email to <code>brakke@susqu.edu</code>.
+Please include the Evolver version number, a description of the problem,
+the initial data file, and the sequence of commands necessary to reproduce
+the problem. 
+
+<hr><h2><a   id="newsletters"></a>
+Evolver Newsletters</h2>
+The group of Surface Evolver users has grown large enough that I have
+started a newsletter. Contents include announcement of new versions and
+latest features, bibliography, and anything else anybody would like to
+contribute. If you would like to be on the mailing list, send your email
+address to <code>brakke@susqu.edu</code>. <p>
+
+<p>Back issues: </p>
+
+<ul>
+<li><a HREF="news_01.htm">Newsletter 1</a> </li>
+<li><a HREF="news_02.htm">Newsletter 2</a> </li>
+<li><a HREF="news_03.htm">Newsletter 3</a> </li>
+<li><a HREF="news_04.htm">Newsletter 4</a> </li>
+<li><a HREF="news_05.htm">Newsletter 5</a> </li>
+<li><a HREF="news_06.htm">Newsletter 6</a> </li>
+<li><a HREF="news_07.htm">Newsletter 7</a> </li>
+<li><a HREF="news_08.htm">Newsletter 8</a> </li>
+<li><a HREF="news_09.htm">Newsletter 9</a> </li>
+<li><a HREF="news_10.htm">Newsletter 10</a> </li>
+<li><a HREF="news_11.htm">Newsletter 11</a> </li>
+<li><a HREF="news_12.htm">Newsletter 12</a> </li>
+<li><a HREF="news_13.htm">Newsletter 13</a> </li>
+<li><a HREF="news_14.htm">Newsletter 14</a> </li>
+<li><a HREF="news_15.htm">Newsletter 15</a> </li>
+<li><a HREF="news_16.htm">Newsletter 16</a> </li>
+<li><a HREF="news_17.htm">Newsletter 17</a> </li>
+<li><a HREF="news_18.htm">Newsletter 18</a> </li>
+<li><a HREF="news_19.htm">Newsletter 19</a> </li>
+<li><a HREF="news_20.htm">Newsletter 20</a> </li>
+<li><a HREF="news_21.htm">Newsletter 21</a> </li>
+<li><a HREF="news_22.htm">Newsletter 22</a> </li>
+</ul>
+
+<p>
+<hr><a   id="error-handling"></a><h2>Error handling</h2>
+When the Surface Evolver detects an error, it prints an error message
+and tries to take appropriate action. If the <a HREF="#options" 
+class="keyword">-x</a>
+command line option was given when Evolver was started, then Evolver exits
+immediately with a nonzero error code. This is useful when running Evolver
+from shell scripts. There are several categories of
+errors: <p>
+
+<ul>
+<li><code>WARNING</code> - Something has happened that you should know about,
+but Evolver proceeds normally after printing the message. By setting
+the <code>break_after_warning</code> toggle, you can make Evolver then
+cease execution at the end of the current command or subcommand.
+By setting the <code>break_on_warning</code> toggle, you can make
+Evolver return immediately to the command prompt.  The 
+<code>-y</code> command-line option makes the Evolver exit after
+ a warning, useful in batch runs. </li>
+
+<li><code>SYNTAX ERROR</code> - The parser has detected an error. Recent input
+up to the detection of the error is printed, but the actual problem may
+be earlier.
+</li>
+
+<li><code>DATAFILE ERROR</code> - There is an error in the datafile being read
+in. Evolver attempts to recover by skipping to the next recognizable part
+of the datafile, but will abandon the datafile after 5 such errors. 
+The surface data that was read in is available for your inspection,
+but it probably forms an inconsistent surface and you should not try
+to evolve it.</li>
+
+<li><code>ERROR</code> - This is an error encountered during the execution
+of a command. The command is abandoned and Evolver returns to the main
+prompt.  The actions of the command are not undone.
+The <code>-x</code> command line option makes Evolver exit immediately
+after any error; useful batch runs. </li>
+
+<li><code>FATAL ERROR</code> - An error from which recovery is impossible.
+Evolver exits immediately. </li>
+</ul>
+
+<p>
+<hr><a   id="initialization"></a>
+<h2>
+Surface initialization</h2>
+Whenever the Surface Evolver loads a new surface, either on startup
+or in response to the <a HREF="single.htm#q" class="keyword">q</a>
+ or <a HREF="commands.htm#load" class="keyword">load</a>
+commands, the following actions occur: <p>
+
+<ul>
+<li>Any previous surface has all memory deallocated. All user-defined variables
+and commands are deleted, including any currently executing commands. </li>
+
+<li>Internal variables are initialized to default values. </li>
+
+<li>The datafile is read in. </li>
+
+<li>In the <a HREF="model.htm#soapfilm-model">soapfilm model</a>, any nontriangular
+face is divided into triangles by creating a vertex in the center and making
+edges from the center to the vertices. </li>
+
+<li>In the <a HREF="model.htm#soapfilm-model">soapfilm model</a>, the order
+of facets around each edge is determined geometrically. </li>
+
+<li>Vertices are projected to any <a HREF="constrnt.htm">level set constraints</a>.
+</li>
+
+<li>Checks as described for the <a HREF="single.htm#C">C</a> command are
+done. </li>
+
+<li>Initial areas, energies, and volumes are calculated. </li>
+
+<li>The <a HREF="graphics.htm#view-matrix">viewing matrix</a> is reset
+to center the object in the graphics window. </li>
+
+<li>If any graphics are active, the new surface is drawn. </li>
+
+<li>The main command prompt is started. </li>
+</ul>
+
+<p>
+<hr><a   id="interrupts"></a><h2>Interrupting execution</h2>
+Evolver operation may be interrupted with the standard keyboard interrupt,
+CTRL-C usually (SIGINT for you unix gurus). During repeated operations,
+this will set a flag which is checked at the end of each loop. Repetition
+will cease after the current step and control will return to the main prompt.
+If you give a second interrupt before the loop has ended, Evolver will
+abort the command and return to the main prompt. Beware that this may leave
+the surface in an inconsistent state if surface topology changing operations
+were going on. An immediate abort will also happen if an interrupt is received
+outside a loop. If Evolver receives SIGTERM (say from the unix kill command),
+it will dump to the default 
+<a href="commands.htm#dump">dump</a> file and exit. This is useful for stopping
+a background Evolver running a script. The same thing will happen with
+SIGHUP, so losing a modem connection will save the current surface. 
+<p>
+Note: In Microsoft Windows, the second interrupt doesn't do anything much
+since Windows creates a separate thread to handle the interrupt, and
+I can't find any way to force the offending thread to stop and longjmp
+back to where it should.  So if the Evolver is really, really stuck,
+you may just have to kill the whole program.
+
+<hr><a   id="parallel"></a><h2>
+Parallel computation</h2>
+Parallel versions of the Surface Evolver are available for several
+types of systems, but these are experimental and not very useful. <p>
+
+For symmetric multiprocessors (several CPUs in the same machine), the
+<code>-p</code><em>n</em> command line option will cause Evolver to use
+<em>n</em> threads, so it is best if <em>n</em> does not exceed the
+number of CPUs in the machine.
+ It will slow things down to use more threads than are physically
+available, but it is possible to run multiple threads on a single-processor
+system for testing. 
+<p>
+ Currently, the only calculations done in parallel are the
+ <a HREF="quants.htm">named quantities</a>, so it is best to start Evolver with the <a HREF="#options">-q</a>
+option. 
+ Evolver seems to be memory bandwidth limited, so
+you may not get as much speed-up as you wish.
+<p>
+For distributed computation, there is an  <a HREF="MPI_evolver.htm">MPI 
+version of Evolver</a>, but this is still experimental and not useful 
+except in very special circumstances.
+<hr>
+<hr><a HREF="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+<hr>
+<a href="http://www.susqu.edu/facstaff/b/brakke/">
+Author's home page.</a>
+
+</body>
+</html>

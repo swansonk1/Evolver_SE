@@ -1,0 +1,1942 @@
+<!DOCTYPE HTML>
+<HEAD><TITLE>Surface Evolver Documentation - Script Examples</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+
+<BODY>
+<!--NewPage-->
+
+<h1 class="center">
+<a href="http://www.susqu.edu/brakke/evolver/evolver.htm" class="comic">
+Surface Evolver</a> Documentation</h1>
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+<h1>Surface Evolver Script Examples</h1>
+
+This page lists some sample command script files.  Fuller descriptions are  below.
+The files are included in the Evolver distribution in the <code>fe</code> folder,
+and thus should be on the <a href="install.htm#evolverpath">EVOLVERPATH</a>
+so Evolver can find them.
+<p>
+You read a script file into Evolver with the <a href="commands.htm#read" class="code">read</a>
+command, for example
+<pre>
+   Enter command: read "3ds.cmd"
+</pre>
+In general, each script contains one main command, whose name is the same as 
+the file name, e.g. <code>adjoint.cmd</code> contains the <code>adjoint</code> command,
+except for when this would result in an illegal name or a conflict with an
+Evolver keyword.  Each file has usage instructions in the comments in the top
+of the file.
+
+<p>
+A list of the script files:
+
+<table>
+<tr>
+<td>
+<ul>
+  <li>    <a href="#3ds.cmd">3ds.cmd</a>
+  <li>    <a href="#adjoint.cmd">adjoint.cmd</a>
+  <li>    <a href="#adjointc.cmd">adjointc.cmd</a>
+  <li>    <a href="#ansys.cmd">ansys.cmd</a>
+  <li>    <a href="#band.cmd">band.cmd</a>
+  <li>    <a href="#bonnet_movie.cmd">bonnet_movie.cmd</a>
+  <li>    <a href="#cmccousin.cmd">cmccousin.cmd</a>
+  <li>    <a href="#coff.cmd">coff.cmd</a>
+  <li>    <a href="#collada.cmd">collada.cmd</a>
+  <li>    <a href="#complex.cmd">complex.cmd</a>
+  <li>    <a href="#dirichlet_to_disk.cmd">dirichlet_to_disk.cmd</a>
+  <li>    <a href="#dxf.cmd">dxf.cmd</a>
+  <li>    <a href="#dxf_thick.cmd">dxf_thick.cmd</a>
+  <li>    <a href="#embox.cmd">embox.cmd</a>
+  <li>    <a href="#foamface.cmd">foamface.cmd</a>
+  <li>    <a href="#foamface_jvx.cmd">foamface_jvx.cmd</a>
+</ul>
+</td>
+<td>
+<ul>
+  <li>    <a href="#fourier.cmd">fourier.cmd</a>
+  <li>    <a href="#gaussequi.cmd">gaussequi.cmd</a>
+  <li>    <a href="#gaussmap.cmd">gaussmap.cmd</a>
+  <li>    <a href="#gaussref.cmd">gaussref.cmd</a>
+  <li>    <a href="#iges.cmd">iges.cmd</a>
+  <li>    <a href="#iges114.cmd">iges114.cmd</a>
+  <li>    <a href="#iges128.cmd">iges128.cmd</a>
+  <li>    <a href="#iges144.cmd">iges144.cmd</a>
+  <li>    <a href="#intersect.cmd">intersect.cmd</a>
+  <li>    <a href="#jvx.cmd">jvx.cmd</a>
+  <li>    <a href="#maya.cmd">maya.cmd</a>
+  <li>    <a href="#maya1.cmd">maya1.cmd</a>
+  <li>    <a href="#neville.cmd">neville.cmd</a>
+  <li>    <a href="#obj.cmd">obj.cmd</a>
+  <li>    <a href="#off.cmd">off.cmd</a>
+  <li>    <a href="#offn.cmd">offn.cmd</a>
+</ul>
+</td>
+<td>
+<ul>
+  <li>    <a href="#off_show.cmd">off_show.cmd</a>
+  <li>    <a href="#order.cmd">order.cmd</a>
+  <li>    <a href="#percolate.cmd">percolate.cmd</a>
+  <li>    <a href="#ply.cmd">ply.cmd</a>
+  <li>    <a href="#polyfilm.cmd">polyfilm.cmd</a>
+  <li>    <a href="#povray.cmd">povray.cmd</a>
+  <li>    <a href="#povrays.cmd">povrays.cmd</a>
+  <li>    <a href="#quadbbox.cmd">quadbbox.cmd</a>
+  <li>    <a href="#quadmeet.cmd">quadmeet.cmd</a>
+  <li>    <a href="#quadtbox.cmd">quadtbox.cmd</a>
+  <li>    <a href="#reorder.cmd">reorder.cmd</a>
+  <li>    <a href="#rewrap.cmd">rewrap.cmd</a>
+  <li>    <a href="#rgb.cmd">rgb.cmd</a>
+  <li>    <a href="#rib.cmd">rib.cmd</a>
+  <li>    <a href="#rotate.cmd">rotate.cmd</a>
+  <li>    <a href="#save_view.cmd">save_view.cmd</a>
+  <li>    <a href="#show_equi.cmd">show_equi.cmd</a>
+</ul>
+</td>
+<td>
+<ul>
+  <li>    <a href="#simply_connected.cmd">simply_connected.cmd</a>
+  <li>    <a href="#slice.cmd">slice.cmd</a>
+  <li>    <a href="#slice.cmd">slice2.cmd</a>
+  <li>    <a href="#slicer.cmd">slicer.cmd</a>
+  <li>    <a href="#stl.cmd">stl.cmd</a>
+  <li>    <a href="#strdup.cmd">strdup.cmd</a>
+  <li>    <a href="#strips.cmd">strips.cmd</a>
+  <li>    <a href="#tuber.cmd">tuber.cmd</a>
+  <li>    <a href="#unseam.cmd">unseam.cmd</a>
+  <li>    <a href="#unshear.cmd">unshear.cmd</a>
+  <li>    <a href="#vrml.cmd">vrml.cmd</a>
+  <li>    <a href="#vrml2.cmd">vrml2.cmd</a>
+  <li>    <a href="#wavefront.cmd">wavefront.cmd</a>
+  <li>    <a href="#wetfoam2.cmd">wetfoam2.cmd</a>
+  <li>    <a href="#x3d.cmd">x3d.cmd</a>
+  <li>    <a href="#xray.cmd">xray.cmd</a>
+  <li>    <a href="#zebra.cmd">zebra.cmd</a>
+</ul>
+</td>
+</tr>
+</table>
+
+<p>
+Of these, many people are particularly interested in scripts that
+can export files that other software can read, so here is a list
+of file export scripts.  These generally work by running the 
+command with the output re-directed to a file, for example
+<pre>
+   Enter command: read "collada.cmd"
+   Enter command: collada >>> "filename.cda"
+</pre>
+Note that <code>>>></code> results in over-writing any existing 
+file of the same name.
+<br>The export script files:
+<table>
+<tr>
+<td>
+<ul>
+  <li>    <a href="#3ds.cmd">3ds.cmd</a>
+  <li>    <a href="#ansys.cmd">ansys.cmd</a>
+  <li>    <a href="#coff.cmd">coff.cmd</a>
+  <li>    <a href="#collada.cmd">collada.cmd</a>
+  <li>    <a href="#dxf.cmd">dxf.cmd</a>
+  <li>    <a href="#dxf_thick.cmd">dxf_thick.cmd</a>
+  <li>    <a href="#iges.cmd">iges.cmd</a>
+  <li>    <a href="#iges114.cmd">iges114.cmd</a>
+  <li>    <a href="#iges128.cmd">iges128.cmd</a>
+  <li>    <a href="#iges144.cmd">iges144.cmd</a>
+  <li>    <a href="#jvx.cmd">jvx.cmd</a>
+  <li>    <a href="#maya.cmd">maya.cmd</a>
+  <li>    <a href="#maya1.cmd">maya1.cmd</a>
+</ul>
+</td>
+<td>
+<ul>
+  <li>    <a href="#obj.cmd">obj.cmd</a>
+  <li>    <a href="#off.cmd">off.cmd</a>
+  <li>    <a href="#offn.cmd">offn.cmd</a>
+  <li>    <a href="#off_show.cmd">off_show.cmd</a>
+  <li>    <a href="#ply.cmd">ply.cmd</a>
+  <li>    <a href="#polyfilm.cmd">polyfilm.cmd</a>
+  <li>    <a href="#povray.cmd">povray.cmd</a>
+  <li>    <a href="#povrays.cmd">povrays.cmd</a>
+  <li>    <a href="#rib.cmd">rib.cmd</a>
+  <li>    <a href="#stl.cmd">stl.cmd</a>
+  <li>    <a href="#vrml.cmd">vrml.cmd</a>
+  <li>    <a href="#vrml2.cmd">vrml2.cmd</a>
+  <li>    <a href="#wavefront.cmd">wavefront.cmd</a>
+  <li>    <a href="#x3d.cmd">x3d.cmd</a>
+</ul>
+</td>
+</tr>
+</table>
+
+
+  <hr> <h3>    <a   id="3ds.cmd" class="name">3ds.cmd</a></h3>
+
+ Script to produce Autodesk 3DS format file.
+<p>
+   Usage: <code>do_3ds >>> "filename.3ds"</code>
+<p>
+   Assumptions: 3D soapfilm model, linear model, not torus or symmetry group
+    (use the <a href="commands.htm#detorus">detorus</a>
+  command if necessary to convert torus or symmetry
+     to unwrapped surface, but remember that detorus alters the surface). 
+<br>Limited to 65535 facets.
+<br>    Does facets only, not edges.
+<br>    Facet color is frontcolor on both sides.
+
+<!--========================== adjoint.cmd ==============================-->
+
+  <hr> <h3>    <a   id="adjoint.cmd" class="name">adjoint.cmd</a></h3>
+
+   Script for the calculation of the adjoint minimal surface
+   using Konrad Polthier's discrete conjugate method of Bonnet rotation.  See
+<p class="indent">
+      Ulrich Pinkall and Konrad Polthier, 
+   <a href="http://page.mi.fu-berlin.de/polthier/articles/diri/diri_jem.pdf">
+     Computing Discrete Minimal Surfacee and Their Conjugates</a>, 
+     Experim. Math. 2(1) (1993) 15-36
+</p>
+   and
+<p class="indent">
+Konrad Polthier, 
+<a href="http://page.mi.fu-berlin.de/polthier/articles/harmonic/Harmonic_preprint.pdf">
+Conjugate Harmonic Maps and Minimal Surfaces</a>.
+</p>
+   The "adjoint" of a smooth minimal surface is another minimal surface
+   isometric to the first that has normals in the same direction at each
+   point but the infinitesimal surface element rotated 90 degrees about
+   the normal.  Schwartz' P and D surfaces are adjoints of each other.
+<p>
+   A "discrete minimal surface" is made up of flat triangles.  It is called
+   "conforming" if the vertices of adjacent triangles coincide, and
+   "nonconforming" if adjacent triangles only meet at their midpoints.
+   Polthier shows that if a conforming discrete minimal surface minimizes
+   area, then it has an exact nonconforming adjoint.
+<p>
+  The <code>adjoint</code> command in this file takes a conforming surface and
+  calculates the nonconforming adjoint, then tweaks vertices to make it
+  conforming, so it is a legal Surface Evolver surface.
+<p>
+  Assumptions: 
+<ul>
+<li> 3D soapfilm model.
+<li> Linear model.
+<li> No torus or symmetry group.
+<li> Each edge has only one or two adjacent facets. 
+<li>  All facets have the same orientation. 
+  The original surface should be free of all level set constraints and
+  boundaries before doing "adjoint"; <a href="elements.htm#fixed">fixed</a>
+  vertices and edges are ok.
+</ul>
+<p>
+  Usage:  <code>adjoint</code> 
+<p>
+  After <code>adjoint</code> has been run, you can flip back and forth between the
+  original and the adjoint with the <code>flip</code> command.
+<p>
+  Usage: <code>flip</code>
+<p>
+
+  Before running <code>adjoint</code>, you can set the variable <code>starte</code> to the number
+  of the edge whose midpoint will remain fixed in place; default is edge[1].
+
+<p>
+  The angle of the Bonnet rotation is set by the variable <code>bangle</code>, which
+  you may set to any degree value before doing <code>adjoint</code>.  The default
+  value of bangle is 90 degrees.
+<p>
+
+   Also this file has the command <code>write_conjugate</code> to write a datafile to
+   stdout that is the nonconforming discrete adjoint, with separated vertices.
+   Use this to see Polthier's idea in its true form.
+<p>
+   Usage: <code>write_conjugate >>> "filename.fe"</code>
+<p>
+   For a slightly more elaborate approach using complex numbers for the
+   adjoint coordinates, which is faster for doing multiple arbitrary
+   rotations, see adjointc.cmd.  This file and 
+   <a href="#adjointc.cmd">adjointc.cmd</a> have
+   non-overlapping namespaces, so both can be loaded simultaneously.
+<p>
+   See my page on <a href="http://www.susqu.edu/brakke/evolver/examples/periodic/periodic.html">
+triply periodic minimal surface</a> for examples created with <code>adjoint</code>.
+
+<!--========================== adjointc.cmd ==============================-->
+
+  <hr> <h3>    <a   id="adjointc.cmd" class="name">adjointc.cmd</a></h3>
+
+   Another script for the calculation of the adjoint minimal surface
+   using Konrad Polthier's discrete conjugate method of Bonnet rotation.  See
+<p class="indent">
+      Ulrich Pinkall and Konrad Polthier, 
+   <a href="http://page.mi.fu-berlin.de/polthier/articles/diri/diri_jem.pdf">
+     Computing Discrete Minimal Surfacee and Their Conjugates</a>, 
+     Experim. Math. 2(1) (1993) 15-36
+</p>
+   and
+<p class="indent">
+Konrad Polthier, 
+<a href="http://page.mi.fu-berlin.de/polthier/articles/harmonic/Harmonic_preprint.pdf">
+Conjugate Harmonic Maps and Minimal Surfaces</a>.
+</p>
+   The "adjoint" of a smooth minimal surface is another minimal surface
+   isometric to the first that has normals in the same direction at each
+   point but the infinitesimal surface element rotated 90 degrees about
+   the normal.  Schwartz' P and D surfaces are adjoints of each other.
+<p>
+   A "discrete minimal surface" is made up of flat triangles.  It is called
+   "conforming" if the vertices of adjacent triangles coincide, and
+   "nonconforming" if adjacent triangles only meet at their midpoints.
+   Polthier shows that if a conforming discrete minimal surface minimizes
+   area, then it has an exact nonconforming adjoint.
+<p>
+  The <code>adjointc</code> procedure in this file takes a conforming surface and
+  calculates the nonconforming adjoint, then tweaks vertices to make it
+  conforming, so it is a legal Surface Evolver surface.
+<p>
+  Assumptions:
+<ul>
+<li> 3D soapfilm model.
+<li> Linear model.
+<li> No torus or symmetry group.
+<li>  Each edge has only one or two adjacent facets. 
+<li>  All facets have the same orientation. 
+<li>  The original surface should be free of all level set constraints and
+  boundaries before doing <code>adjointc</code>; but 
+  <a href="elements.htm#fixed">fixed</a> vertices and edges are ok.
+</ul>
+<p>
+  Usage:  <code>adjointc( real bangle, integer origin_vertex )</code> <br>
+    Arguments: 
+<ul class="arglist">
+<li>   <code>bangle</code> - Bonnet rotation angle in degrees.
+<li>   <code>origin_vertex</code> - id of the vertex to be kept fixed.
+</ul>
+
+<p>
+After <code>adjointc</code> has been run, one may do other Bonnet rotations more 
+quickly by calling <code>bonnet_rotation()</code>
+<p>  Usage: <code> bonnet_rotation(real bangle, integer origin_vertex )</code>
+<br>    Arguments:
+<ul class="arglist">
+<li>   <code>bangle</code> - Bonnet rotation angle in degrees.
+<li>   <code>origin_vertex</code> - vertex to be kept fixed. 
+</ul>
+<p>
+
+   Also this file has the command "write_conj" to write a datafile to
+   stdout that is the nonconforming discrete adjoint, with separated vertices.
+   Use this to see Polthier's idea in its true form.
+<p>
+   Usage: <code>write_conj >>> "filename.fe"</code>
+<p>
+   For a slightly simpler approach using just real numbers for the
+   adjoint coordinates, see 
+   <a href="#adjoint.cmd">adjoint.cmd</a>.  This file and adjoint.cmd have
+   non-overlapping namespaces, so both can be loaded simultaneously.
+
+<p>
+   See my page on <a href="http://www.susqu.edu/brakke/evolver/examples/periodic/periodic.html">
+triply periodic minimal surfaces</a> for examples of files <code>adjointc</code> can be used with.
+
+<!--========================== ansys.cmd  =============================-->
+
+  <hr> <h3>    <a   id="ansys.cmd" class="name">ansys.cmd</a></h3>
+
+ Command to produce file of ANSYS input for
+  vertices, edges,  and faces to produce a surface
+  for ANSYS meshing.  Beware this is a very simple-minded
+   translation to ANSYS format.
+<p>
+ Assumptions and limitations:
+<ul>
+<li>   3D soapfilm model.
+<li>   Linear or quadratic model.
+<li>   No torus or symmetry group.
+<li>   Does not do color.
+<li>   Does all edges and facets, regardless of <a href="commands.htm#show">show</a> status.
+<li>  Does not assume consecutive numbering of elements.
+</ul>
+<p>
+   Usage:  <code>ansys >>> "filename"</code>
+
+<!--========================== band.cmd  =============================-->
+
+  <hr> <h3>    <a   id="band.cmd" class="name">band.cmd</a></h3>
+
+Command script to create triangulated bands bordering
+deisgnated edges and vertices.  The purpose is to make extremely
+accurate borders on surfaces in PostScript files, since just drawing
+thick edges can lead to notching where interior facets are drawn
+afterwards.
+<p>
+WARNING: This command modifies the surface by creating a lot of
+tiny facets.  You should use only on a disposable copy of your surface.
+<p>
+Assumptions:
+<ul>
+<li>  3D soapfilm model.
+<li>  Linear model.
+</ul>
+<p>
+Usage:
+<ol>
+<li> Set <code>bandcolor</code> and <code>bandwidth</code> to desired values; 
+     <code>bandwidth</code> is
+          the width of the band in surface coordinates on one
+          side of an edge.
+<li> Set the edge attribute <code>inband</code> to nonzero for those edges
+          to have band drawn along them.
+<li>   Run <code>makeband</code>.
+</ol>
+Example:
+<pre>
+   read "band.cmd";
+   bandwidth := 0.003;
+   bandcolor := black;
+   set edge inband on_constraint topcon;
+   makeband
+   set edge inband on_constraint leftcon;
+   makeband
+   set edge inband original==1;
+   makeband
+</pre>
+Note: If <code>makeband</code> has problems in corners and other tricky spots,
+ run <code>makeband</code> several times on separate sets of edges.
+ When setting <code>inband</code> for the later runs, make sure you 
+ zero out <code>inband</code> on the edges of the previous run.
+ Notice the conditions in the example are Boolean, applied to all edges.
+ 
+
+<!--========================== bonnet_movie.cmd  =============================-->
+
+  <hr> <h3>    <a   id="bonnet_movie.cmd" class="name">bonnet_movie.cmd</a></h3>
+
+
+Makes in-memory movie of Bonnet rotation of minimal surface,
+one frame per degree for 360 degrees.  Uses <a href="#adjoint.cmd">adjoint.cmd</a>,
+so has the same assumptions.
+<p>
+Usage: 
+<ol>
+<li>Evolve initial minimal surface, remove all level-set constraints
+       and boundaries, get nice view in graphics window.
+<li>   Run <code>make_movie</code> to calculate rotations.
+<li>   Run <code>show_movie</code> to see screen display of Bonnet rotation.
+<li>   Run <code>movie</code> to see endlessly repeating display of Bonnet rotation.
+<li>   Run <code>postscript_movie</code> to create sequence of PostScript files.
+       The names of the PostScript files will be the datafilename with
+       the frame number appended.
+</ol>
+
+<!--========================== cmccousin.cmd  =============================-->
+
+  <hr> <h3>    <a   id="cmccousin.cmd" class="name">cmccousin.cmd</a></h3>
+
+A constant mean curvature (CMC) surface in R^3 has a "cousin" minimal
+surface in S^3, which is isometric to it and has tangent planes
+rotated by 90 degrees.  In S^3, the translation is done through
+the quaternion group.
+<p>
+This representation uses the 4th coordinate as the quaternion
+scalar component, for better mapping between R^3 and S^3 at quaternion unit.
+<p>
+Datafiles should be set up in 4 dimensions, with S^3 implemented as
+the level set constraint x^2 + y^2 + z^2 + w^2 = 1
+<p>
+Works best if starting edge starte is toward the center of the surface
+rather than on the outside.
+<p>
+Contained in this file:
+<dl>
+<dt>
+<code>s3_to_r3</code>:
+          <dd> Converts minimal surface in S^3 to CMC 1 surface in R^3.
+          Remove all constraints and boundaries before invoking.</dd>
+<dt>
+<code>r3_to_s3</code>: <dd> Converts CMC 1 surface in R^3 to minimal surface in S^3.
+          Remove all constraints and boundaries before invoking. </dd>
+<dt>
+<code>centralize(integer v_id)</code>: <dd> Procedure that translates S^3 so given vertex
+          is at (0,0,0,1). </dd>
+</dl>
+
+<!--========================== coff.cmd  =============================-->
+
+  <hr> <h3>    <a   id="coff.cmd" class="name">coff.cmd</a></h3>
+
+Command script to print a Geomview color OFF file in ascii format.
+<p>
+ Assumptions and limitations:
+<ul>
+<li>   3D soapfilm model.
+<li>   Linear model.
+<li>   No torus or symmetry group.  Use <a href="commands.htm#detorus">detorus</a>
+first if necessary.
+<li>   Does facet color, but must be regular color, not <a href="toggle.htm#rgb_colors">
+    rgb_colors</a>.
+<li>  Facet frontcolor is used; backcolor ignored.
+<li> Only facets that qualify under the current 
+<a href="commands.htm#show">show facets</a> criterion
+are listed. 
+<li>  Edges are not done, since the OFF format does not include them.
+<li>  Does not assume consecutive numbering of elements.
+</ul>
+<p>
+<p>
+Usage:
+<ol>
+<li> Read in the command file.
+<li> Set the "<a href="commands.htm#show">show facets</a>" criterion (optional).
+<li> Run <code>coff</code> and redirect output to a file.
+</ol>
+Example:
+<pre>
+  Enter command: read "coff.cmd"
+  Enter command: show facet where not fixed
+  Enter command: coff >>> "filename.coff"
+</pre>
+
+<!--========================== collada.cmd  =============================-->
+
+  <hr> <h3>    <a   id="collada.cmd" class="name">collada.cmd</a></h3>
+
+ Command script for creating Collada format file for a surface.
+<p>
+ Assumptions and limitations:
+<ul>
+<li>   3D soapfilm model.
+<li>   Linear model.
+<li>   No torus or symmetry group.  Use <a href="commands.htm#detorus">detorus</a>
+first if necessary.
+<li>   Does facet color, but must be regular color, not <a href="toggle.htm#rgb_colors">
+    rgb_colors</a>.
+<li>  Facet frontcolor and backcolor are used.
+<li> Only facets that qualify under the current 
+<a href="commands.htm#show">show facets</a> criterion
+are listed. 
+<li>  Edges are not done.
+<li>  Does not assume consecutive numbering of elements.
+</ul>
+<p>
+<p>
+Usage:
+<ol>
+<li> Read in the command file.
+<li> Set the <a href="commands.htm#show">show facets</a> expression (optional).
+<li> Run <code>collada</code> and redirect output to a file.
+</ol>
+Example:
+<pre>
+  Enter command: read "collada.cmd"
+  Enter command: show facet where not fixed
+  Enter command: collada >>> "filename.col"
+</pre>
+
+
+<!--==========================   =============================-->
+
+  <hr> <h3>    <a   id="complex.cmd" class="name">complex.cmd</a></h3>
+
+Some complex functions of complex arguments, mostly for use with 
+   Weierstrass representation of minimal surfaces.  Each function
+has two versions, for returning the real and imaginary parts.
+<p>
+   Contents:
+<ul>
+ <li><code>re_sqrt(real rex,real imx), im_sqrt(real rex, real imx)</code>
+ <li><code>re_sin(real rex,real imx), im_sin(real rex, real imx)</code>
+<li> <code>re_arcsin(real rex,real imx), im_arcsin(real rex, real imx)</code>
+<li>  <code>re_incompleteEllipticF(real rex, real imx, real m_param,
+   real nbr_value,integer nbr_test),<br>
+  im_incompleteEllipticF(real rex, real imx, real m_param,
+   real nbr_value,integer nbr_test)</code>
+</ul>
+<p>
+   Arguments: <br>
+     <code>rex</code>,<code>imx</code>: real and imaginary parts of the complex argument. <br>
+Additional information on <code>incompleteEllipticF</code>:
+Have to beware branch points at +/- arcsin(1/sqrt(m)) + 2*pi*k,
+ so the <code>nbr_value</code> input argument is for picking the
+proper branch by continuity; if 0, then the principle branch
+ is picked.  Branch values differ by 2*ellipticK(m).
+<code>nbr_test</code> is a boolean flag for whether to apply the
+aforementioned  continuity test.<br>
+Reference: Abramowitz and Stegun 17.4.11
+
+
+<!--========================== dirichlet_to_disk.cmd========================-->
+
+  <hr> <h3>    <a   id="dirichlet_to_disk.cmd" class="name">dirichlet_to_disk.cmd</a></h3>
+
+Command script for mapping simply connected regions to 
+unit disk minimizing Dirichlet energy to get conformal mappings.
+<p>
+Prerequisites: 2D soapfilm model with simply connected surface.  
+Dirichlet_elastic energy defined using a named quantity,  but no others,
+i.e. all facets given tension 0.
+<p>
+Usage: Remove all constraints and boundaries.  Run to_disk or to_triangle.  
+Then evolve.
+<p> Sample datafile: dirichlet_E.fe
+
+<!--========================== dxf.cmd  =============================-->
+
+  <hr> <h3>    <a   id="dxf.cmd" class="name">dxf.cmd</a></h3>
+
+Command script to produce AutoCad DXF files.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color, but just uses frontcolor; see <a href="#dxf_thick.cmd">
+  dxf_thick.cmd</a> for backcolor.
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>dxf >>> "filename.dxf"</code>
+
+<!--==========================   =============================-->
+
+  <hr> <h3>    <a   id="dxf_thick.cmd" class="name">dxf_thick.cmd</a></h3>
+
+
+Command script to produce AutoCad DXF files with separate facet
+frontcolor and backcolor.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet frontcolor and backcolor by creating two slightly
+   displaced facets if frontcolor and backcolor are different.
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>dxf_thick >>> "filename.dxf"</code>
+
+<!--==========================   =============================-->
+
+  <hr> <h3>    <a   id="embox.cmd" class="name">embox.cmd</a></h3>
+
+
+ Command script to create body-enclosing facets around
+ outside of a foam section created by using the 
+<a href="commands.htm#detorus">detorus</a> command
+on a foam that's being displayed in 
+<a href="toggle.htm#clipped">clipped</a>  mode.
+<br>
+ Assumptions:
+<ul>
+<li>   3D soapfilm torus model. 
+<li>   Foam fills unit cell.
+<li>   No interior edges with valence 1 after detorus..
+ <li>  torus_periods and inverse_periods still hold valid values, so
+     embox cannot be run on a dump file made after detorus is done.
+</ul>
+<p>
+ Usage: set torus mode view to 
+<a href="toggle.htm#clipped">clipped</a>, run 
+<a href="commands.htm#detorus">detorus</a>,
+ then <code>embox</code>.
+<p>
+
+ WARNING: embox does not nicely handle facets that are exactly on the
+ bounding box walls, so if there are any such facets, it is advised
+ to move the surface BEFORE doing detorus, i.e.
+<pre>
+     clipped;
+     set vertex x x+0.1;
+     set vertex y y+0.1;
+     set vertex z z+0.1;
+     detorus;
+     embox;
+</pre>
+
+<!--========================== foamface.cmd  =============================-->
+
+  <hr> <h3>    <a   id="foamface.cmd" class="name">foamface.cmd</a></h3>
+
+
+ This file contains several command scripts useful in analyzing 3D foams
+ in terms of full foam faces rather than Evolver facets.
+<p>
+Assumptions:
+<ul>
+<li> 3D soapfilm model.
+<li> Meant for torus model, but works without it just fine.
+<li> Works with linear, quadratic, and Lagrange models.
+</ul>
+<p>
+ There are five useful commands:
+<ul>
+<li> <code>foamface_mark</code>: finds contiguous faces, and marks the facets of
+    each contiguous face with the same value of the
+    facet attribute <code>fmark</code>, whose value value ranges
+    from 1 up to the number of full faces, which is kept in 
+     the variable <code>foamface_count</code>.
+<li> <code>foamface_min</code>: finds the minimum area contiguous face.  Runs
+    <code>foamface_mark</code> itself, so you don't have to.
+<li> <code>foamedge_mark</code>: finds contiguous triple edges, and marks the 
+   edges of
+    each contiguous triple edge with the same values of the
+   edge attribute <code>emark</code>, whose values
+    from 1 up to <code>foamedge_count</code>.
+<li> <code>foamedge_min</code>: finds the minimum length contiguous triple edge. 
+    Runs <code>foamedge_mark</code> itself, so you don't have to.
+<li> <code>foam_signature</code>: finds number of polygons of each type on each body.
+    When done, the array <code>body_poly_counts</code> holds number of faces
+    of given sides for each body.  After foam_signature,
+    you can do
+<pre>
+       print body_poly_counts
+</pre>
+    to see the results.  For example, for twointor.fe, which has two bodies, the result is
+<pre>
+       {{0,0,0,6,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,6,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0}}
+</pre>
+</ul>
+
+<!--========================== foamface_jvx.cmd  =============================-->
+
+  <hr> <h3>    <a   id="foamface_jvx.cmd" class="name">foamface_jvx.cmd</a></h3>
+
+
+ Produces JavaView jvx file with foam cell faces as single jvx faces.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does average of facet frontcolor and backcolor.
+<li> Does transparency; set the variable <code>jvx_transparency</code> 
+to the desired transparency, between 0 and 1, before running <code>foamface_jvx</code>.
+<li> Does not do edges as such, but face edges do display.
+<li> Does not need consecutive element numbering.
+</ul>
+ Usage: <code>foamface_jvx >>> "filename.jvx"</code>
+
+<!--========================== fourier.cmd  =============================-->
+
+  <hr> <h3>    <a   id="fourier.cmd" class="name">fourier.cmd</a></h3>
+
+  Procedure to print Fourier components for a closed curve.  The curve is 
+deemed to be the image of a unit circle into 3D, with the vertices being
+images of points uniformly spread around the circle. The sin and cos Fourier
+coefficients of the given order are computed and printed.  
+The results are also stored in the variables 
+<code>x_sin_coeff</code>,
+<code>y_sin_coeff</code>,
+<code>z_sin_coeff</code>,
+<code>x_sin_coeff</code>,
+<code>y_sin_coeff</code>, and
+<code>z_sin_coeff</code>
+for your convenience.
+<p>
+Assumptions:
+<ul>
+<li>  3D linear string model.
+<li>  Not torus or symmetry model.
+<li>  The edges form a closed curve.
+</ul>
+
+Usage: <code>f_component(integer order)</code>
+<br>
+<!--========================== gaussequi.cmd  =============================-->
+
+  <hr> <h3>    <a   id="gaussequi.cmd" class="name">gaussequi.cmd</a></h3>
+
+ Command script to do edge equiangulation using the  Gauss map for swap criterion.
+ The Gauss map maps a surface to the unit sphere, each point being mapped to its
+ unit normal vector.  The facets of the original surface induce a triangulation
+ of the Gauss sphere, and equiangulation can be calculated for the sphere
+ triangulation.  This command does that and does the indicated edge swaps.
+ The idea is to make facets better follow curvature.
+ But it has potential problems; it can produce zero area facets.  Also, swapping an
+ edge changes the Gauss map, so maybe things don't improve.
+<p>
+Assumptions:
+<ul>
+<li>  3D linear soapfilm model.
+<li>  Torus model is allowed.
+</ul>
+Usage: <code>gaussequi</code>
+
+<!--========================== gaussmap.cmd  =============================-->
+
+  <hr> <h3>    <a   id="gaussmap.cmd" class="name">gaussmap.cmd</a></h3>
+
+ The Gauss map maps a surface to the unit sphere, each point being mapped to its
+ unit normal vector.  This command script physically converts a surface to  
+ a spherical surface. It converts each vertex coordinate to its unit normal.
+ The original coordinates are saved in the vertex vector attribute <code>oldx</code>
+ so the <code>revert</code> command defined herein restores the original surface.
+
+<p>
+Assumptions:
+<ul>
+<li>  3D linear soapfilm model.
+<li>  No torus model or symmetry group.
+<li>  No vertices should be on constraints or boundaries or be fixed.
+</ul>
+Usage: <code>gaussmap</code>
+
+<!--========================== gaussref.cmd  =============================-->
+
+  <hr> <h3>    <a   id="gaussref.cmd" class="name">gaussref.cmd</a></h3>
+
+ Procedure to refine edges using the  Gauss map for the refinement criterion.
+ The Gauss map maps a surface to the unit sphere, each point being mapped to its
+ unit normal vector.  The facets of the original surface induce a triangulation
+ of the Gauss sphere, and edge length can be calculated for the sphere
+ triangulation.  The idea is to refine edges on the basis of curvature rather
+ than length, and keep the number of edges needed to a minimum.
+<p>
+Assumptions:
+<ul>
+<li>  3D linear soapfilm model.
+<li>  Torus model is allowed.
+  criterion arc length, in radians. Default 
+</ul>
+Usage: <code>gaussequi(real maxarc)</code>
+<br> where <code>maxarc</code> is the cutoff arclength for refinement, in radians.
+
+
+<!--========================== iges.cmd  =============================-->
+
+  <hr> <h3>    <a   id="iges.cmd" class="name">iges.cmd</a></h3>
+
+Command script to write IGES file for surface, using IGES
+parametric patch entity (type 114).
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only.
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>iges >>> "filename.igs"</code>
+
+<!--==========================  iges114.cmd  =============================-->
+
+  <hr> <h3>    <a   id="iges114.cmd" class="name">iges114.cmd</a></h3>
+
+Command script to write IGES file for surface, using IGES
+parametric patch entity (type 114).  Different from <a href="#iges.cmd">
+iges.cmd</a> in that it obeys the
+<a href="commands.htm#show">show facets</a> criterion and
+ also does quadratic and cubic models.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear, quadratic, or Lagrange order 3 model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only.
+<li> Displays facets obeying the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>iges114 >>> "filename.igs"</code>
+
+<!--========================== iges128.cmd  =============================-->
+
+  <hr> <h3>    <a   id="iges128.cmd" class="name">iges128.cmd</a></h3>
+
+Command script to write IGES file for surface, using IGES
+rational B-spline entity (type 128).  
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor, but if you set the variable
+ <code>iges_double_sided</code> to 1, then it will do front and back
+   versions of each facet.
+<li> Displays facets obeying the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> Does not do edges as such, but if you set the variable
+ <code>iges_edge_tubes</code> to 1, then each edge will be
+  displayed as a long thin tube..
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>iges128 >>> "filename.igs"</code>
+
+<!--==========================   =============================-->
+
+  <hr> <h3>    <a   id="iges144.cmd" class="name">iges144.cmd</a></h3>
+
+Command script to write IGES file for surface, using IGES
+trimmed parametric surface entity (type 144). 
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear, quadratic, or Lagrange order 3 model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only.
+<li> Displays facets obeying the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>iges144 >>> "filename.igs"</code>
+
+
+<!--========================== intersect.cmd  =============================-->
+
+  <hr> <h3>    <a   id="intersect.cmd" class="name">intersect.cmd</a></h3>
+
+Command script to detect intersection of linear edges and facets.
+For each facet, finds if any edge intersects in its interior.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear, quadratic model. But in the quadratic model, treats edges and facets as simply linear.
+<li> No torus or symmetry group.
+<li> Slow for large surfaces, since it tests all edges each against all facets.
+<li> Variable <code>intersect_eps</code> is the tolerance for being considered
+equal to zero, i.e. for detecting parallel or border-intersecting facets.
+</ul>
+<p>
+Usage:  <code>detect</code>
+<br>
+Output: prints ids of facets and edges that intersect.
+       Will not work in Lagrange model.
+
+<!--========================== jvx.cmd  =============================-->
+
+  <hr> <h3>    <a   id="jvx.cmd" class="name">jvx.cmd</a></h3>
+
+Command script to create a JavaView jvx file. 
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only.
+<li> Displays facets obeying the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> Displays edges obeying the
+<a href="commands.htm#show">show edges</a> criterion.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>jvx >>> "filename.jvx"</code>
+
+
+<!--========================== maya.cmd  =============================-->
+
+  <hr> <h3>    <a   id="maya.cmd" class="name">maya.cmd</a></h3>
+
+
+Command script to write Maya ASCII file using one mesh for the whole surface.
+Reference: http://caad.arch.ethz.ch/info/maya/manual/FileFormats/index.html
+Also in Maya documentation:
+   Developer Resources > File Formats > Maya ASCII file format > 
+Maya ASCII f format > Organizationof Maya Ascii files
+<p>
+Assumptions and features:
+<ul>
+<li> Doesn't seem to work properly yet.  Use <a href="#maya1.cmd">maya1.cmd</a> for now.
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only.
+<li> Doesn't obey the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> 
+<a href="commands.htm#show">show edges</a> criterion.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>maya >>> "filename.ma"</code>
+<p>
+Note: The default length unit is cm, but if you want to use something
+different, then set the <code>maya_length_unit</code> variable to the appropriate string
+after loading maya.cmd and before running the <code>maya</code> command,
+e.g.
+<pre>
+   maya_length_unit := "in"
+   maya >>> "filename.ma"
+</pre>
+Valid length unit strings are:
+ "mm", "millimeter", "cm", "centimeter", "m", "meter", "km", "kilometer",
+ "in", "inch", "ft", "foot", "yd", "yard", "mi", "mile".
+<p>
+Note: To prevent names generated by this script from conflicting with 
+  existing maya names or names from another datafile, there is a string variable
+  <code>maya_name</code> that is prepended to all names generated by this script.
+  There is a maya namespace feature that probably could be used in place
+  of this, but I do not understand it yet.  The <code>maya_name</code> default is "AAA";
+  I didn't use the datafilename since this may contain illegal characters
+  and also would prevent generating multiple maya objects from the same datafile.
+  So if you are going to use multiple surfaces simultaneously, change
+  <code>maya_name</code> before executing the maya command.
+
+<!--========================== maya1.cmd  =============================-->
+
+  <hr> <h3>    <a   id="maya1.cmd" class="name">maya1.cmd</a></h3>
+
+Command script to write Maya ASCII file using separate mesh object for each facet.
+Reference: http://caad.arch.ethz.ch/info/maya/manual/FileFormats/index.html
+Also in Maya documentation:
+   Developer Resources > File Formats > Maya ASCII file format > 
+Maya ASCII f format > Organizationof Maya Ascii files
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only.
+<li> Doesn't obey the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> 
+<a href="commands.htm#show">show edges</a> criterion.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>maya1 >>> "filename.ma"</code>
+<p>
+Note: The default length unit is cm, but if you want to use something
+different, then set the <code>maya_length_unit</code> variable to the appropriate string
+after loading maya.cmd and before running the <code>maya</code> command,
+e.g.
+<pre>
+   maya_length_unit := "in"
+   maya >>> "filename.ma"
+</pre>
+Valid length unit strings are:
+ "mm", "millimeter", "cm", "centimeter", "m", "meter", "km", "kilometer",
+ "in", "inch", "ft", "foot", "yd", "yard", "mi", "mile".
+<p>
+Note: To prevent names generated by this script from conflicting with 
+  existing maya names or names from another datafile, there is a string variable
+  <code>maya_name</code> that is prepended to all names generated by this script.
+  There is a maya namespace feature that probably could be used in place
+  of this, but I do not understand it yet.  The <code>maya_name</code> default is "AAA";
+  I didn't use the datafilename since this may contain illegal characters
+  and also would prevent generating multiple maya objects from the same datafile.
+  So if you are going to use multiple surfaces simultaneously, change
+  <code>maya_name</code> before executing the maya command.
+
+<!--========================== neville.cmd  =============================-->
+
+  <hr> <h3>    <a   id="neville.cmd" class="name">neville.cmd</a></h3>
+
+  Procedures for Neville's algorithm for computing B-spline values.
+ Several interpolations of distinct data can be done in one call.
+<p>
+ Contents:
+<ul>
+<li>   <code>neville1</code>  - interpolation and derivatives in one dimension
+<li>   <code>neville2</code>  - interpolation and derivatives in two dimensions.
+</ul>
+
+Usage of neville1:
+ The global array <code>neville1_data</code>  should be set up by caller, redimensioning if necessary.
+<pre>
+  define neville1_data real[order+1][dim];
+  // fill in node data in neville1_data
+  ...
+  neville1(order,dim,u);
+</pre>
+where <code>u</code> is the value between 0 and 1 where the interpolation is desired.
+The input array neville1_data is not modified. The interpolated values and 
+derivatives with respect to <code>u</code> are returned in the one-dimensional arrays
+<code>neville1_value[dim]</code> and <code>neville1_deriv[dim]</code>.
+<p>
+Usage of neville2:
+ The global array <code>neville2_data</code>  should be set up by caller, redimensioning if necessary.
+<pre>
+  define neville2_data real[order+1][order+1][dim];
+  // fill in node data in neville2_data
+  ...
+  // fille in the array nevill2_u[2] with the coordinates of the interpolation spot
+  neville2_u[1] := 0.3;
+  neville2_u[2] := 0.56;
+  neville2(order,dim);
+</pre>
+The input array neville2_data is not modified. The interpolated values and partial
+derivatives with respect to <code>u</code> are returned in the one-dimensional array
+<code>neville1_value[dim]</code> and the two-dimensional array
+<code>neville1_deriv[dim][2]</code>.
+
+<!--========================== obj.cmd  =============================-->
+
+  <hr> <h3>    <a   id="obj.cmd" class="name">obj.cmd</a></h3>
+
+Command script for creating OBJ format 3D graphics file.
+The resulting OBJ file requires the file EvolverOBJcolors.mtl (included
+in the Evolver distribution fe folder) to be in the same folder to 
+provide color information in same directory.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet color as frontcolor only, unless the variable
+<code>obj_double_sided</code> is set to 1, in which case each 
+facet will be drawn twice slightly apart.
+<li> Obeys the
+<a href="commands.htm#show">show facets</a> criterion.
+<li> Obeys the
+<a href="commands.htm#show">show edges</a> criterion.
+<li> Edges are shown as lines, unless the variable
+<code>obj_edge_flag</code> is set to 1 (which is the default value). 
+Edges are shown as 4-sided tubes.  The relative size of the 
+tubes can be set with the variable <code>tube_radius</code>, whose
+default value is 0.002.
+</ul>
+<p>
+
+Usage:
+<ol>
+<li>  Set which edges and facets you want to show with the
+  "<code>show edge where ...</code>" and "<code>show facet where ...</code>" commands.
+<li>  Set <code>obj_double_sided</code> to 1 if you want back sides of facets.
+<li>  Set <code>obj_edge_flag</code> to 0 if you want no edges shown.
+<li>  Run <code>obj</code> and redirect output to file, for example<br>
+      <code>obj >>> "filename.obj"</code>
+</ol>
+
+<!--========================== off.cmd  =============================-->
+
+  <hr> <h3>    <a   id="off.cmd" class="name">off.cmd</a></h3>
+
+Command script to print a Geomview OFF file in ascii format.
+<p>
+ Assumptions and limitations:
+<ul>
+<li>   3D soapfilm model.
+<li>   Linear model.
+<li>   No torus or symmetry group.  Use <a href="commands.htm#detorus">detorus</a>
+first if necessary.
+<li>   Does not do facet color. 
+<li>  Does all facets.  See <a href="#off_show.cmd">off_show</a> for 
+   the equivalent command obeying the facet <a href="commands.htm#show">
+   show</a> criterion.
+<li>  Edges are not done, since the OFF format does not include them.
+<li>  Does not assume consecutive numbering of elements.
+</ul>
+<p>
+Usage: <code> do_off >>> "filename.off"</code>
+
+<!--========================== offn.cmd  =============================-->
+
+  <hr> <h3>    <a   id="offn.cmd" class="name">offn.cmd</a></h3>
+
+Command script to write a Geomview OFF file with normals.  To permit sane
+handling of corners and junctions, multiple OFF vertices are created at
+such points, each with their different normals.
+The criterion for deciding whether a bend in the surface merits
+separate normals is the variable <code>cosine_cutoff</code> (default 0.8).
+Adjacent facets with normals whose angle between them has cosine less
+than the cutoff get separate vertices.
+<p>
+ Assumptions and limitations:
+<ul>
+<li>   3D soapfilm model.
+<li>   Linear model.
+<li>   No torus or symmetry group.  Use <a href="commands.htm#detorus">detorus</a>
+first if necessary.
+<li>   Does not do facet color. 
+<li>  Does all facets.
+<li>  Edges are not done, since the OFF format does not include them.
+<li>  Does not assume consecutive numbering of elements.
+</ul>
+<p>
+Usage: <code> offn >>> "filename.off"</code>
+
+
+<!--========================== off_show.cmd  =============================-->
+
+  <hr> <h3>    <a   id="off_show.cmd" class="name">off_show.cmd</a></h3>
+
+Command script to print a Geomview OFF file in ascii format.  Different from
+<a href="#off.cmd">off.cmd</a> in obeying the facet 
+<a href="commands.htm#show">show</a> criterion.
+<p>
+ Assumptions and limitations:
+<ul>
+<li>   3D soapfilm model.
+<li>   Linear model.
+<li>   No torus or symmetry group.  Use <a href="commands.htm#detorus">detorus</a>
+first if necessary.
+<li>   Does not do facet color. 
+<li>  Does facets that obey the facet <a href="commands.htm#show">show</a> criterion.
+<li>  Edges are not done, since the OFF format does not include them.
+<li>  Does not assume consecutive numbering of elements.
+</ul>
+<p>
+Usage: <code> do_off >>> "filename.off"</code>
+
+<!--========================== order.cmd  =============================-->
+
+  <hr> <h3>    <a   id="order.cmd" class="name">order.cmd</a></h3>
+
+Ccommand script to number string-model vertices consecutively.
+The result is an order number for each vertex in the
+ vertex extra attribute <code>order_number</code>, which the script creates
+itself.  It does not modify vertex or edge <a href="elements.htm#id">id</a> numbers.
+<p>
+Assumptions:
+<ul>
+<li> String linear model.
+<li> All edges in a loop.
+</ul>
+Usage: <code>order</code>
+<br>
+Example to use order and <a href="commands.htm#reorder_storage">reorder_storage</a>
+and <a href="commands.htm#renumber_all">renumber_all</a> to get <code>id</code>
+numbering consecutive around a loop:
+<pre>
+
+   define vertex attribute vertex_order_key real;
+   define edge attribute edge_order_key real;
+   define facet attribute facet_order_key real;
+   define body attribute body_order_key real;
+   define facetedge attribute facetedge_order_key real;
+
+   read "order.cmd";
+
+   renumber := {
+     order;
+     set vertex vertex_order_key order_number;
+     set edge ee edge_order_key ee.vertex[1].vertex_order_key;
+     set facetedge fe facetedge_order_key fe.edge[1].edge_order_key;
+     set facet ff facet_order_key min(ff.vertex,vertex_order_key);
+     set body bb body_order_key min(bb.facet,facet_order_key);
+     reorder_storage;
+     renumber_all;
+     }
+</pre>
+
+<!--========================== percolate.cmd  =============================-->
+
+  <hr> <h3>    <a   id="percolate.cmd" class="name">percolate.cmd</a></h3>
+
+ Command scripts for percolation calculation on surfaces.
+ "Percolation" refers to the connected of subnets of a network, as
+ in water percolating through porous stone.  Each edge of the network
+ is deemed to be in an "on" or "off" state.  A set of nodes that
+ can be connected together with "on" edges is called a "cluster".
+ Thus a particular choice of "on" edges partitions the original
+ network into a set of disjoint clusters.  The interesting phenomenon
+ is that when edges are set "on" at random with a particular
+ probability, there is a critical probability above which most of
+ the network falls in one big cluster.
+
+<p>
+ Assumptions and features:
+<ul>
+<li> This file considers facets to be the "nodes".
+<li> Works in both string and soapfilm models.
+<li> Works in string and soapfilm models.
+<li> Works in torus and symmetry models.
+<li> Only edges with two adjacent facets are considered.  In particular,
+     triple edges in foams will not percolate.
+</ul>
+ Contents:
+<ul>
+<li><code> percolate</code> - calculates clusters of facets, and numbers each
+   facet with a cluster number in the attribute "cluster_number".
+<li><code> slow_percolate</code> - slower, alternate algorithm for checking.
+<li><code> color_clusters</code> - colors facets according to cluster number (mod 16),
+    with internal cluster edges the same color as the cluster and
+    edges between clusters black.
+</ul>
+
+ Usage:
+<ol>
+<li> Set the <code>state</code> attribute
+   of each edge to 0 for "off" or 1 for "on", for example
+        <br><code>set edge state (random > 0.3)</code>.
+<li> Do <code>percolate</code> or <code>slow_percolate</code>.
+<li> Do <code>color_clusters</code> to see the clusters. In the string model, you
+    should do "<code>show facets where 1</code>" to see the facets.
+</ol>
+
+
+<!--========================== ply.cmd  =============================-->
+
+  <hr> <h3>    <a   id="ply.cmd" class="name">ply.cmd</a></h3>
+
+Command script to create PLY file (Stanford Polygon File Format) in 
+ASCII ply format; does only front color of each facet.
+Format documentation: 
+<a href="http://local.wasp.uwa.edu.au/~pbourke/dataformats/ply/">
+http://local.wasp.uwa.edu.au/~pbourke/dataformats/ply/</a>
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet frontcolor only.
+<li> Does edges and facets according to <a href="commands.htm#show">
+  show</a> criteria.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage:
+<ol>
+<li>   Set the edges and facets you want to output using the
+   "<code>show edges where ... </code>" and "<code>show facets where ... </code>" 
+    commands.
+<li>   Run ply and redirect to a file, like this: <br>
+      <code>ply >>> "filename.ply"</code>
+</ol>
+
+<!--========================== polyfilm.cmd  =============================-->
+
+  <hr> <h3>    <a   id="polyfilm.cmd" class="name">polyfilm.cmd</a></h3>
+
+Command script to produce a
+<a href="http://www.susqu.edu/brakke/polycut/polycut.htm">
+Polycut</a> format file.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does not do color.
+<li> Doesn't obey edges and facets <a href="commands.htm#show">
+  show</a> criteria.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+
+Usage: <code>polyfilm >>> "filename.poly"</code>
+
+<!--========================== povray.cmd  =============================-->
+
+  <hr> <h3>    <a   id="povray.cmd" class="name">povray.cmd</a></h3>
+
+Command script for producing POV-Ray input file.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet frontcolor only.
+<li> Does edges and facets according to <a href="commands.htm#show">
+  show</a> criteria.
+<li> Edges are implemented as cylinders.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage:
+<ol>
+<li> Use the "<code>show edge where ...</code>" command to declare which
+       edges are to be depicted as thin cylinders.
+<li>       Set <code>edge_radius</code> to the desired radius of edge cylinders.
+<li>    Use the "<code>show facet where ...</code>" command to set which facets to do.
+<li>       Run <code>povray</code> and redirect to desired file, e.g. <br>
+          <code>  povray >>> "something.pov" </code>
+</ol>
+
+<!--========================== povrays.cmd  =============================-->
+
+  <hr> <h3>    <a   id="povrays.cmd" class="name">povrays.cmd</a></h3>
+
+
+Command script for producing POV-Ray input file.
+Like <a href="#povray.cmd">povray.cmd</a> but with vertex normals
+for a smooth surface.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet frontcolor only.
+<li> Does edges and facets according to <a href="commands.htm#show">
+  show</a> criteria.
+<li> Edges are implemented as cylinders.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage:
+<ol>
+<li> Use the "<code>show edge where ...</code>" command to declare which
+       edges are to be depicted as thin cylinders.
+<li>       Set <code>edge_radius</code> to the desired radius of edge cylinders.
+<li>    Use the "<code>show facet where ...</code>" command to set which facets to do.
+<li>     Set <code>critcos</code> to the cosine of the critical angle
+   between normals  for facets to be regarded as smoothly joined.
+<li>       Run <code>povray</code> and redirect to desired file, e.g. <br>
+          <code> povray >>> "something.pov" </code>
+</ol>
+
+<!--========================== quadbbox.cmd  =============================-->
+
+  <hr> <h3>    <a   id="quadbbox.cmd" class="name">quadbbox.cmd</a></h3>
+
+Command scripts <code>eboxes</code> and <code>fboxes</code>
+ for finding the bounding box for each facet or edge in 
+the quadratic model.  This is useful since quadratic facets and edges
+may extend beyond the vertices.
+<p>
+Assumptions and features:
+<ul>
+<li> Quadratic model.  Soapfilm model for <code>fboxes</code>.
+<li> Any ambient dimension.
+<li> No torus or symmetry group.
+<li> Results left in the edge <code>ebox</code> or facet <code>fbox</code> 
+array attributes. These have dimension [space_dimension][2], with
+minimum being the first and maximum the second entry in each dimension.
+<li> <code>fboxes</code> automatically calls <code>eboxes</code>.
+</ul>
+
+Usage:  <code>fboxes</code>  
+
+<!--========================== quadmeet.cmd  =============================-->
+
+  <hr> <h3>    <a   id="quadmeet.cmd" class="name">quadmeet.cmd</a></h3>
+
+ Command script for detecting intersection of quadratic facets in 3D.
+<p>
+Assumptions and features:
+<ul>
+<li> Quadratic model. 
+<li> Space dimension 3.
+<li> No torus or symmetry group.
+<li> Runs in quadratic time, since it compares each pair of facets.
+<li> Prints id numbers of pairs of intersecting facets.
+</ul>
+Usage: <code>quadmeet</code>
+<!--========================== quadtbox.cmd  =============================-->
+
+  <hr> <h3>    <a   id="quadtbox.cmd" class="name">quadtbox.cmd</a></h3>
+
+Command scripts <code>eboxes</code> and <code>fboxes</code>
+ for finding the bounding box for each facet or edge in 
+the quadratic torus model.  
+ This is useful since quadratic facets and edges
+may extend beyond the vertices.
+The bounding box is calculated in terms
+of normalized unit cell coordinates, i.e. the edge vectors of the
+unit cell are the basis vectors for the normalized coordinates.
+<p>
+Assumptions and features:
+<ul>
+<li> Quadratic model.  Soapfilm model for <code>fboxes</code>.
+<li> Any ambient dimension.
+<li> Torus model.
+<li> Results left in the edge <code>ebox</code> or facet <code>fbox</code> 
+array attributes. These have dimension [space_dimension][2], with
+minimum being the first and maximum the second entry in each dimension.
+<li> <code>fboxes</code> automatically calls <code>eboxes</code>.
+</ul>
+
+Usage:  <code>fboxes</code>  
+
+<!--========================== reorder.cmd  =============================-->
+
+  <hr> <h3>    <a   id="reorder.cmd" class="name">reorder.cmd</a></h3>
+
+Command script illustrating how to re-order
+element storage in memory, using the <a href="commands.htm#reorder_storage">
+reorder_storage</a> command, to test the effect of memory
+storage on execution speed.  Also, in preparation for
+using the <a href="commands.htm#renumber_all">renumber_all</a>
+ command to re-number elements.
+<p>
+This example reorders vertices in diagonal order, by their
+distance along the (1,1,1) direction.  Other elements are
+reordered according to their vertices.
+<p>
+Usage: reorder
+
+<!--==========================  rewrap.cmd  =============================-->
+
+  <hr> <h3>    <a   id="rewrap.cmd" class="name">rewrap.cmd</a></h3>
+
+Command to rewrap torus vertices and edges to get them nicely
+within unit cell.  This version does 3D and 2D.
+Moves vertices at most one period at a time, so you may have to
+repeat if things are very bad to start with. Uses the
+<a href="commands.htm#wrap_vertex">wrap_vertex</a> builtin command.
+<p>
+Usage: <code>rewrap</code>
+
+<!--========================== rgb.cmd  =============================-->
+
+  <hr> <h3>    <a   id="rgb.cmd" class="name">rgb.cmd</a></h3>
+
+Handy array <code>rgb_values[16][4]</code>
+ of Surface Evolver's color RGB values in array form.
+Values are between 0 and 1.  Fourth coordinate is alpha,
+value always 1.
+
+<!--========================== rib.cmd  =============================-->
+
+  <hr> <h3>    <a   id="rib.cmd" class="name">rib.cmd</a></h3>
+
+ Command script to write RenderMan RIB file for surface
+ This version does facets only, on a light blue background.
+ Viewpoint is the same as 's' command.  Orthogonal projection.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facets only, not edges.
+<li> Does facet frontcolor only.
+<li> Obeys edges and facets <a href="commands.htm#show">
+  show</a> criteria.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+ Usage: rib >>> "filename.rib"
+
+
+<!--========================== rotate.cmd  =============================-->
+
+  <hr> <h3>    <a   id="rotate.cmd" class="name">rotate.cmd</a></h3>
+
+Procedure to rotate unfixed vertices by angle about z axis.
+<p>
+Usage: <code>rotate(angle)</code> <br>
+ where angle is in radians.
+
+<!--========================== save_view.cmd  =============================-->
+
+  <hr> <h3>    <a   id="save_view.cmd" class="name">save_view.cmd</a></h3>
+
+Command to save the view matrix in a form from which
+it can be read in to restore the view.
+Requires Evolver version 2.40 or later, since it uses array initialization
+syntax.  Replaces saveview.cmd.
+<p>
+Usage:
+<pre>
+Enter command: read "save_view.cmd"
+Enter command: save_view >>> "something.view"
+...
+Enter command: read "something.view"
+</pre>
+<!--========================== show_equi.cmd  =============================-->
+
+  <hr> <h3>    <a   id="show_equi.cmd" class="name">show_equi.cmd</a></h3>
+
+Command script to color green those edges that satisfy the equiangulation criterion.
+<p>
+Usage: <code>show_equi</code>
+
+<!--========================== simply_connected.cmd  =============================-->
+
+  <hr> <h3>    <a   id="simply_connected.cmd" class="name">simply_connected.cmd</a></h3>
+
+Command script to find seams for splitting a multiply-connected
+surface into a simply connected surface.  Meant for setting up Bonnet
+rotations of triply-periodic minimal surfaces.
+<p>
+Usage: <code>mark_simply_connected</code>
+
+<!--========================== slice.cmd  =============================-->
+
+  <hr> <h3>    <a   id="slice.cmd" class="name">slice.cmd</a></h3>
+
+Command script that calculates the length of intersection of a plane with the surface.
+See <a href="#slice2.cmd">slice2.cmd</a> for slicing a particular body.
+Does not modify the surface.  The equation of the slice plane is
+<pre>
+    slice_aa*x + slice_bb*y + slice_cc*z = slice_dd
+</pre>
+where <code>slice_aa</code>, <code>slice_bb</code>, <code>slice_cc</code> and
+<code>slice_dd</code> are global variables the user should set before
+calling <code>slice</code>.
+<p>
+Usage: <code>slice</code>
+<p>
+Output: prints the length of slice, and  the area inside  the slice.
+<p>
+Note all area inside slice is counted as positive!
+Try not to slice exactly through vertices!!
+
+<!--========================== slice2.cmd  =============================-->
+
+  <hr> <h3>    <a   id="slice2.cmd" class="name">slice2.cmd</a></h3>
+
+
+Procedure that calculates  the length of intersection of plane with the
+surface of a particular body.
+Does not modify the surface.  The equation of the slice plane is
+<pre>
+    slice_aa*x + slice_bb*y + slice_cc*z = slice_dd
+</pre>
+where <code>slice_aa</code>, <code>slice_bb</code>, <code>slice_cc</code> and
+<code>slice_dd</code> are global variables the user should set before
+calling <code>slice</code>.
+<p>
+Usage: <code>slice2(integer body_id) </code>
+<p>
+Output: prints the length of slice, and  the area inside  the slice.
+The length is saved in the global variable <code>lensum</code>, and the
+area is saved in <code>areasum</code>.
+
+<p>
+Note all area inside slice is counted as positive!
+Try not to slice exactly through vertices!!
+
+<!--========================== slicer.cmd  =============================-->
+
+  <hr> <h3>    <a   id="slicer.cmd" class="name">slicer.cmd</a></h3>
+
+Command scripts to physically remove the surface on one side of a plane.
+<p>
+Commands included:
+<ul>
+<li> <code> drawslice</code> - make new edges across facets along plane.
+<li> <code> slicer</code> - make slice and dissolve all facets, edges, and vertices
+           on negative side of the plane. Calls <code>drawslice</code>.
+</ul>
+Usage:
+Set <code>slice_a</code>,<code>slice_b</code>,<code>slice_c</code>,<code>slice_d</code> variables so
+<pre>
+    slice_a*x + slice_b*y + slice_c*z >= slice_d
+</pre>
+is the side you want, and do <code>slicer</code>.
+The default plane is <code>slice_a</code> := 0, <code>slice_b</code> := 0, 
+<code>slice_c</code> := 1, <code>slice_d</code> := .1
+<p>
+Output: truncated surface on positive side of the plane.
+<p>
+Try not to slice exactly through vertices!!
+<p>
+To mark the vertices and edges created by the current slicing,
+there are a vertex attribute <code>v_timestamp</code> and an edge attribute
+<code>e_timestamp</code> that are set to <code>slice_timestamp</code>, which is incremented
+each time slicer is called.  This is to permit doing multiple slices in 
+various directions and being able to identify which vertices and which
+edges are on which slice planes.
+<p>
+Works in the torus model by rewrapping wrapped edges that would be cut
+so unwrapped part is on positive side of cut plane.
+
+<!--========================== stl.cmd  =============================-->
+
+  <hr> <h3>    <a   id="stl.cmd" class="name">stl.cmd</a></h3>
+
+Command script to create an STL file of the surface.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does not do facet color. 
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage: <code>stl >>> "filename.stl"</code>
+
+<!--========================== strdup.cmd  =============================-->
+
+  <hr> <h3>    <a   id="strdup.cmd" class="name">strdup.cmd</a></h3>
+
+Command script to write a datafile that is an n-fold
+covering of a string.  Meant to generate multiple coverings
+of elastic figure 8's.
+<p>
+Assumptions:
+<ul>
+<li> String linear model.
+<li> Does not do torus model.
+<li> All edges connected in one loop.
+<li> The number of coverings is determined by the 
+variable <code>dupnum</code>.
+</ul>
+<p>
+Usage: <code>dupnum := something; strdup >>> "filename.fe"</code>
+<!--========================== strips  =============================-->
+
+  <hr> <h3>    <a   id="strips.cmd" class="name">strips.cmd</a></h3>
+
+Command scripts to color the surface facets in triangle strips, as
+would be done for graphics displays using triangle strips.  In a 
+triangle strip, each successive triangle is made by adding one
+more vertex, so the last three vertices form the last triangle.
+But see also the graphics window <a href="graphics.htm#Y-graphics-key">Y key</a>.
+<br>
+Contents:
+<ul>
+<li> <code>strips</code> - quick algorithm for coloring strips.
+<li> <code>strips2</code> - slower algorithm that aims for longer strips
+       by trying multiple possibilities for strip directions from 
+        starting triangle.
+</ul>
+Assumptions:
+<ul>
+<li> Soapfilm linear or quadratic model.
+<li> Does torus model and symmetry models.
+</ul>
+<p>
+Usage: <code>strips</code> <br>
+Usage: <code>strips2</code>
+<!--==========================   =============================-->
+
+  <hr> <h3>    <a   id="tuber.cmd" class="name">tuber.cmd</a></h3>
+
+Procedure to put tubes around certain edges, for more
+reliable display of chosen edges.  Note that this procedure does
+modify the current surface, rather than write a datafile.
+Also note the tubes created are just separate tubes for each
+edge; they are not connected to each other in any way,  so
+they are really meant just for display.
+<p>
+<code>tuber</code> also works in the torus model; a new body is created for all
+the tube facets to be on, so they will display when "connected"
+display mode is in effect.  However, the tubes are displayed
+independently of the other bodies, and tend to stick out in
+various directions.
+<p>
+The edges to be tubed should have their <code>intube</code> attribute set positive. 
+<p>
+Usage: <code>tuber(real tube_radius,integer tube_sides, integer tube_caps)</code> <br>
+where  <br>
+<code>tube_radius</code> is the radius of the tubes,
+<code>tube_sides</code> is how many sides on each tube, at least 3, and
+<code>tube_caps</code> is 0 for no caps, 1 for cone caps.
+<p>
+Example:
+<pre>
+   set edge intube (on_constraint 1)
+   tuber(0.01,6,0);
+</pre>
+<!--========================== unseam.cmd  =============================-->
+
+  <hr> <h3>    <a   id="unseam.cmd" class="name">unseam.cmd</a></h3>
+
+Command script to split a surface along marked edges.
+ These edges should divide the surface.
+The algorithm splits each edge into two edges with the same endpoints,
+then pops the vertices that have two gaps on either side.
+<p>
+Usage:
+<ol>
+<li> Set the edge attribute <code>unseam_mark</code> to nonzero for those
+edges you want to be split. 
+<li> <code>unseam</code>
+</ol>
+<p>
+
+<!--========================== unshear.cmd  =============================-->
+
+  <hr> <h3>    <a   id="unshear.cmd" class="name">unshear.cmd</a></h3>
+
+Command script to get the torus fundamental region closer to rectangular.
+Works in either 2 or 3 dimensions. (eventually, just 2D now)
+<p>
+NOTE: <code>unshear</code> needs to change the torus periods, but can't directly
+since <code>torus_periods</code> is a read-only array (because it is remembered
+as a formula).  So the assumption is that the shear entries of the
+<code>torus_periods</code> array are variables of particular names, <code>shearij</code> for
+<code>torus_periods[i][j]</code>.  (remember indexing starts with 1)
+<p>
+Usage: <code>unshear</code>
+
+<!--========================== vrml.cmd  =============================-->
+
+  <hr> <h3>    <a   id="vrml.cmd" class="name">vrml.cmd</a></h3>
+
+Command script to make VRML version 1 file for surface.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet frontcolor as facet color. 
+<li> Does edges and facets according to  <a href="commands.htm#show">show</a> status.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage:
+<ul>
+<li> "<code>show edge where ...</code>" to show desired edges. 
+<li>       Run <code>vrml</code> and re-direct output to file, e.g. <br>
+          <code>Enter command: vrml >>> "myfile.wrl"; </code>
+</ul>
+
+<!--========================== vrml2.cmd  =============================-->
+
+  <hr> <h3>    <a   id="vrml2.cmd" class="name">vrml2.cmd</a></h3>
+
+Command script to make VRML version 2 file for surface.
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does facet frontcolor as facet color. 
+<li> Does edges and facets according to  <a href="commands.htm#show">show</a> status.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+Usage:
+<ul>
+<li> "<code>show edge where ...</code>" to show desired edges. 
+<li>       Run <code>vrml2</code> and re-direct output to file, e.g. <br>
+          <code>Enter command: vrml2 >>> "myfile.wrl"; </code>
+</ul>
+
+
+<!--========================== wavefront.cmd  =============================-->
+
+  <hr> <h3>    <a   id="wavefront.cmd" class="name">wavefront.cmd</a></h3>
+
+ Command script for producing a Wavefront format file 
+ for the surface, suitable for feeding to JavaView.
+<br>
+Contents:
+<ul>
+<li> <code>wavefront</code> - Produces wavefront file without normals.
+<li> <code>wavefrontn</code> - Produces wavefront file with normals.
+</ul>
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Does not do colors.
+<li> Does facets according to their <a href="commands.htm#show">show</a> status.
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+<p>
+ Usage:
+<ol>
+<li> Do "<code>show facet where ...</code>" to show desired facets.
+<li>    <code>wavefront >>> "filename.obj"</code>
+</ol>
+
+<!--========================== wetfoam2.cmd  =============================-->
+
+  <hr> <h3>    <a   id="wetfoam2.cmd" class="name">wetfoam2.cmd</a></h3>
+
+Command script to convert a dry foam (no Plateau borders) to a  wet foam.
+It can convert a foam in a torus, or a bubble cluster in Euclidean space.
+<br>
+Dry foam assumptions:
+<ul>
+<li>   Linear soapfilm model in 3D ambient space.
+<li>   Works with or without torus model.  But no other symmetry than torus.
+<li>   Edge valences should all be 2 or 3.
+<li>   All triple edges are in chains between tetrahedral vertices.
+<li>   Only one high valence edge per facet (will refine if finds more )
+<li>   Facet tension assumed to be uniformly 1.
+</ul>
+Usage:
+<ol>
+<li> Set <code>spread</code> to the relative size of the border (default 0.2)
+<li> Run <code>wetfoam</code> with output redirected to desired file, e.g.
+<br>  <code>     Enter command: wetfoam >>> "wetfile.fe" </code>
+</ol>
+
+The resulting file has a Plateau border body, whose number is recorded
+in the variable <code>border_body</code>.
+<p>
+This file replaces <code>wetfoam.cmd</code>, which is now obsolete.
+
+<!--==========================   =============================-->
+
+  <hr> <h3>    <a   id="x3d.cmd" class="name">x3d.cmd</a></h3>
+
+Command script to make a x3d file for a surface.
+
+<p>
+Assumptions and features:
+<ul>
+<li> 3D soapfilm linear model.
+<li> No torus or symmetry group; use <a href="commands.htm#detorus">
+     detorus</a> first if necessary.
+<li> Obeys edges and facets <a href="commands.htm#show">
+  show</a> criteria.
+<li> Does both facet frontcolor and backcolor, with two copies
+ of a facet if they are different. 
+<li> Does not do edges.
+<li> Does not need consecutive element numbering.
+</ul>
+Usage:
+<ol>
+<li> Use the edge and facet "show" commands to control which are done.
+<li>       Run <code>x3d</code> and re-direct output to file, e.g.
+    <br> <code>   Enter command: x3d >>> "myfile.x3d"; </code>
+</ol>
+
+<!--========================== xray.cmd  =============================-->
+
+  <hr> <h3>    <a   id="xray.cmd" class="name">xray.cmd</a></h3>
+
+ Command script to produce an xray image of a 3D wet foam.  Calculates liquid content on
+ grid of probe lines.  Plateau borders are detected as bounded by
+ facets with less than 2/3 of the maximum facet tension.
+ Outputs a PostScript file to stdout with a grid of grayscale pixels.
+<p>
+ Usage:
+<ol>
+<li> Set <code>xgridsize</code> and <code>ygridsize</code> to the desired resolution,
+ i.e. pixels across and down.
+<li>  <code> xray >>> "filename.ps" </code>
+</ol>
+ The <code>xray</code> command will calculate the bounding box of the surface itself.
+ Works in torus or non-torus mode.  In torus mode, everything will
+ automatically be wrapped back to the unit cell, so you don't have
+ to worry about that.
+
+<!--========================== zebra.cmd  =============================-->
+
+  <hr> <h3>    <a   id="zebra.cmd" class="name">zebra.cmd</a></h3>
+
+Command script to alternately color string edges black and white.
+<p>
+Usage:
+<ol>
+<li> Set <code>color1</code> and <code>color2</code> to the two colors you want, if the
+       default black and white are not suitable.
+<li>  <code>zebra</code>
+</ol>
+
+<hr>
+
+<a href="evolver.htm#doc-top">Back to top of Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+
+</body>
+</html>

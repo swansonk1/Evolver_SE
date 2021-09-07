@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<HEAD><TITLE>Surface Evolver Documentation - Installation</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+
+<BODY>
+<!--NewPage-->
+
+<h1 class="center">
+<a href="http://www.susqu.edu/brakke/evolver/evolver.htm" class="comic">
+Surface Evolver</a> Documentation</h1>
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+<h1>Surface Evolver Acquisition and Installation</h1>
+
+This chapter explains how to get and install the Evolver.
+Evolver is written to be portable between systems. There
+are pre-compiled versions for Windows and Macintosh; source
+files and a Makefile are provided for unix/Linux systems.
+
+
+  The distribution packages for various systems are available from the 
+ <a href="http://www.susqu.edu/brakke/evolver/evolver.htm">Evolver homepage</a>.
+ Each package also contains documentation and sample datafiles and
+ scripts.  The documentation subdirectory is named <code>doc</code>, and
+ contains the manual in PDF format, an HTML version of
+ the documentation (except for the mathematical parts), and a brief
+ unix man page evolver.1.  The HTML
+ files are also used by the Evolver help command.
+ The samples are in the subdirectory <code>fe</code> (which is the
+file extension I use for datafiles; it stands for
+ "facet-edge," referring to the internal structure of surfaces
+ in the Evolver).
+
+Below are instructions for standard packages:
+<ul>
+<li><a href="#unix-version">UNIX/Linux</a>
+<li><a href="#windows-version">Microsoft Windows</a>
+<li><a href="#macOSX-version">Macintosh OS X</a>
+</ul>
+<a   id="documentation"></a>
+The complete manual in PDF format is separately available as 
+ <a href="http://www.susqu.edu/brakke/aux/downloads/manual270.pdf">
+manual270.pdf</a>.
+<hr>
+
+<a   id="unix-version"></a>
+<h2>Unix version</h2>
+
+Instructions for installing the Surface Evolver on unix-style systems.
+Evolver compiles on 64 bit systems as well as 32 bit systems.
+<p>
+Quick start:
+<br>
+1. Download <a href="http://www.susqu.edu/brakke/aux/downloads/evolver-2.70.tar.gz">evolver-2.70.tar.gz</a>. <br>
+2. Unpack the Evolver archive.
+<br>
+3. In the <code>src</code> subdirectory, edit Makefile to uncomment the lines for
+   your system.
+<br>
+4. Run "make".
+<br>
+5. Test by running "./evolver ../fe/cube.fe"
+<p>
+
+Detailed instructions:
+<p>
+1. The Evolver is distributed in a compressed tar archive
+   <a href="http://www.susqu.edu/brakke/aux/downloads/evolver-2.70.tar.gz">evolver-2.70.tar.gz</a>,
+   available from http://www.susqu.edu/brakke/evolver. Get this file into a 
+   working directory.  The packed archive is about 2MB, unpacks to about 5MB.  
+   You will probably need another 3 or 4 MB to compile.  
+<p>
+
+2. Uncompress the archive with <pre>
+      gunzip evolver-2.70.tar.gz </pre>
+   Extract the files with <pre>
+      tar xvf evolver.tar  </pre>
+   This will unpack into three subdirectories: <code>src</code> (source code),
+   <code>doc</code> (the html version of the manual), and <code>fe</code>
+   (sample datafiles and scripts).  
+   The working directory will also contain a PDF version of the manual,
+   and a man page, evolver.1.
+<p>
+
+3. Install the man page: copy evolver.1 to some appropriate place on your
+   manpath, such as <code class="shortcode">/usr/local/share/man/man1</code>.
+  You may have to become root to have permission to do this.
+<p>
+
+<a   id="EVOLVERPATH"></a>
+4. Set the <code>EVOLVERPATH</code> environment variable: 
+   Evolver needs to find the initial 
+   datafile and sometimes other files (e.g. command files for the
+   <a href="commands.htm#read" class="keyword">read</a> 
+   command and the help documentation files). If the named file is not in the 
+   current directory, then an  environment variable called 
+   <code>EVOLVERPATH</code> will be 
+   consulted for a directory search list. The datafile directory and the 
+   directory with the HTML documentation files should definitely be included.
+   The format is the same as the usual <code>PATH</code> environment variable.  
+   Set it up  as usual in your system, in <code>.profile</code> or 
+   <code>.login</code> or <code>.cshrc</code> or wherever:
+<p>
+
+   Unix C shell:<pre>
+     setenv EVOLVERPATH /usr/you/evolver/fe:/usr/you/evolver/doc 
+</pre>
+<p>
+   Bourne shell:  <pre>
+     EVOLVERPATH=/usr/you/evolver/fe:/usr/you/evolver/doc
+     export EVOLVERPATH 
+</pre>
+<p>
+
+5. Change to the <code>src</code> subdirectory of your Evolver directory.
+
+<p>
+6. Modify Makefile for your system. Makefile begins with sets of macro 
+   definitions for various systems.   If your system is listed, remove the 
+   comment symbols '#' from start of the appropriate lines. If your system 
+   is not there, use the <code>GENERIC</code> lines, or set up your own. If you do define 
+   your own, be sure to put a corresponding section in include.h.
+<p>
+
+7. In Makefile, edit the <code>CFLAGS</code> line to have the proper options (optimization, 
+   floating point option, etc.).
+<p>
+
+8. In Makefile, <code>GRAPH</code> should be the name of a screen graphics interface file.  
+   Use glutgraph.o if possible; most systems have OpenGL/GLUT graphics now.  
+   GLUT graphics uses a separate thread to display graphics, so if you use 
+   GLUT, you must put <code class="shortcode">-DPTHREADS</code> 
+  in <code>CFLAGS</code> and put 
+   <code class="shortcode">-lpthread</code> in <code>GRAPHLIB</code>.
+   If not using GLUT, for primitive X windows graphics you can use xgraph.o.  
+   For no built-in screen graphics at all you can use nulgraph.o. 
+   <code>GRAPHLIB</code> 
+   should be the appropriate graphics library plus any other libraries needed.
+<p>
+
+9. If you want to use parallel processes on a multiprocessor machine, 
+   put <code class="shortcode">-DPTHREADS</code> in <code>CFLAGS</code>
+   and put <code class="shortcode">-lpthread</code>  
+   in <code>GRAPHLIB</code>. Currently, the
+   only calculations done in parallel are basic energies and named quantities.
+   The number of processes actually done in parallel can be controlled
+   with the <span class="nobr"><code>-p</code> <em>n</em></span>
+   command line option.
+<p>
+
+10. If you want Evolver to be able to use geomview, 
+    include <code class="shortcode">-DOOGL</code> in <code>CFLAGS</code>.
+<p>
+
+11. If you want Evolver to operate in a higher space dimension than the
+    the default maximum of 4, include 
+    <span class="nobr"><code>-DMAXCOORD=</code><em>n</em></span> 
+    in <code>CFLAGS</code>, 
+    where <em>n</em> is
+    the maximum space dimension. This sets the upper limit of dimensionality, 
+    and is used for allocating space in data structures. 
+<p>
+
+12. If your system supports the long double data type, you can compute and
+    print values in higher precision by compiling with 
+    <code class="shortcode">-DLONGDOUBLE</code> in <code>CFLAGS</code>. 
+    But this slows computations somewhat, and should be used only by precision
+    fanatics. And on Intel chips, it only does 80 bit precision, even if it
+    allocates 128 bits of storage, since that is the hardware precision of 
+    the 8087 math coprocessor.  For 128 bit precision (in software, so 
+    much slower), compile with -DFLOAT128 and link with the quadmath
+    library (which you have to find on your own).
+<p>
+<a   id="metis-install"></a>
+13. If you wish to use the commands based on the METIS partitioning
+    software (<a href="commands.htm#metis" class="keyword">metis</a>, 
+    <a href="commands.htm#metis" class="keyword">kmetis</a>, 
+    <a href="commands.htm#metis" class="keyword">body_metis</a>, and 
+    <a href="toggle.htm#metis_factor" class="keyword">metis_factor</a>), then
+    you should download the METIS package from,
+    <code><a href="http://www-users.cs.umn.edu/~karypis/metis/">
+      http://www-users.cs.umn.edu/~karypis/metis/</a></code>
+    and "make" the library <code>libmetis.a</code>
+    (on some systems, make complains it
+    cannot find ranlib, but the resulting <code>libmetis.a</code> still works).
+    In Evolver's <code>Makefile</code>, add 
+    <code class="shortcode">-DMETIS</code>
+    to <code>CFLAGS</code>, and 
+    add <code class="shortcode">-lmetis</code> to <code>GRAPHLIB</code>. 
+    You will probably also have to add 
+    <code class="shortcode">-L metispath</code>
+    to <code>GRAPHLIB</code> to tell
+    the linker where to find libmetis.a.  Note that METIS is incorporated
+    in the Windows executable.  If you are using 
+    <a href="commands.htm#hessian-command" class="keyword">hessian</a>
+    commands on very 
+    large surfaces, then 
+    <a href="toggle.htm#metis_factor" class="keyword">metis_factor</a>
+    can be much faster than the other 
+    sparse matrix factoring schemes in Evolver, and I highly recommend it.
+<p>
+
+14. From the shell command prompt in the <code>src</code> directory, run "make".  
+    This will produce the Evolver executable file named "evolver" in the 
+    <code>src</code>
+    directory.  If there are errors, hopefully you will only have to change 
+    the system-specific parts of Makefile and include.h to get things to work.  
+    If significant changes to other files are needed, let me know at
+    brakke@susqu.edu.
+<p>
+
+15. Copy the evolver executable to someplace on your <code>PATH</code>, such as
+    <code class="shortcode">$HOME/bin</code> 
+    or <code class="shortcode">/usr/local/bin</code>, 
+    or make a link someplace on your <code>PATH</code> to 
+    the evolver executable.
+<p>
+ 
+16. Test by opening a new shell and running "evolver cube".  Now you
+    should be able to follow the tutorials in the HTML manual
+    or the printed manual.
+
+<p>
+
+<p>
+<a   id="geomview-install"></a><h4>Installing geomview</h4>
+If your system does not have OpenGL/GLUT, I suggest you
+get it (the freeglut developer package, for instance).
+Otherwise you might get the 
+<a href="http://www.geomview.org/download/">
+geomview package</a> from The Geometry
+Center. There are pre-compiled binaries for many unix systems here.
+Follow geomview's installation directions, and make sure that geomview
+is accessible through your <code>PATH</code>.  NOTE: The X windows versions
+of geomview seem to require some event to occur in the geomview display
+window  before it will redraw after loading a new datafile.  So if 
+geomview seems hung, just run the mouse over the window to give it an
+event to wake it up.
+
+
+<hr><a   id="windows-version"></a>
+<h2>Microsoft Windows version</h2>
+
+ The distributions available here include both the 32-bit version of Evolver
+ (evolver.exe) and the 64-bit version (evolver64.exe).  The 64-bit version
+ is meant for very large models (hundreds of thousands of facets).  Unless
+ you have such a large surface, use the 32-bit version since it is 10 to 20
+ percent faster, having less data to move around.
+<p>
+ There are now two alternative ways to install Evolver:
+ 
+ <h3>I. Download <a href="http://www.susqu.edu/brakke/aux/downloads/Evolver-2.70-Win32.msi">
+ <code>Evolver-2.70-Win32.msi</code></a>   and run it.</h3>
+ This is an installation program that will lead you through all steps 
+ and options in the installation procedure.  It will
+ automatically set up the environment variables described below and 
+ copy files to folders. Puts the Evolver executables on your PATH, and
+ associates the .fe extension with Evolver, so clicking on a datafile
+ launches it. Includes both the 32-bit version (evolver.exe) and the
+ 64-bit version (evolver64.exe).
+ <p>
+ <h3>II. Download 
+ <a href="http://www.susqu.edu/brakke/aux/downloads/evolver2.70-Win32.zip">
+ <code>evolver2.70-Win32.zip</code></a>.</h3> 
+ For an old-fashioned do-it-yourself installation, this file
+ has the executable files evolver.exe and evolver64.exe
+ along with the documentation and sample
+ datafile subdirectories.  Steps to follow after downloading:
+ <ol>
+ <li> Create a directory (such as <code>C:\evolver</code>),
+ and unzip the distribution package there. 
+ <li> Add your installation directory ro your <code>PATH</code>
+  (Control Panel/System/Advanced System Settings/Environment
+    Variables/System Variables/PATH/Edit)
+ or you can copy evolver.exe
+ to someplace in your <code>PATH</code>, such as <code>C:\windows\system32</code>.
+ <li>
+ <a   id="EVOLVERPATH-(Windows)"></a>
+ You should
+ also create an environment variable <code>EVOLVERPATH</code> telling Evolver where
+ to search for various files.  Do this by opening
+ Control Panel/System/Advanced/Environment Variables, clicking New
+ under System Variables, entering <code>EVOLVERPATH</code> for the Variable name,
+ and <code>c:\evolver\fe;c:\evolver\doc</code> for the Variable value.  You may
+ add further paths of your own to this list if you wish.
+ <li>To make Evolver start automatically when you click on a *.fe file,
+ you can associate Evolver with the file extension .fe by opening
+ My Computer/Tools/Folder Options/File Types/New, entering the
+ File Extension fe, clicking OK, clicking Change, and browsing
+ for the evolver.exe program. (This sequence of actions may vary
+ on different Windows versions.)
+</ol>
+<p>
+ The Windows version
+ uses OpenGL/GLUT graphics.  OpenGL is standard in Windows, and
+ all the necessary GLUT components are included in the executable,
+ so you don't have to install anything.
+
+<hr>
+<a   id="macOSX-version"></a>
+<h2>Macintosh OSX version</h2>
+
+ I am not a Mac person, and the Mac OSX version is just a port
+ of the unix version, so there are no Mac bells and whistles.
+<p>
+ Quick start: <br>
+ 1.  Download
+ <a href="http://www.susqu.edu/brakke/aux/downloads/Evolver270-OSX.tar.gz">
+ Evolver270-OSX.tar.gz</a>.
+ <br>
+ 2. Open the Evolver270-OSX folder and double-click on the evolver file.
+ <br>
+ 3. Evolver prompts for a file; tell it fe/cube
+ <br>
+ 4. You should now be able to follow the tutorial in the manual.
+ <br>
+ <p>
+ Detailed instructions: <p>
+ 1.  Download
+ <a href="http://www.susqu.edu/brakke/aux/downloads/Evolver270-OSX.tar.gz">
+ Evolver270-OSX.tar.gz</a>.
+ <p>
+ 2. The download probably created a folder Evolver270-OSX on your
+ desktop.  This folder really has a unix path something like
+ /Users/yourname/Evolver270-OSX.  These notes will mostly refer
+ to the terminal command line, so you should be able to open a
+ terminal and use a command line prompt.
+<p>
+ 3. The Evolver270-OSX folder has the executable file evolver, the
+ samples folder fe, the documentation folder doc, a PDF version
+ of the manual, and a man page evolver.1.  
+<p>
+ 4. Move the executable to some place on your <code>PATH</code>, e.g.
+ <pre>   cp evolver /Users/yourname/bin </pre>
+ or add the Evolver folder to your <code>PATH</code>. 
+ <p>
+ 5.
+ You should also create an environment variable <code>EVOLVERPATH</code> 
+ containing paths to the <code>fe</code> and <code>doc</code> folders by
+ placing the following line in your shell initialization file, with
+ appropriate modifications.  You can tell which shell you are running
+ by running the ps command at the command prompt.
+ <p> C Shell (csh, tcsh): put the following in /Users/yourname/.cshrc or
+  /Users/yourname/.tcshrc:
+ <pre> setenv EVOLVERPATH /Users/yourname/Evolver270-OSX/fe:/Users/yourname/Evolver270-OSX/doc </pre>
+   Bourne shell (sh,bash): put the following in /Users/yourname/.profile
+  or /Users/yourname/.bashrc:  <pre>
+     EVOLVERPATH=/usr/you/evolver/fe:/usr/you/evolver/doc
+     export EVOLVERPATH </pre>
+<p>
+  6. Install the man page by copying evolver.1 to some place on your
+  manpath, e.g. <pre>
+     cp evolver.1 /usr/share/man/man1 </pre>
+  You may have to become root to have permission to do this.
+<p>
+  7. Test by opening a new shell and running "evolver cube".  Now you
+ should be able to follow the tutorials in the HTML manual or printed
+ manual.
+<p>
+  8. If you wish to compile your own version of the Evolver, and have
+  a C compiler, then follow the <a href="#unix-version">unix instructions</a>.
+<hr>
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<HEAD><TITLE>Surface Evolver Documentation - Newsletter 22</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+
+<BODY>
+<a   id="newsletter-19"></a>
+<h1>Surface Evolver Newsletter no. 22</h1>
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+<hr><pre>
+
+                         Surface Evolver Newsletter 22
+                               August, 2013
+                     by Ken Brakke, brakke@susqu.edu
+
+Surface Evolver version 2.70 available is now available at
+http://www.susqu.edu/brakke/evolver.
+
+You should see <a href="http://www.susqu.edu/brakke/evolver/html/news_21.htm">Newsletter 21</a> for version 2.50 (June, 2012), which I think 
+I forgot to send out, for a lot of nifty features.
+
+Not a whole lot of new features in this version, mostly bug fixes,
+but there are some of interest:
+
+ String arrays
+   Global arrays can have type "string" now (but not element array attributes).
+
+ Window titles
+   Added console_title string variable for user control of command window title.
+   Very useful when simultaneously running several instances of the same
+   datafile.  Likewise, there are graphics_title, graphics_title2, and 
+   graphis_title3 for the main graphics window and the second and third
+   graphics window.
+
+ no_transform
+   There is now a "no_transform" attribute for edges and faces to exempt them 
+   from view transforms.  Useful for putting in a single set of coordinate
+   axes that doesn't get transformed, etc.
+
+ no_dump 
+   Added "no_dump" attribute for global variables; syntax
+      variablename.no_dump on
+      variablename.no_dump off
+   (from command prompt, not in top of datafile)
+   This prevents variables from being included in the top part of a
+   dump datafile; they are included in the bottom part instead.  The
+   purpose is so that "addload" from a previous dump datafile does
+   not overwrite key variables.
+
+ constraint properties
+   Added vertex attribute constraint[n].normal, to get the normal vector
+   of a level-set constraint at a vertex, for example
+     define cnormal real[3];
+     cnormal = vertex[1].constraint[wallcon].normal;
+   Also some ways to query the nature of a level-set constraint,
+        is_constraint[n].fixed
+        is_constraint[n].nonnegative
+        is_constraint[n].nonpositive
+   which return 1 if the property is true of constraint n.
+
+ sq_torsion
+   Added sq_torsion named method, for the integral of the squared
+   torsion of a curve of edges.
+
+ predicted memory usage
+   For faster loading from big dump files, the top of the datafile can
+   tell Evolver how much memory to initially allocate for various data
+   structures with "predicted" numbers, for example
+      vertices_predicted      2149
+      edges_predicted         7941
+      facets_predicted        5881
+      facetedges_predicted   17641
+      bodies_predicted          89
+      quantities_predicted            0
+      method_instances_predicted      0
+   Also useful to prevent memory fragmentation when you know your surface
+   is going to get large. 
+
+ float128
+   For high precision, Linux users can compile a float128 version of
+   Evolver, which uses the quadmath library.  The LONGDOUBLE high-precision
+   version of Evolver which has long existed turns out to only use 80 bit
+   floats on Intel chips, even though it allocates 128 bits of memory.
+   The float128 version gives 33 digit precision, but runs 10 times slower.
+
+ force_edgeswap
+   Added force_edgeswap toggle to override equiangulation prohibitios.
+   Makes the "u" or "equiangulate" or "edgeswap" commands skip certain 
+   tests and do the swap anyway.  The skipped tests are: (1) the two 
+   vertices of the flipped edge are distinct, (2) creating two facets
+   with the same vertices.  Meant only for rare cases when you really know
+   what you are doing. 
+
+End of Newsletter 22
+
+
+
+</pre>
+</body>
+</html>
+

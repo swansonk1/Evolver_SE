@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<HEAD><TITLE>Surface Evolver Documentation - Newsletter 21</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+
+<BODY>
+<a   id="newsletter-19"></a>
+<h1>Surface Evolver Newsletter no. 21</h1>
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+<hr><pre>
+
+                         Surface Evolver Newsletter 21
+                               May, 2012
+                     by Ken Brakke, brakke@susqu.edu
+
+Contents:
+  New Surface Evolver version 2.50 available.
+  Automated Windows install.
+  64-bit Windows version.
+  New book.
+  3D printing with Evolver. 
+  Warning to users of Evolver's display_text.
+  New Surface Evolver features.
+
+
+New Surface Evolver version 2.50 available.
+   Surface Evolver version 2.50 is available for download at
+   http://www.susqu.edu/brakke/evolver.
+   This is the first official release since version 2.30c in January, 2008.
+   For those who compile Evolver themselves, the same makefile may be used.
+
+Automated Windows install.
+   Besides the usual zipped file of the Evolver distribution, I put together
+   a package using the Microsoft Software Installer, which gives you the 
+   familiar semi-automated software installation that a lot of software
+   uses.  The installer will go through steps of asking what directory
+   you want to install in, setting the Evolver environment variables, and
+   associating .fe files with Evolver.
+
+64-bit Windows version.
+   The Windows distribution contains both a 32-bit version of Evolver
+   (named evolver.exe) and a 64-bit version (named evolver64.exe).
+   The 64-bit version is meant for very large surfaces, i.e.
+   hundreds of thousands of facets and up.  Even if you have a 64-bit
+   system, you should use the 32-bit version unless you have a very
+   large surface, since the 32-bit version is 10 to 20 percent faster
+   on 64-bit systems, since it has to move less data around.
+
+New book.
+   I have helped Jean Berthier produce a book entitled "The Physics
+   of Microdroplets," which has just been published:
+   http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470938803.html
+   There are hundreds of Evolver models involved, which are available
+   on the book's web page (if you get the book).
+
+3D printing with Evolver. 
+   Over the past year I have been experimenting with 3D printing, using
+   the Shapeways.com website.  I have done various minimal surfaces
+   (using a mesh techinique to keep costs down and look artistic), and
+   other mathematical shapes.  I have made all my models available for 
+   public purchase, and I have set up a web page with illustrations
+   and links: http://www.susqu.edu/brakke/models/models.html.
+   Also, I have set up a web page explaining in detail how I use Evolver
+   to make the files to send to Shapeways.com.
+
+Warning to users of Evolver's display_text.
+   If you have a recent development version of Evolver and have been using
+   the display_text feature to display text in the graphics window, be
+   warned that I have added a font size argument, so you will need to
+   modify any existing datafiles that use it, and insert a relative
+   font size (typically 0.03) as the third of five arguments.
+
+New Surface Evolver features.
+
+  Converting torus model to Euclidean model.
+    The "detorus" command will convert a torus model surface to a
+    non-torus versions.  It goes through the same unwrapping 
+    procedure as the graphics display, so what you see in the 
+    graphics window (clipped, connected bodies, raw facets) will
+    be what you get after detorus.  Useful prior to exporting a
+    surface to an external 3D CAD file. 
+
+  Facet graphing in string model.
+    Doing "show facet where ..." in the string model will now show
+    the designated facets filled in with their colors.  By default,
+    no facets are shown.  "show facet where 1" will show all facets.
+    Default color is white. Nonconvex facets are shown properly.
+
+  Superposing models.
+    The "addload" command will read in a datafile without deleting
+    the current surface.  Syntax:
+       addload stringexpr
+    where stringexpr can be a double-quoted filename or a string
+    variable.  The "read" section of the new datafile is NOT read,
+    to prevent re-definitions of commands and variables and to
+    prevent initializations that would have a bad effect on the
+    original surface.  But the top section is read, so all constraints,
+    boundaries, and variables defined there should be compatible with
+    the existing surface.
+
+  Replacing the existing surface.
+    The "replace_load" command will delete the current surface and
+    load a new surface from a datafile.  Syntax:
+       replace_load stringexpr
+    where stringexpr can be a double-quoted filename or a string
+    variable.  The "read" section of the new datafile is NOT read,
+    Evolver scripts sometimes want to re-evolve a surface again from 
+    the start, and the old permload command has gotten so tangled up 
+    as to be unusable, so I have created the replace_load command,
+    which deletes all the current surface elements and then does
+    an addload of the new datafile.  So all variables are 
+    remembered, and replace_load is safe to use in loops in scripts.
+
+  Permload deprecated.
+    Do not use permload. It has gotten tangled up beyond fixing.
+    Use replace_load instead.
+
+  Displaying text in the graphics window.
+    The display_text function will display text strings in the 
+    graphics window.  Syntax:
+      text_id := display_text(x,y,height,string)
+    where x,y are window-relative coordinates (from 0 to 1) and
+    height is the window-relative font size (typically 0.03).
+    Multiple strings can be displayed, and the text_id value
+    lets you delete an old string, delete_text(text_id), before
+    drawing a new string.
+
+  Array initializer syntax in commands.
+    It is now possible to use an array initializer as the right side
+    of an array assignment command.
+
+  Increment and decrement operators.
+    The C-style ++ and -- operators work as increment and decrement
+    operators on variables, attributes, and array elements. Examples:
+       for ( inx := 1; inx &lt;= 10 ; inx++ ) ... 
+       framenumber++;
+    These work only as stand-alone commands, not within expressions,
+    so you can't do "xx := yy++".
+ 
+  Opacity.
+    Evolver screen graphics can now show transparent surfaces.  If
+    you set the facet opacity attribute to a value between 0 (clear) 
+    and 1 (opaque), screen graphics will show transparency.  Assigning
+    a opacity value to any facet will activate the transparency in 
+    graphics; hitting the letter 'O' key in the graphics window will 
+    then toggle transparency.  Showing transparency properly requires 
+    sorting the facets back to front, so graphics will be slower if 
+    there are many facets. PostScript output will not show transparency.   
+
+  Command line script execution.
+    The -r command line option lets you give a command string on the
+    Evolver command line that will be executed automatically after the
+    entire datafile is read in and the "read" section executed.  Input
+    reverts to the usual interactive prompt after the command executes.
+    Useful in batch runs of Evolver.  For example, you could have a "run"
+    command in the datafile, and launch Evolver from your shell script
+    with
+             evolver -r "run; exit 0;"
+    to execute the run command and then quit with exit code 0.
+
+  Evaluating level-set constraint functions.
+    The value_of_constraint attribute of a vertex will return the value 
+    of the designated constraint at the vertex position.  Syntax is
+    the same as the on_constraint attribute.  Example
+       list vertex where on_constraint con1 and 
+                                 value_of_constraint con1 &lt; 1e-5
+    Note value_of_constraint is evaluated to the function also for
+    variables not on the constraint.
+           
+  Break on warning.
+    The break_on_warning toggle makes execution stop immediately when
+    a warning happens and return to the command prompt.  The existing
+    break_after_warning toggle lets the current command or script 
+    complete before breaking.
+
+  Vertex-by-vertex control of hessian_normal
+    The no_hessian_normal of a vertex will exempt a vertex from the
+    hessian_normal mode when it is set to a non-zero value.
+ 
+  Error message redirection
+    The ">>2" and ">>>2"  symbols will redirect error messages and
+    errprintf output to a file, the same as ">>" and ">>>" 
+    redirect normal output.
+
+  Dot product notation:
+    The multiplication symbol * between two vectors now means dot product.
+    No need to use the old dot_product keyword.
+
+  Bounding box.
+    The show_bounding_box toggle command toggles showing the bounding
+    box in graphics, same as hitting the "o" key in the graphics window.
+    The bounding box color can be set with the bounding_box_color
+    internal variable.
+
+  view_transforms_use_unique_point
+    When view transforms are generated with transform_expr, Evolver weeds out
+    duplicate transforms.  By default, "duplicate" means the same transform
+    matrix, but there are circumstances where different transform matrices carry
+    the surface to the same spot. view_transforms_use_unique_point toggle enables
+    a mode whereby two transform matrices are deemed identical if they transform
+    the point given by the vector view_transforms_unique_point[] to the same
+    image point. 
+
+  septum_flag
+    Evolver toggle command.  Under some circumstances, popping a vertex
+    can leave two regions connected by a tunnel; if the septum_flag toggle
+    is on, it will force a  surface to be placed across the tunnel.
+
+  centerofmass
+    Boolean body attribute.  Applies to the "connected" bodies mode of graphical
+    display in the torus model. When this is set for a body, the center of mass
+    of the body as displayed is remembered, and the next time a body is graphed,
+    its wrap is such that its new center of mass is near its previous center
+    of mass.  This prevents bodies near the boundaries of the fundamental
+    region from jumping back and forth as they shift slightly during evolution.
+    Default on.  Example:
+       set bodies centerofmass
+
+  Dividing string-model facets.
+    The facet_crosscut function subdivides a facet by constructing
+    a diagonal edge between given vertices.  The return value is the
+    id number of the new edge.  The new facet will be on the same body
+    as the old facet.  Syntax:
+      newedge := facet_crosscut(facet_id,tail_id,head_id)
+
+  Random number seed.
+    Added -sN command line option for setting random number seed.
+
+End of newsletter 21.
+
+</pre>
+</body>
+</html>
+

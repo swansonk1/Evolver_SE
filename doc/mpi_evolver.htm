@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<HEAD><TITLE>Surface Evolver Documentation: MPI Evolver
+</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+
+<BODY>
+
+<h1 class="center">
+<a href="http://www.susqu.edu/brakke/evolver/evolver.htm" class="comic">
+Surface Evolver</a> Documentation</h1>
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+
+<hr><a   id="MPI-Evolver"> </a>
+<h1>MPI Surface Evolver - EXPERIMENTAL</h1>
+
+<a href="#MPI-overview">Overview</a><br>
+<a href="#MPI-compilation">Compilation</a><br>
+<a href="#MPI-datafiles">Datafiles</a><br>
+<a href="#MPI-invocation">Invocation</a><br>
+<a href="#MPI-commands">Execution of commands</a><br>
+<a href="#MPI-graphics">Graphics</a><br>
+<a href="#MPI-examples">Examples</a><br>
+
+<a   id="MPI-overview"></a>
+<h2>Overview</h2>
+
+MPI (Message Passing Interface) is a protocol for passing messages
+between multiple processes, usually on different machines.
+The MPI version of the Surface Evolver can execute Evolver on multiple 
+processors on multiple machines, all working on the same surface, with
+one machine controlling the others.  It is assumed the user is familiar
+with MPI, and has MPI installed.
+<p>
+MPI Evolver is still early in development, and still does not do things
+necessary for production use.  In particular, it does not do topology
+changes safely.  Anybody using MPI Evolver at this point is doing so
+just because they like playing with new toys.
+<p>
+MPI Evolver is organized to run task 0 as
+the master task that interacts with the user through the command line
+interface, and a set of slave tasks.  Each slave task is a full version
+of the Evolver, except it receives its commands from the master task
+and there is synchronization of data between the tasks at key points.
+Each slave task has a piece of the whole surface, but the master task
+does not.  Vertices,  edges, and facets are allocated among the slave
+tasks, but all tasks (including the master task) know about all bodies
+(for now, at least).
+<p>
+
+The surface on each task is divided into "native" elements, that belong 
+to the task, and "corona" elements copied from other tasks. There are
+three levels of corona state currently implemented:
+<ul>
+<li>
+<b>Level 0:</b> No corona elements.  This is the state immediately after the 
+   datafiles are read in, but ordinarily the user never sees it.
+<li>
+<b>Level 1:</b> Corona vertices and edges of native facets are present.  This 
+   suffices for calculation of ordinary surface tension evolution, and
+   is the default state the user sees after loading.
+<li>
+<b>Level 2:</b> All corona edges and facets adjacent to native vertices are
+   present, along with their vertices.  This state is needed for certain
+   energies like squared mean curvature that need more extensive information
+   around a vertex.  In the OpenGL graphics display, the key 'y' toggles
+   showing the level 2 corona.
+</ul>
+
+<hr>
+<a   id="MPI-compilation"></a>
+<H2>Compilation</h2>
+
+All regular Evolver files, but not metis.c,  along with the mpi*.c files 
+(except mpi_sparse.c, for now) should be compiled with these manifest 
+constants defined in the compiler command in your makefile:
+<pre>
+   MPI_EVOLVER
+   TASK_ID_BITS=22
+   LONG_ID
+</pre>
+
+<p>
+The resulting object files should be linked with the appropriate MPI
+library.  The same executable is used for the master and slave tasks.
+Note: the variables nproc and procs_requested you might find in variable.c
+have nothing whatsoever to do with MPI; do not change them.
+<p>
+If you want to easily repartition the surface among the tasks, it is
+advisable to link in the PARMETIS and METIS libraries, which can be found 
+<a href="http://glaros.dtc.umn.edu/gkhome/metis/metis/overview">here</a>.
+In this case, you should also define these manifest constants in compiling:
+<pre>
+   METIS
+   PARMETIS
+</pre>
+
+<hr>
+<a   id="MPI-datafiles"></a>
+<h2>Datafiles</h2>
+
+There are several ways to set up the datafiles:
+<ol>
+<li> Use the same regular Evolver datafile for each task.  Then the entire 
+   surface is allocated to task 1 (the first slave task), but all tasks read 
+   the same header information.  The surface can be reallocated
+   among the slave tasks with the "repartition" command described below.
+
+<li> Have all the surface in one datafile, but with the various elements
+   labelled with the task they are allocated to.  The labelling is done
+   by appending "@n" to each element number, where n is the task number.
+   One advantage of this type of datafile is that it can be read by the
+   regular Surface Evolver, which just ignores the "@n" labels.
+   For example:
+<pre>
+Vertices
+1@4    0.0000000000    0.0000000000    1.0000000000  fixed
+2@1    2.0000000000    0.0000000000    0.0000000000  fixed
+3@2    2.0000000000    2.0000000000    1.0000000000  fixed
+4@3    0.0000000000    2.0000000000    0.0000000000  fixed
+...
+Edges
+1@4   1@4 546@4  fixed
+2@1   2@1 547@1  fixed
+3@2   3@2 548@2  fixed
+4@3   4@3 549@3  fixed
+...
+Faces
+1@4   -3139@4 -3137@4 -3138@4
+2@1   -3142@1 -3140@1 -3141@1
+3@2   -3145@2 -3143@2 -3144@2
+4@3   -3148@3 -3146@3 -3147@3
+...
+Bodies
+1@1  362@3 384@3 383@3 382@2 381@3 ...
+</pre>
+
+ <li> Have distinct datafiles for each task. The datafile structure is
+     the same as in method 2, but elements not allocated to a particular
+     task are omitted.  It is legal to have the same element numbers 
+     used on different tasks;  that is, vertex <code>23@2</code> is an entirely
+     distinct element from vertex <code>23@4</code>.  Each datafile should have 
+     identical header info.
+</ol>
+
+In any case, only the master task reads material in the "read" section at the
+bottom of the datafile.  Slave tasks do NOT read the "read" section.  This
+is so that the master task has complete control, and the same file can
+be read by all tasks.  If slave tasks need to do initialization, the master
+task should instruct it with one of the methods described below.
+
+<hr>
+<a   id="MPI-invocation"></a>
+<h2>Invocation</h2>
+
+However you invoke MPI tasks, each task (master and slave) should have
+the name of a datafile on its command line.  The datafiles can be different
+for each task, or the same one, as described above.  If the datafile name
+contains "%d", then that will be automatically replaced by the task
+number to form the actual datafile name (actually, any version of the
+C printf %d format can be used, e.g. %03d to guarantee 3 digits for the
+task number).  This permits a single mpi
+command line to load different datafiles on different tasks.  Each task's 
+datafile must be accessible from the machine it runs on.  The master task, 
+task 0, should be run on the machine being used as the console.
+
+
+<hr>
+<a   id="MPI-commands"></a>
+<h2>Execution of commands</h2>
+
+All user commands are entered into the master task and executed by
+the master task.  Some commands (listed below) have been modified to
+execute in parallel across all tasks in a coordinated way.  The rest
+will just execute on the master task.
+<p>
+Variables exist independently on each task; they are not automatically
+synchonized.
+<p>
+Special MPI version commands:
+<dl>
+<dt> <a   id="task_exec"></a> <code>task_exec</code> <em>n,string</em></dt>
+<dd>     Have task n execute the string as a command.  Any aggregate commands
+     execute across all local and imported elements.
+</dd>
+<dt>
+ <a   id="parallel_exec"></a> <code>parallel_exec</code> <em>string</em></dt> <dd>
+     Have each slave task execute the string. Any aggregate commands
+     execute across all local and imported elements.
+</dd>
+<dt>
+ <a   id="repartition"></a>
+  <code>repartition</code> </dt><dd>
+     Re-distributes the elements of the surface according to the task
+     numbers set in respective element attributes that are declared thus:
+<pre>
+           define vertex attribute v_newpart integer[2]
+           define edge   attribute e_newpart integer[2]
+           define facet  attribute f_newpart integer[2]
+           define facetedge attribute fe_newpart integer[2]
+           define body  attribute b_newpart integer[2]
+</pre>
+     Probably a good idea just to include the above lines in any
+     MPI Evolver datafile.  The user sets the first component of each;
+     the second is for internal use.  See below for example.
+</dd>
+
+<dt> <a   id="metis_readjust"></a>
+     <code>metis_readjust</code> <em>n</em> </dt>
+     <dd> Does a repartition, but using a METIS partitioning algorithm
+     in a way that is supposed to
+      be based on the current partition rather than repartioning
+     from scratch. <em>n</em> is the desired number of partitions;
+     usually mpi_maxtask. </dd>
+
+<dt> <a   id="mpi_debug"></a>
+     <code>mpi_debug</code> </dt>
+     <dd> Toggle for printing trace of MPI calls. Don't do this. </dd>
+</dl>
+
+Modified regular commands: <p>
+  These commands are given to the master task as usual, and act across
+  all slave tasks.  Aggregate commands (like histogram) include only 
+  local elements on each task, not imported elements.
+<dl>
+<dt>
+  <code>foreach</code> </dt><dd> When run from the master task as the outermost loop command,
+    the body of the loop will be run on each task.  But beware: the 
+    body of the loop is passed to the slave tasks in compiled form,
+    and if internal data structures (like the symbol table) are not
+    exactly the same as on the master task, the command will do 
+    unpredictable things.  This is why it is a good idea to have
+    exactly the same top section in each datafile read by each task.
+    If you have doubts whether "foreach" will work across tasks,
+    use "parallel_exec" as described below.
+<p>
+    "foreach" run from the master task will execute on its body
+    on each local element on a task, but "foreach" run on an individual
+    task, say with task_exec or parallel_exec, will execute on local
+    and imported elements.
+</dd><dt>
+  <code>load</code> </dt><dd> Loads a new datafile.  The datafile name is distributed to the
+    tasks; if it contains "%d", that will be replaced by the task
+    number so separate tasks can load separate datafiles.
+</dd><dt>
+  <code>r</code> </dt><dd> Works properly. Do "r" only on the master node; it will take care
+      of synchronizing things across all the nodes.  DO NOT do "r" on
+      individual tasks.
+</dd><dt>
+  <code>g</code> </dt><dd> Works properly. Synchronizes force and movement across all tasks.
+      Conjugate gradient also works properly.
+
+</dd><dt>
+  <code>hessian,hessian_seek,eigenprobe,ritz</code> </dt><dd> Hessian
+   commands works normally. 
+   By default, the hessian is gathered to
+    the master task.  For distributed calculation (experimental)
+    use the hessian_menu command 'A'.
+
+</dd><dt>
+  <code>c</code> </dt><dd> From master task, prints cumulative counts of elements; local
+      counts on each task are summed.  On individual tasks, c reports
+      the sum of local and imported elements.
+
+</dd><dt>
+  <code>V</code> </dt><dd> works normally.  Synchronizes across tasks, so it works as if
+      the entire surface were on one task.
+
+</dd><dt>
+  <code>define attribute</code> </dt><dd> Element attribute definitions will be propagated to
+      all tasks in an attempt to keep all tasks synchronized.  It is 
+      a very bad idea to define attributes separately on tasks.
+
+</dd><dt>
+  <code>t,l,w,refine,delete,u</code> </dt><dd> Do NOT try any of these or other local topology
+      changing commands (except if you are sure the effects stay entirely
+      within one task.)  These have not yet been modified to work properly.
+</dd>
+</dl>
+MPI version internal variables:
+<dl>
+<dt> <a   id="this_task"></a>
+<code> this_task</code> </dt><dd> Task number of the current task </dd>
+<dt> <a   id="mpi_maxtask"></a>
+<code> mpi_maxtask</code> </dt><dd> Highest task number
+</dd>
+<dt> <a   id="corona_state"></a>
+<code> corona_state</code> </dt><dd> Current corona level, 0, 1, or 2.  
+Setting this variable changes the corona state.  It is a very bad
+idea to set it to 0.
+</dd>
+
+</dl>
+
+MPI version element attributes:
+<dl><dt>
+  <a   id="mpi_task"></a>
+<code> mpi_task</code> </dt><dd> which task this element belongs to.  For example, if you wanted
+            to see which vertices task 5 imports from task 2, you could say
+<pre>
+                 task_exec 5,"list vertex where mpi_task == 2"
+</pre>
+</dd>
+</dl>
+
+<hr>
+<a   id="MPI-graphics"></a>
+<h2>Graphics</h2>
+
+Two ways to get screen graphics:
+
+<ol>
+<li>  Use the regular screen graphics on a task. This will display on the
+    same machine as the task is executing on.   Most useful when executing
+    a few tasks all on one machine for testing purposes.  Use the "showq"
+    command to avoid going into the graphics prompt.  For example,
+        parallel_exec "showq"
+    to see all the pieces.
+
+<li>  Use the screen graphics on the master task, and have it import data
+    from other tasks.  I've only tested this for the OpenGL graphics.
+    First, start graphics in the master task with 's'. This will show
+    the task 1 part of the surface by default.
+    The task to display may be chosen in the graphics display by
+    hitting 'M' for menu mode, then using the right mouse key to display
+    the main menu, then going to the MPI task submenu near the bottom, 
+    and picking the task you want.
+</ol>    
+
+'y' toggles showing of the thick corona, if it is present.
+            
+  
+<hr>
+<a   id="MPI-examples"></a>
+<h2>Examples</h2>
+
+Suppose you have a standard Evolver datafile you want to load and then
+partition among the tasks.  When you load it into MPI Evolver, the 
+surface will entirely load into task 1.  Then it can be redistributed.
+If you have the PARMETIS library linked in, you can use the following 
+script:
+<pre>
+
+// mpi_equalize.cmd
+// Spread surface out over all tasks.
+
+define vertex attribute v_newpart integer[2]
+define edge   attribute e_newpart integer[2]
+define facet  attribute f_newpart integer[2]
+define facetedge attribute fe_newpart integer[2]
+define body  attribute b_newpart integer[2]
+
+mpi_equalize := {
+// set new partition numbers
+metis mpi_maxtask;
+parallel_exec "set vertex v_newpart[1] vpart+1";
+parallel_exec "set edge e_newpart[1] epart+1";
+parallel_exec "set facet f_newpart[1] fpart+1";
+parallel_exec "set body b_newpart[1] 0";
+parallel_exec "set facetedge fe fe_newpart[1] fe.facet[1].fpart";
+
+// do it
+repartition;
+}
+</pre>
+If you don't have PARMETIS, you will have to come up with your own
+partitioning somehow, perhaps based on geometry.  The following script
+would partition into four parts:
+<pre>
+define vertex attribute v_newpart integer[2]
+define edge   attribute e_newpart integer[2]
+define facet  attribute f_newpart integer[2]
+define facetedge attribute fe_newpart integer[2]
+define body  attribute b_newpart integer[2]
+
+mpi_equalize := {
+// set new partition numbers
+xmid := avg(vertex,x);  // avg over all tasks, but only master task
+ymid := avg(vertex,y);  // knows xmid and ymid
+parallel_exec sprintf 
+    "set vertex v_newpart[1] ((x &lt; %f) ? 1:0)+((y &lt; %f)?2:0)",xmid,ymid;
+parallel_exec "set edge ee e_newpart[1] min(ee.vertex,v_newpart[1])";
+parallel_exec "set facet ff f_newpart[1] min(ff.vertex,v_newpart[1])";
+parallel_exec "set body bb b_newpart[1] 0";  // doesn't matter for bodies
+parallel_exec "set facetedge fe fe_newpart[1] fe.facet[1].fpart"; 
+    // facetedge should agree with facet
+
+// do it
+repartition;
+}
+</pre>
+<hr>
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+</body>
+</html>

@@ -1,0 +1,97 @@
+# Material library file for OBJ files created by obj.cmd
+
+newmtl green
+Ka 0.0000 1.0000 0.0000
+Kd 0.0000 1.0000 0.0000
+illum 1
+
+newmtl red
+Ka 1.0000 0.0000 0.0000
+Kd 1.0000 0.0000 0.0000
+illum 1
+
+newmtl blue
+Ka 0.0000 0.0000 1.0000
+Kd 0.0000 0.0000 1.0000
+illum 1
+
+newmtl color0
+Ka 0.0 0.0 0.0 
+Kd 0.0 0.0 0.0 
+illum 1
+
+newmtl color1
+Ka 0.0 0.0 1.
+Kd 0.0 0.0 1.
+illum 1
+
+newmtl color2
+Ka 0.0 1. 0.0 
+Kd 0.0 1. 0.0 
+illum 1
+
+newmtl color3
+Ka 0.0 1. 1. 
+Kd 0.0 1. 1. 
+illum 1
+
+newmtl color4
+Ka  1. 0.0 0.0 
+Kd  1. 0.0 0.0 
+illum 1
+
+newmtl color5
+Ka 1. 0.0 1. 
+Kd 1. 0.0 1. 
+illum 1
+
+newmtl color6
+Ka 1. 0.5 0. 
+Kd 1. 0.5 0. 
+illum 1
+
+newmtl color7
+Ka .6 .6 .6 
+Kd .6 .6 .6 
+illum 1
+
+newmtl color8
+Ka .3 .3 .3 
+Kd .3 .3 .3 
+illum 1
+
+newmtl color9
+Ka .3 .8 1. 
+Kd .3 .8 1. 
+illum 1
+
+newmtl color10
+Ka  .5 1. .5
+Kd  .5 1. .5
+illum 1
+
+newmtl color11
+Ka .5 1. 1. 
+Kd .5 1. 1. 
+illum 1
+
+newmtl color12
+Ka 1. .5 .5 
+Kd 1. .5 .5 
+illum 1
+
+newmtl color13
+Ka 1. .5 1. 
+Kd 1. .5 1. 
+illum 1
+
+newmtl color14
+Ka 1. 1. .0 
+Kd 1. 1. .0 
+illum 1
+
+newmtl color15
+Ka 1. 1. 1. 
+Kd 1. 1. 1. 
+illum 1
+

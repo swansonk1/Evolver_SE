@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<head>
+   <title>Surface Evolver Documentation - Constraints</title>
+   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+</head>
+<body>
+<h1 class="center"><a href="http://www.susqu.edu/brakke/evolver/evolver.htm"
+   class="comic">
+Surface Evolver</a> Documentation</h1>
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+<a   id="general-constraints"></a>
+<h1>Constraints and Boundaries</h1>
+
+<a   id="global-constraints"></a>
+<a   id="pointwise-constraints"></a>
+<p>The usual mode of operation of the Surface Evolver is to minimize energy
+subject to constraints. There are two broad categories of constraints:
+</p>
+
+<ul>
+<li>Pointwise constraints: 
+<ul>
+<li><a HREF="elements.htm#fixed-vertex">Fixed vertices</a> </li>
+
+<li><a HREF="#level-set-constraints">Level set constraints</a> </li>
+
+<li><a HREF="#one-sided-constraints">One-sided constraints</a> </li>
+
+<li><a HREF="#parametric-boundaries">Parametric "boundary" curves and surfaces</a>
+</li>
+</ul>
+</li>
+<li>Global constraints: 
+<ul>
+<li><a HREF="elements.htm#target-volume">Volume constraints</a> </li>
+
+<li><a HREF="#named-quantity-constraints">Named quantity constraints</a>
+</li>
+</ul>
+</ul>
+
+<p>
+<hr><a   id="level-set-constraints"></a>
+<h2>Level set constraints</h2>
+A level-set constraint is a restriction of vertices to lie on the zero
+level-set of a function. 
+               The formula may include any expressions whose values
+                are known to the Evolver, given the particular vertex.
+                Most commonly one just uses the coordinates (x,y,z) of the
+                vertex, but one can use variables, quantity values,
+                or vertex extra attributes.  Using a vertex extra
+                attribute is a good way to customize one formula to
+                individual vertices.  For example, if there were a
+                vertex extra attribute called zfix, one could force
+                vertices to individual z values with one constraint 
+                with the formula z = zfix, after of course assigning
+                proper values to zfix for each vertex.
+  
+
+A level set constraint may have several roles:
+<p>
+
+<ul>
+<li>Vertices may be required to lie on a constraint (equality constraint)
+or on one side (<a HREF="#one-sided-constraints">inequality constraint</a>).
+A constraint may be declared 
+<a href="datafile.htm#constraint-decl">GLOBAL</a>, 
+in which case it applies to all vertices.
+See <a HREF="mound.htm">mound.fe</a> for an example. </li>
+
+<li>A constraint may have an 
+<a href="datafile.htm#constraint-decl">energy vectorfield</a>
+ associated with it that is integrated
+over edges lying in the constraint to give an
+<a href="energies.htm#constraint-energy-integrals">energy</a>. 
+This is useful for
+specifying wall contact angles and for calculating gravitational energy.
+Integrals are not evaluated over edges that are FIXED. See 
+<a href="mound.htm">mound.fe</a> for
+an example. 
+In the <a href="model.htm#string-model">string model</a>,
+the energy integrand is a single component evaluated on vertices
+on the constraint.</li>
+
+<li> A constraint may have a 
+<a href="datafile.htm#constraint-decl">content vectorfield</a>
+ associated with it that is integrated
+over edges lying in the constraint to give a <a href="elements.htm#body-volume">
+volume</a> contribution to a body
+whose boundary facets contain the edges. This is useful for getting correct
+volumes for bodies without completely surrounding them with otherwise useless
+facets. It is important to understand how the content is added to the body
+in order to get the signs right. The integral is evaluated along the positive
+direction of the edge. If the edge is positively oriented on a facet, and
+the facet is positively oriented on a body, then the integral is added
+to the body. This may wind up giving the opposite sign to the integrand
+from what you think may be natural. Integrals are not evaluated over edges
+that are FIXED. See tankex.fe for an example. 
+In the <a href="model.htm#string-model">string model</a>,
+the content integrand is a single component evaluated on vertices
+on the constraint.</li>
+
+<li>
+There is a constraint attribute <code>content_rank</code> such that if a vertex (string model) or
+an edge (soapfilm model) is on multiple boundaries with content
+integrals (say where walls meet) then if content ranks are present,
+the content integral with the least rank will contribute to the
+content on the negative side body and the highest rank content
+will contribute to the content of the positive side body.
+<li><a   id="convex-constraint"></a>A constraint may be declared 
+<a href="datafile.htm#constraint-decl">CONVEX</a>, 
+in which case edges in the
+constraint have an energy associated with them that is proportional to
+the area between the straight edge and the curved wall. This energy (referred
+to as "<a href="energies.htm#gap-energy">gap energy</a>") 
+is meant to compensate for the tendency for flat
+facets meeting a curved wall to minimize their area by lengthening some
+edges on the wall and shortening others, with the net effect of increasing
+the net gap between the edges and the wall. See tankex.fe for an example.
+</li>
+
+</ul>
+
+<p>Level set constraints are declared in the top section of the <a HREF="datafile.htm#constraint-decl">datafile</a>.
+They may be applied to <a HREF="elements.htm#vertex-constraints">vertices</a>,
+<a HREF="elements.htm#edge-constraints">edges</a>, 
+or <a HREF="elements.htm#facet-constraints">facets</a>.
+Constraints are usually applied to vertices and edges, as in 
+<a href="mound.htm">mound.fe</a>.  Remember that you need to apply a constraint
+to an edge to get that constraint to apply to vertices created on that edge
+by refining.  Sometimes one applies constraints to facets, usually to get
+the facet to conform to a predetermined shape.  Be sure that the constraints
+applied to a vertex are linearly independent at the vertex.
+<p>
+Constraints are usually applied in the datafile
+<a href="datafile.htm#vertices-section">vertices</a>,
+<a href="datafile.htm#edges-section">edges</a>, and
+<a href="datafile.htm#faces-section">faces</a> sections, but they
+may also be set or removed with the <a href="commands.htm#set">set</a>
+or <a href="commands.htm#unset">unset</a> commands.  Example:
+<pre>   set vertex[4] constraint 4
+   unset edge constraint 1 where id &lt; 10
+</pre>
+It does not hurt to unset an element that isn't on the constraint.
+When a vertex is set to a constraint, the vertex coordinates are 
+immediately projected to the constraint.  Setting an edge on a
+constraint does not set its vertices.  Likewise for facets.
+
+<p>
+Several element attributes are useful in connection with level-set constraints:
+<ul>
+<li> <a href="elements.htm#on_constraint">on_constraint</a>
+ - Boolean attribute that tells whether the
+  element has been put on a constraint.
+<li> <a href="elements.htm#hit_constraint">hit_constraint</a>
+   - Boolean vertex attribute that tells whether
+   the constraint exactly satisfies the constraint.  Meant for
+   one-sided constraints; always 1 for exact constraints.
+<li> <a href="elements.htm#value_of_constraint">value_of_constraint</a>
+   - Vertex attribute that is the value of the constraint formula at the vertex.
+<li> <a href="elements.htm#v_constraint_list">v_constraint_list</a>,-
+     <a href="elements.htm#e_constraint_list">e_constraint_list</a>,-
+     <a href="elements.htm#f_constraint_list">f_constraint_list</a>--
+   Vector attribute whose first element is the number of constraints the
+   element is on, followed by a list of the constraint numbers (using the
+   internal numbers for named constraints).
+<li><a href="elements.htm#constraint-normal">constraint normal</a>
+         - unit vector perpendicular to the level set at a vertex.
+</ul>
+<a   id="constraint-fixed"></a>
+Whether a particular level-set constraint is an equality constraint or
+a one-sided constraint can be queried at runtime by the expression
+<pre>     is_constraint[number].fixed
+or   is_constraint[name].fixed
+</pre>
+"number" may be an expression; "name" is the unquoted name of the
+constraint, if it has one. This has value 1 if the constraint is an
+equality constraint, else the value is zero.  Example of listing all
+the equality constraints that vertices are on:
+<pre>   foreach vertex vv do
+   { for ( inx := 1 ; inx &lt; vv.v_constraint_list[1] ; inx++ )
+       if is_constraint[vv.v_constraint_list[i+1]].fixed then
+         printf "Vertex %d on equality constraint %d\n",
+           vv.id,vv.v_constraint_list[i+1];
+   };
+</pre>
+
+<a   id="one_sided_lagrange"></a> <a   id="nonnegative"> </a>
+<a id="nonpositive"></a>
+<hr><a   id="one-sided-constraints"></a>
+<h2>One-sided constraints</h2>
+If a <a HREF="#level-set-constraints">level set constraint</a> is declared
+<code>NONNEGATIVE</code> or <code>NONPOSITIVE</code> in the <a HREF="datafile.htm#constraint-decl">datafile</a>,
+the vertices subject to the constraint must stay in that part of the domain
+of the level set function. It is usually unwise to give edge integrals
+to edges on one-sided constraints, or to declare them <a HREF="energies.htm#gap-energy">CONVEX</a>.
+Whether a vertex exactly satisfies the constraint may be queried with the
+vertex <a HREF="elements.htm#hit_constraint">hit_constraint</a> attribute.
+The 'g' iteration step will check for a vertex wanting to leave a one-sided 
+constraint it has hit, but hessian commands do not; therefore it is wise
+to intersperse 'g' with hessian or hessian_seek when there are one-sided
+constraints involved.
+<p>
+Example: Suppose one wanted to keep a bubble inside a spherical tank
+of radius 5. Then one would define the constraint in the datafile
+<pre>constraint 1 nonpositive
+formula: x^2 + y^2 + z^2 = 25
+</pre>
+For purposes of evaluating nonnegativity or nonpositivity, all terms are
+shifted to the left side of the formula.  One would then apply this
+constraint to all vertices, edges, and facets of the bubble surface.
+<p>
+If you define the real-valued vertex extra attribute one_sided_lagrange, the
+Lagrange multipliers for vertices hitting one-sided constraints will
+be recorded.  one_sided_lagrange may be defined as an array.  If a vertex
+hits more constraints than the size of one_sided_lagrange, then the
+first ones that fit will be recorded.
+<p>
+
+The type of a constraint can be queried at runtime as expressions <pre>
+     is_constraint[number].nonnegative
+     is_constraint[name].nonnegative
+     is_constraint[number].nonpositive
+     is_constraint[name].nonpositive
+     is_constraint[number].fixed
+     is_constraint[name].fixed </pre>
+which have value 1 if the constraint is of the give type, else the value is 0.
+"number" may be an expression; "name" is the unquoted name of the
+constraint, if it has one.
+Example:
+<pre>
+     print is_constraint[floorcon].nonnegative
+</pre>
+
+<hr><a   id="boundary"></a>
+<a   id="boundaries"></a>
+<a   id="parametric-boundaries"></a>
+<h2>Parametric "boundary" curves and surfaces</h2>
+Vertex locations may be given in terms of parameters on a parameterized
+curve or surface. Such curves or surfaces are called &quot;boundaries&quot;
+in Evolver terminology, since they are usually used as boundary curves
+of surfaces, for example a soap film on a wire loop could have the wire
+implemented as a boundary. Vertices, edges, and facets may be deemed to
+lie in a boundary. For a vertex, this means that the fundamental parameters
+of the vertex are the parameters of the boundary, and its coordinates are
+calculated from these. Vertices on boundaries may move during iteration,
+unless declared fixed. See <a href="catenoid.htm">cat.fe</a> for an example. <p>
+
+<p>
+Boundaries are defined in the top section of the 
+<a href="datafile.htm#boundary-decl">datafile</a>.  Vertices on boundaries
+are listed in the datafile with their parameter values instead of their
+coordinates, with "<code>boundary </code><i>n</i>" appended to each such
+<a href="datafile.htm#vertices-section">vertex definition</a>.
+Edges and faces on boundaries are defined as usual, but with
+"<code>boundary </code><i>n</i>" appended to each definition.
+So the datafile has lines like these:
+<pre>
+boundary 1 parameters 1
+x1:  cos(p1)
+x2:  sin(p1)
+x3:  0.75
+...
+Vertices
+1   0.0  boundary 1
+2   pi/3 boundary 1
+...
+Edges
+1   1 2 boundary 1
+...
+</pre>
+
+<p>Putting an edge on a boundary means that vertices created on that edge
+will be on the boundary.  An edge on a boundary must have at least one
+endpoint on the boundary, for use in extrapolating the boundary parameters
+of any created vertices.  Extrapolating instead of interpolating
+midpoint parameters solves the problem of wrap-arounds on a boundary such as
+a circle or cylinder.  However if you do want interpolation, you can use
+the keyword 
+<code><a href="datafile.htm#interp_bdry-decl">INTERP_BDRY_PARAM</a></code>
+in the top of the datafile, or use the 
+ toggle command <a href="toggle.htm#interp_bdry_param">interp_bdry_param</a>.
+<a   id="extra_boundary"></a><a   id="extra_boundary_param"></a>
+Interpolation requires that both endpoints of an edge be on the same 
+boundary, which cannot happen where edges on different boundaries meet.
+To handle that case, it is possible to add extra boundary information to
+a vertex by declaring two particular vertex extra attributes, 
+<code>extra_boundary</code> and <code>extra_boundary_param</code>:
+<pre>
+interp_bdry_param
+define vertex attribute extra_boundary integer
+define vertex attribute extra_boundary_param real[1]
+</pre>
+Then declare attribute values on key vertices, for example
+<pre>
+vertices
+1    0.00  boundary 1   fixed extra_boundary 2 extra_boundary_param 2*pi
+</pre>
+If the extra_boundary attribute is not set on a vertex when wanted, 
+Evolver will silently fall back on interpolation.
+
+
+<p> Putting a face on a boundary means that all edges and vertices created
+from refining the face will be on the boundary.  In this case, the boundary
+should have two parameters (or whatever the dimension of the surface is).
+This is good for getting a surface to conform to a known parametric
+shape.
+<p>
+Edges on boundaries have energy and content integrals like level-set
+constraints edges, but they are internally implemented as.
+<a href="quants.htm#named-quantities">named quantities</a>.
+</p>
+
+<p> 
+Whether an element is on a particular boundary can be queried with
+the <a href="elements.htm#on_boundary">on_boundary</a> Boolean attribute.
+Elements can be removed from boundaries with the
+<a href="commands.htm#unset">unset</a> command, and they can be
+<a href="commands.htm#set">set</a> on boundaries.  A typical use
+of <code>unset</code> is to define an initial surface using a 2-parameter
+boundary, refine a couple of times, then unset. Examples:
+<pre>  list vertex where on_boundary 2
+  unset vertex boundary 1 where on_boundary 1
+  unset edge boundary 1
+  unset facet boundary 1
+  set vertex[10] boundary 1
+</pre>
+It does not hurt to unset an element not on the boundary.
+<p>
+<a   id="__v_boundary"></a><a   id="__e_boundary"></a>
+<a   id="__f_boundary"></a>
+The number of the boundary that an element is on is in the read-only
+attribute __v_boundary, __e_boundary, or __f_boundary.  These are
+0 if the element is not on a boundary.  These attributes are not
+present if there are no boundaries defined.  Note that named
+boundaries are internally assigned numbers, which are what
+show up here.
+<p>
+Vertex parameters can be accessed in expressions as the attribute
+p1 (and p2,... for further parameters).
+Vertex parameters can be changed with the <a href="commands.htm#set">set</a>
+command. Example:
+<pre>  print vertex[5].p1
+  set vertex p1 p1+.1 where id &lt; 4
+  vertex[2].p1 := 3
+</pre>
+It is not an error to access the parameters of a vertex not on a boundary
+as long as some vertex is on a boundary (so that space is allocated in
+the vertex structure for parameters).
+
+<p>A general guideline is to use constraints for two-dimensional walls
+and boundaries for one-dimensional wires. If you are using a boundary wire,
+you can probably declare the vertices and edges on the boundary to be FIXED.
+Then the boundary becomes just a guide for refining the boundary edges.
+</p>
+
+<p>NOTE: A vertex on a boundary cannot also have constraints. 
+
+<hr><a   id="named-quantity-constraints"></a>
+<h2>Named quantity constraints</h2>
+See <a href="quants.htm#named-quantities">fixed named quantities</a>.
+
+<hr><a HREF="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+<p>
+
+</body>
+</html>

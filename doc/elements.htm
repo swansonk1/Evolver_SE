@@ -1,0 +1,2315 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Surface Evolver geometric elements</title>
+<link rel="stylesheet" type="text/css" href="evdoc-style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+
+<BODY>
+<!--NewPage-->
+
+<h1 class="center">
+<a href="http://www.susqu.edu/brakke/evolver/evolver.htm" class="comic">
+Surface Evolver</a> Documentation</h1>
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+
+
+<a   id="attributes"></a>
+<a   id="geometric-elements"></a><h1>Geometric elements</h1>
+
+      The surface is defined in terms of its geometric elements of 
+      each dimension.  Each element has its own set of attributes.
+      Some may be set by the user; others are set internally but
+      may be queried by the user.  It is also possible to dynamically
+      define <a href="#extra-attributes">extra attributes</a>
+       for any type of element, which may
+      be single values or vectors of values.  Attribute values can
+be specified in the <a href="datafile.htm">datafile</a>, and queried
+with <a href="syntax.htm#attr-values">commands</a>.
+<p>Elements:
+<ul> 
+<li><a href="#vertices">Vertices</a>
+<li><a href="#edges">Edges</a>
+<li><a href="#facets">Facets</a>
+<li><a href="#bodies">Bodies</a>
+<li><a href="#facetedges">Facetedges</a>
+</ul>
+<hr>
+<a   id="vertices"></a><h2>Vertices</h2>
+
+            A vertex is a point in space.
+            The coordinates of the vertices are the parameters
+            that determine the location of the surface.  It is
+            the coordinates that are changed when the surface 
+            evolves.  A vertex carries no default energy, but may
+            have energy by being on a 
+            <a href="constrnt.htm#level-set-constraints">
+            level set constraint</a> in the 
+            <a href="model.htm#string-model">string model</a>,
+            or by having a <a href="quants.htm">named quantity</a>
+            energy applied to it.
+            The vertices of the original surface
+            are defined in the <a href="datafile.htm#vertices-section">
+            vertices section</a> of the datafile.<p>
+
+            Vertex attributes (grouped somewhat relatedly):
+<table><tr><td style="vertical-align:text-top">
+<ul>
+<li>            <a href="#id">id</a>
+<li>            <a href="#original">original</a>
+<li>            <a href="#coordinates">coordinates, x,y,z, __x[]</a>
+<li>            <a href="#vertex-edges">vertex edges</a>
+<li>            <a href="#vertex-facets">vertex facets</a>
+<li>            <a href="#valence,-vertex">valence</a>
+<li>            <a href="#bare,-vertex">bare</a>
+<li>            <a href="#fixed,-vertex">fixed</a>
+<li>            <a href="#constraints,-vertex">constraints</a>
+<li>            <a href="#on_constraint">on_constraint</a>
+<li>            <a href="#hit_constraint">hit_constraint</a>
+<li>            <a href="#value_of_constraint">value_of_constraint</a>
+<li>            <a href="#v_constraint_list">v_constraint_list</a>
+<li>            <a href="#constraint-normal">constraint normal</a>
+<li>            <a href="#boundary,-vertex">boundary</a>
+<li>            <a href="#parameter-values">parameter values, p1,p2, p[]</a>
+<li>            <a href="#on_boundary">on_boundary</a>
+<li>            <a href="#v_boundary">v_boundary</a>
+</ul></td><td style="vertical-align:text-top"><ul>
+<li>            <a href="#extra-attributes">extra attributes</a>
+<li>            <a href="#quantity-attribute">named quantities</a>
+<li>            <a href="#on_quantity">on_quantity</a>
+<li>            <a href="#on_method_instance">on_method_instance</a>
+<li>            <a href="#v_method_list">v_method_list</a>
+<li>            <a href="#vertex_normal">vertex_normal</a>
+<li>            <a href="#dihedral,-vertex">dihedral</a>
+<li>            <a href="#mean_curvature,-vertex">mean_curvature</a>
+<li>            <a href="#sqcurve,-vertex">square mean curvature</a>
+<li>            <a href="#mid_edge">mid_edge</a>
+<li>            <a href="#mid_facet">mid_facet</a>
+<li>            <a href="#axial_point">axial_point</a>
+<li>            <a href="#triple_point">triple_point</a>
+<li>            <a href="#tetra_point">tetra_point</a>
+<li>            <a href="#v_force">v_force</a>
+<li>            <a href="#v_velocity">v_velocity</a>
+<li>            <a href="#raw_velocity">raw_velocity</a>
+<li>            <a href="#v_oldx">v_oldx</a>
+</ul>
+</td></tr></table>
+<a href="#vertex-attributes">Full descriptions</a> of vertex attributes.
+<hr>
+
+<a   id="edges"></a><h2>Edges</h2>
+
+            An edge is a one-dimensional <a href="#geometric-elements">
+geometric element</a>.
+  In the <a href="model.htm#linear-model">linear model</a>,
+ an edge is an oriented line segment between a tail
+            <a href="#vertices">vertex</a> and a head vertex. 
+  In the <a href="model.htm#quadratic-model">quadratic model</a>, an edge is
+defined by quadratic intepolation of two endpoints and a midpoint.
+  In the <a href="model.htm#Lagrange-model">lagrange model</a>, an edge is
+defined by the appropriate order interpolation with the edge vertices.
+In the <a href="model.htm#string-model">string model</a>, edges carry
+a default surface tension energy proportional to their length.
+Edges may also carry energy by being on 
+<a href="constrnt.htm#level-set-constraints">level set constraints</a>
+in the 
+<a href="model.htm#soapfilm-model">soapfilm model</a>,
+ or by having <a href="quants.htm">
+named quantity</a>  energies applied to them.
+The edges of the original surface are defined in the 
+<a href="datafile.htm#edges-section">edges section</a> of the datafile.
+<p>
+            Edge attributes (grouped somewhat relatedly>:
+<table><tr><td style="vertical-align:text-top">
+<ul>
+<li>            <a href="#id">id</a>
+<li>            <a href="#oid">oid</a>
+<li>            <a href="#original">original</a>
+<li>            <a href="#length">length</a>
+<li>            <a href="#density,-edge">density or tension</a>
+<li>            <a href="#fixed,-edge">fixed</a>
+<li>            <a href="#edge-vertices">vertices</a>
+<li>            <a href="#midv">midv</a>
+<li>            <a href="#edge-facets">facets</a>
+<li>            <a href="#valence,-edge">valence</a>
+<li>            <a href="#bare,-edge">bare</a>
+<li>            <a href="#constraints,-edge">constraints</a>
+<li>            <a href="#on_constraint">on_constraint</a>
+<li>            <a href="#e_constraint_list">e_constraint_list</a>
+<li>            <a href="#boundary,-edge">boundary</a>
+<li>            <a href="#on_boundary">on_boundary</a>
+<li>            <a href="#e_boundary">e_boundary</a>
+</ul></td><td style="vertical-align:text-top"><ul>
+<li>            <a href="#color,-edge">color</a>
+<li>            <a href="#edge-vector">edge_vector, x,y,z</a>
+<li>            <a href="#no_refine,-edge">no_refine</a>
+<li>            <a href="#no_transform,-edge">no_transform</a>
+<li>            <a href="#wrap">wrap</a>
+<li>            <a href="#wrap_list">wrap_list</a>
+<li>            <a href="#show,-edge">show</a>
+<li>            <a href="#orientation,-edge">orientation</a>
+<li>            <a href="#frontbody,-edge">frontbody</a>
+<li>            <a href="#backbody,-edge">backbody</a>
+<li>            <a href="#dihedral,-edge">dihedral</a>
+<li>            <a href="#noncontent,-edge">noncontent</a>
+<li>            <a href="#quantity-attribute">quantities</a>
+<li>            <a href="#on_quantity">on_quantity</a>
+<li>            <a href="#quantity-attribute">method instances</a>
+<li>            <a href="#on_method_instance">on_method_instance</a>
+<li>            <a href="#e_method_list">e_method_list</a>
+<li>            <a href="#extra-attributes">extra attributes</a>
+</ul>
+</td></tr></table>
+<hr>
+<a   id="facets"></a><h2>Facets</h2>
+  In the <a href="model.htm#soapfilm-model">soapfilm model</a>,
+  a facet is an oriented triangle defined by a cycle of three
+  <a href="#edges">edges</a>.  
+  In the <a href="model.htm#linear-model">linear model</a>,
+  a facet is a flat triangle.
+  In the <a href="model.htm#quadratic-model">quadratic
+  model</a>, the facet is a curved surface defined by quadratic
+  interpolation among the three facet corner vertices and the
+  three edge midpoints.  In the <a href="model.htm#Lagrange-model">
+  Lagrange model</a>, 
+  <a href="syntax.htm#lagrange_order" class="keyword">lagrange_order</a>
+   interpolation is done among
+  (lagrange_order+1)(lagrange_order+2)/2 vertices.
+  Although individual facets are oriented, there are no
+  restrictions on the orientations of adjacent facets.
+  By default, a facet carries a surface tension energy equal
+  to its area.
+  <p>
+  In the <a href="model.htm#string-model">string model</a>,
+  a facet is a chain of an arbitrary number of edges.  The chain
+  need not be closed.  Usually a facet is defined in the string
+  model in order to define a body, so the space dimension is 2
+  and the facet is planar, one facet corresponding to a body.
+  Facets carry no energy by themselves.
+  <p>
+  In the <a href="model.htm#simplex-model">simplex model</a>,
+  a facet is a simplex of dimension
+   <a href="datafile.htm#surface-dimension-decl" class="keyword">surface_dimension</a>
+   defined by surface_dimension+1 vertices.  The <code>surface_dimension</code>
+   may be any dimension less than or equal to the 
+   <a href="datafile.htm#space-dimension-decl" class="keyword">space_dimension</a>.
+   The simplex is oriented according to the order of the vertices.
+   By default, a simplex carries a surface tension energy
+   proportional to its volume.
+<p>
+  Facets may  carry additional energy by having
+  <a href="quants.htm">named quantity</a> energies
+  applied to them.
+  <p>
+  The facets of the original surface are defined in the 
+  <a href="datafile.htm#faces-section">faces section</a> of the
+  datafile.
+  <p>
+            Facet attributes (grouped somewhat relatedly):
+<table><tr><td style="vertical-align:text-top">
+<ul>
+<li>            <a href="#id">id</a>
+<li>            <a href="#oid">oid</a>
+<li>            <a href="#original">original</a>
+<li>            <a href="#density,-facet">density or tension</a>
+<li>            <a href="#area,-facet">area</a>
+<li>            <a href="#fixed,-facet">fixed</a>
+<li>            <a href="#facet-vertices">vertices</a>
+<li>            <a href="#facet-edges">edges</a>
+<li>            <a href="#facet-bodies">bodies</a>
+<li>            <a href="#frontbody,-facet">frontbody</a>
+<li>            <a href="#backbody,-facet">backbody</a>
+<li>            <a href="#f_body_list">f_body_list</a>
+<li>            <a href="#valence,-facet">valence</a>
+<li>            <a href="#constraints,-facet">constraints</a>
+<li>            <a href="#on_constraint">on_constraint</a>
+<li>            <a href="#f_constraint_list">f_constraint_list</a>
+<li>            <a href="#boundary,-facet">boundary</a>
+<li>            <a href="#on_boundary">on_boundary</a>
+</ul></td><td style="vertical-align:text-top"><ul>
+<li>            <a href="#f_boundary">f_boundary</a>
+<li>            <a href="#color,-facet">color</a>
+<li>            <a href="#frontcolor">frontcolor</a>
+<li>            <a href="#backcolor">backcolor</a>
+<li>            <a href="#opacity">opacity</a>
+<li>            <a href="#facet_normal">facet_normal, x,y,z</a>
+<li>            <a href="#no_display">no_display</a>
+<li>            <a href="#no_refine,-facet">no_refine</a>
+<li>            <a href="#no_transform,-facet">no_transform</a>
+<li>            <a href="#orientation,-facet">orientation</a>
+<li>            <a href="#noncontent,-facet">noncontent</a>
+<li>            <a href="#phase,-facet">phase</a>
+<li>            <a href="#quantity-attribute">quantities</a>
+<li>            <a href="#on_quantity">on_quantity</a>
+<li>            <a href="#quantity-attribute">method instances</a>
+<li>            <a href="#on_method_instance">on_method_instance</a>
+<li>            <a href="#f_method_list">f_method_list</a>
+<li>            <a href="#extra-attributes">extra attributes</a>
+<li>            <a href="#f_next_vfacet">f_next_vfacet</a>
+<li>            <a href="#f_next_bfacet">f_next_bfacet</a>
+
+</ul>
+</td></tr></table>
+<hr>
+<a   id="bodies"></a><h2>Bodies</h2>
+
+            A body is a full-dimensional region of space. Bodies
+are not triangulated.  Rather, they are determined by their boundary
+<a href="#facets">facets</a> (or <a href="#edges">edges</a> in 2D). 
+                 These facets are used for calculating body volume
+                 and gravitational energy.  Only those facets needed
+                 for correct calculation need be given. In the 
+                 <a href="model.htm#string-model">string
+		 model</a>, usually a body corresponds to one facet.
+		 Bodies of the original surface are defined in the
+		 <a href="datafile.htm#bodies-section">bodies section</a>
+		 of the datafile.  
+<p>
+            Body attributes:
+<table><tr><td style="vertical-align:text-top">
+<ul>
+<li>            <a href="#id">id</a>
+<li>            <a href="#original">original</a>
+<li>            <a href="#body-facets">facets</a>
+<li>            <a href="#density,-body">density</a>
+<li>            <a href="#body-volume">volume</a>
+<li>            <a href="#target-volume">target</a>
+<li>            <a href="#volfixed">volfixed</a>
+</ul></td><td style="vertical-align:text-top"><ul>
+<li>            <a href="#body-volconst">volconst</a>
+<li>            <a href="#actual_volume">actual_volume</a>
+<li>            <a href="#pressure,-body">pressure</a>
+<li>            <a href="#phase,-body">phase</a>
+<li>            <a href="#centerofmass">centerofmass</a>
+<li>            <a href="#extra-attributes">extra attributes</a>
+
+</ul>
+</td></tr></table>
+<hr>
+<a   id="facetedges"></a><h2>Facetedges</h2>
+A facetedge is a pairing of a facet and one of its edges, with
+orientation such that the edge orientation is consistent with
+the facet orientation.  Facetedges are used internally by Evolver,
+and are seldom of interest to the user.  They carry no energy.
+The '<a href="single.htm#C" class="keyword">C</a>' 
+integrity-checking command will sometimes refer to
+facetedges if the surface is inconsistent.  <code>Facetedge</code> can
+be used as an element generator.
+<p>
+            Facetedge attributes:
+<ul>
+<li> <a href="#id">id</a>
+<li> <a href="#facetedge-edge">edge</a>
+<li> <a href="#facetedge-facet">facet</a>
+<li> <a href="#nextedge">nextedge</a>
+<li> <a href="#prevedge">prevedge</a>
+<li> <a href="#nextfacet">nextfacet</a>
+<li> <a href="#prevfacet">prevfacet</a>
+<li> <a href="#extra-attributes">extra attributes</a>
+</ul>
+<hr>
+<hr>
+<a   id="element-attributes"></a>
+<h1>Element attributes</h1>
+Below is a list of possible element attributes.  The first few apply to 
+all types of elements.  Then come those applying specifically to vertices,
+edges, facets, and bodies.  See <a href="#geometric-elements">
+Geometric elements</a> for lists of attributes for each type element.
+<hr>
+
+
+<!--========================== Common attributes ===========================-->
+
+<h1>Attributes for all types of elements</h1>
+<hr>
+
+
+<!--============================== id ============================-->
+
+<a   id="id"></a><h2>id</h2>
+<a href="#geometric-elements">Geometric element</a> read-only integer attribute.
+The id of an element is a positive integer uniquely associated with
+that element.  The Evolver will assign id's to elements read from
+the datafile in the order they are read, unless the 
+<a href="general.htm#options">-i command line option</a>
+ or <a href="datafile.htm#keep_originals" class="keyword">keep_originals</a> 
+is in the top of the datafile, in which
+case the datafile element number is the id.
+  In either case, you can access the datafile id with the <a href="#original">
+original</a> attribute.  Examples:
+<pre>   list vertex where id &lt; 10
+   set edge color red where id == 4 or id == 6 or id == 9
+   foreach facet ff do 
+   { printf "%d  %d %d %d\n",ff.id,ff.edge[1].id,ff.edge[2].id,ff.edge[3].id } 
+</pre>
+<hr>
+
+<!--============================== oid ============================-->
+
+<a   id="oid"></a><h2>oid</h2>
+<a href="#geometric-elements">Geometric element</a> read-only integer attribute.
+The oid of an element is the "oriented id" of an element as used in
+an expression.  It is the <a href="#id">id</a> number signed according
+to whether the use of the element is with the same or opposite orientation
+as the way it is stored.  Example: to get an edge list for a facet
+as in the datafile, use oid instead of id:
+<pre>
+   foreach facet ff do { printf "%d  %d %d %d\n",ff.id,ff.edge[1].oid,
+      ff.edge[2].oid,ff.edge[3].oid } 
+</pre>
+
+<hr>
+
+<!--============================== fixed ============================-->
+
+<a   id="fixed"></a><h2>fixed</h2>
+<a href="#geometric-elements">Geometric element</a> read-write boolean attribute.
+For vertices, <code>fixed</code> means they don't move during various evolution
+and triangulation grooming commands.  For edges and facets, <code>fixed</code> 
+means vertices generated from them by refinement
+ are <code>fixed</code>, although declaring 
+a facet or edge fixed does not automatically make its vertices <code>fixed</code>.
+<p>
+For a body, <code>fixed</code> means its volume is constrained to be its
+<a href="#target">target</a> value. Likewise, <code>fixed</code> as an attribute
+of a <a href="quants.htm#named-quantities">named quantity</a> means the quantity
+value is constrained.
+<p>
+Fixedness can be changed with the <a href="commands.htm#fix" class="keyword">
+fix</a> and <a href="commands.htm#unfix" class="keyword">unfix</a> commands.
+<p>
+Examples:
+<pre>
+   fix vertex where z = 0
+   unfix vertex where on_constraint 1
+   list edge where fixed
+   print body[1] fixed
+</pre>
+
+
+
+<hr>
+
+<!--============================== on_constraint ============================-->
+
+<a   id="on_constraint"></a><h2>on_constraint</h2>
+<a href="#vertices">Vertex</a>,
+<a href="#edges">edge</a>, or
+<a href="#facets">facet</a> 
+read-only attribute.
+<a href="syntax.htm#boolean-ops">Boolean</a> attribute for whether an element is on a given
+<a href="constrnt.htm#level-set-constraints">constraint</a>.
+The full syntax of the attribute is "<code>on_constraint</code> <em>n</em>"
+where <em>n</em> is the number or name of the constraint. Examples:
+<pre>
+   list edge where on_constraint 3
+   print vertex[3].on_constraint floorcon
+</pre>
+
+<hr>
+
+<!--============================== on_boundary ============================-->
+
+<a   id="on_boundary"></a>
+<h2>on_boundary</h2>
+<a href="#vertices">Vertex</a>,
+<a href="#edges">edge</a>, or
+<a href="#facets">facet</a> 
+read-only boolean attribute.
+
+The status of whether an element is on a 
+<a href="constrnt.htm#parametric-boundaries">parametric boundary</a> 
+The full syntax of the attribute is "<code>on_boundary </code><em>n</em>" where
+<em>n</em> is the number or name of the boundary. 
+Examples:
+<pre>
+  list vertex where on_boundary 1
+  list edge where on_boundary topbdry
+</pre>
+
+
+<hr>
+
+<!--============================== on_quantity ============================-->
+
+<a   id="on_quantity"></a><h2>on_quantity</h2>
+<a href="#vertices">Vertex</a>,
+<a href="#edges">edge</a>, or
+<a href="#facets">facet</a> 
+read-only attribute.
+<a href="syntax.htm#boolean-ops">Boolean</a> attribute for whether an element
+contributes to a given
+<a href="quants.htm#named-quantities">named quantity</a>.
+Actually, it tests whether the element is on any of the method instances
+comprising a quantity.
+The full syntax of the attribute is 
+"<code>on_quantity</code> <em>quantityname</em>".
+ Examples:
+<pre>
+   list facet where on_quantity  center_of_mass_x
+   print vertex[3].on_quantity blue_area
+</pre>
+
+
+<hr>
+
+<!--============================== on_method_instance ============================-->
+
+<a   id="on_method_instance"></a><h2>on_method_instance</h2>
+<a href="#vertices">Vertex</a>,
+<a href="#edges">edge</a>, or
+<a href="#facets">facet</a> 
+read-only attribute.
+<a href="syntax.htm#boolean-ops">Boolean</a> attribute for whether an element
+contributes to a given
+<a href="quants.htm#named-methods">named method instance</a>.
+The full syntax of the attribute is 
+"<code>on_method_instance</code> <em>instancename</em>".
+ Examples:
+<pre>
+   list facet where on_method_instance  center_of_mass_x_edges
+   print vertex[3].on_method_instance blue_area_1
+</pre>
+
+
+
+<hr>
+
+<!--============================== original ============================-->
+
+<a   id="original"></a><h2>original</h2>
+<a href="#geometric-elements">Geometric element</a> read-write integer attribute.
+For elements read from the datafile, this is the number given to the
+element in the datafile, which may be overridden by an explicit original
+attribute value in the datafile line defining the element.  The value is
+inherited by all elements of the same type that result from subdivision.
+For elements otherwise
+generated at run time, the original attribute value is -1.
+Example: to show which facets descended from face 1 in the datafile:
+<pre>
+   set facet color red where original == 1
+</Pre>
+
+<hr>
+<!--============================== named quantity ============================-->
+
+<a   id="quantity-attribute"></a><h2>Named quantity values as attributes</h2>
+
+<a href="quants.htm">Named quantities</a> and
+<a href="quants.htm">method instances</a> can be applied to geomtric
+elements either in the <a href="datafile.htm">datafile</a> (by
+adding the quantity or method name to the line defining an element) or
+with the <a href="commands.htm#set">set</a> command.
+ Nonglobal quantities
+or methods can be <a href="commands.htm#unset">unset</a>
+ for individual elements. The values for individual
+elements can be accessed using attribute syntax. 
+Examples: Suppose there is a named quantity "xmoment" that can be 
+evaluated for facets.  Then one could give commands
+<pre>
+   foreach facet do printf "%d %f\n",id,xmoment
+   list facet where xmoment &gt; 4
+</pre>
+
+<hr>
+<!--============================== Extra attributes ============================-->
+
+<a   id="extra-attributes"></a><h2>Extra attributes</h2>
+
+<a href="#geometric-elements">Geometric element</a> read-write attributes.
+If <a href="elements.htm#extra-attributes">extra attributes</a>
+ have been defined in the
+<a href="datafile.htm#extra-decl">datafile</a> or with a 
+<a href="commands.htm#define">define</a> command,
+they can be accessed with attribute syntax. Extra attribute
+values in the datafile can be initialized for an element
+by adding the attribute name and value to the line defining the
+element.  Extra attributes may also be arrays of numeric values 
+(global arrays can be strings, but attributes cannot yet), initialized
+with standard nested bracket syntax. Example:
+<pre>
+  define vertex attribute newx real
+  define vertex attribute vmat real[3][2]
+  vertices
+  1   2 0 0 newx 3 vmat {{1,2},{3,4},{5,6}}
+</pre>
+The command language can use the name with the same syntax as built-in
+attributes, and can define extra attributes at run time:
+<pre>
+  set vertex newx x
+  define edge attribute vibel real[2]
+  set edge[2] vibel[1] 3; set edge[2] vibel[2] 4
+  print vertex[3].newx
+</pre>
+Attribute array sizes may be changed at run time by executing another
+definition of the attribute, but the number of dimensions must be the same.
+Array entry values are preserved as far as possible when sizes are
+changed.
+<p>
+The value of an extra attribute can also be calculated by user-supplied
+code. The attribute definition is followed by the keyword "function" and
+then the code in brackets. In the code, the keyword "self" is used
+to refer to the element the attribute is being calculated for. 
+Example: To implement the lowest z value of a facet as an attribute:
+<pre> define facet attribute minz real function
+	 {self.minz := min(self.vertex,z);}
+</pre>
+
+<!--============================== Vertex attributes ============================-->
+
+<hr>
+<hr>
+<a   id="vertex-attributes"></a>
+<h1>Vertex attributes</h1>
+
+<!--============================== Vertex id ============================-->
+
+<hr>
+<H2>Vertex id</h2> See <a href="#id" class="keyword">id</a> for general elements.
+
+<!--============================== Vertex original ============================-->
+
+<hr>
+<H2>Vertex original</h2> See <a href="#original" class="keyword">original</a> for general elements.
+
+
+<hr>
+<!--============================== Vertex coordinates ============================-->
+
+<a   id="coordinates"></a>
+<a   id="x1"></a>
+<a   id="x2"></a>
+<a   id="x3"></a>
+<a   id="x-coordinate"></a><a   id="y-coordinate"></a>
+<a   id="z-coordinate"></a><a   id="w-coordinate"></a>
+<a   id="__x"></a>
+<h2>Vertex coordinates: x,y,z, x[], __x[]</h2>
+<a href="#vertices">Vertex</a> read-write real attribute. The coordinates of
+a vertex are its location in space.  By default, these are Euclidean
+coordinates, but they may represent any coordinate system if the
+user defines appropriate length, area, volume, etc. integrals.
+But graphics always treat the coordinates as Euclidean.  The
+individual coordinates may be referred to as <code>x</code>,<code>y</code>,<code>z</code>,
+<code>w</code> or <code>x1</code>,<code>x2</code>,<code>x3</code>,..,
+or <code>x[1]</code>, <code>x[2]</code>, <code>x[3]</code>, ... or
+ <code>__x[1]</code>, <code>__x[2]</code>, <code>__x[3]</code>, .... 
+In the <a href="datafile.htm#vertices-section">vertices section</a>
+of the datafile,
+vertices of the original surface have their coordinates given 
+ unless
+they are on a <a href="constrnt.htm#parametric-boundaries"> parametric
+boundary</a>.  Vertices on parametric boundaries have their coordinates
+calculated from their parameter values.  Coordinates may be read or
+modified with the command language.  The form <code>__x</code> is useful to refer
+to the coordinates as a vector, for example in dot products.
+Examples:
+<pre>
+  foreach vertex do printf "%d  %f %f %f\n",id,x,y,z
+  set vertex z z+.1*x
+  print vertex[3].x[2]
+  dotprod := vertex[1].__x * vertex[2].__x
+</pre>
+<hr>
+<!--============================== Vertex edges ============================-->
+
+<a   id="vertex-edges"></a><h2>Vertex edges</h2>
+<a href="#vertices">Vertex</a> read-only generator attribute. 
+<a href="commands.htm#generators">Generates</a>
+edges
+attached to a vertex, oriented so vertex is the edge tail. The edges
+are in no particular order.
+Examples:
+<pre>
+  list vertex[3].edges
+  foreach vertex vv do { foreach vv.edge do print id }
+</pre> 
+Always use "<code>.edges</code>" to generate vertex edges; using "edges" with
+an implicit element, as in "<code>foreach vertex do list edges</code>"
+will list all edges in the surface over and over again.
+<hr>
+<!--============================== Vertex facets ============================-->
+
+<a   id="vertex-facets"></a><h2>Vertex facets</h2>
+<a href="#vertices">Vertex</a> read-only generator attribute. 
+<a href="commands.htm#generators">Generates</a>
+facets
+attached to a vertex, with positive facet orientation. The facets are
+in no particular order.
+Examples:
+<pre>
+  list vertex[3].facets
+  foreach vertex vv do { foreach vv.facet do print id }
+</pre>
+Always use "<code>.facets</code>" to generate vertex facets; using "facets" with
+an implicit element, as in "<code>foreach vertex do list facets</code>"
+will list all facets in the surface over and over again.
+<hr>
+<!--============================== Vertex valence ============================-->
+
+<a   id="valence,-vertex"></a><h2>Vertex valence</h2>
+<a href="#vertices">Vertex</a> read-only integer attribute. 
+The valence of a vertex is defined to be the number of edges
+it is a member of.  Example:
+<pre>
+  list vertices where valence == 6
+  histogram(vertex,valence)
+</pre>
+
+<hr>
+<!--============================== Vertex bare ============================-->
+
+<a   id="bare,-vertex"></a><h2>Vertex bare</h2>
+<a href="#vertices">Vertex</a> read-write boolean attribute. 
+Declaring a vertex <code>bare</code> says that a vertex is not supposed to have 
+any adjacent edges.
+  Useful in avoiding warning messages.  A vertex may be declared bare
+  in the <a href="datafile.htm#vertices-section">vertices section</a>
+  of the datafile by adding the keyword <code>bare</code> to the line
+  defining the vertex. <code>Bare</code> is not simply a synonym for zero
+<a href="#valence,-vertex" class="keyword">valence</a>; it is a separate attribute
+you set to say you intend for it to have zero valence.
+Examples:
+<pre>
+   set vertex bare where valence==0
+   list vertex where bare
+</pre>
+<hr>  
+<!--============================== Vertex fixed ============================-->
+
+<a   id="fixed,-vertex"></a><h2>Vertex fixed</h2>
+<a href="#vertices">Vertex</a> read-write boolean attribute.
+A fixed vertex will not move during iteration (except to satisfy
+<a href="constrnt.htm#level-set-constraints">level set constraints</a>)
+ or other operations, except if coordinates
+are explicitly changed by a "<a href="commands.htm#set">set vertices ...</a>"
+command.  
+A vertex may be declared fixed in the datafile
+by putting <code>fixed</code> on the line defining the vertex, after the
+coordinates.  From the command prompt, one can fix or unfix vertices
+with the <a href="commands.htm#fix" class="keyword">fix</a> and
+<a href="commands.htm#unfix" class="keyword">unfix</a> commands.
+Examples:
+  formula
+<pre>
+  list vertex where fixed
+  fix vertex where on_constraint 1
+  unfix vertices where on_boundary 1
+</pre>
+
+<hr>
+<!--============================== Vertex constraints ============================-->
+
+<a   id="constraints,-vertex"></a><h2>Vertex constraints</h2>
+<a href="#vertices">Vertex</a> read-write attribute. 
+          A 
+<a href="constrnt.htm#level-set-constraints">level-set constraint</a>
+ is a restriction of vertices to
+lie on the zero level-set of a function.  A constraint declared
+<code>nonnegative</code> in the 
+<a href="datafile.htm#constraint-decl">datafile</a>
+ forces a vertex to have a nonnegative
+value of the function.  A <code>nonpositive</code> constraint forces a vertex
+to have a nonpositive value of the function.
+A constraint may be declared <code>global</code>,
+          in which case it applies to all vertices.  A vertex may
+    be put on a constraint in the <a href="datafile.htm#vertices-section">
+vertices section</a>
+    of the datafile by listing the constraint numbers after the keyword
+    <code>constraint</code>.
+	  See  mound.fe for an example.
+In commands, the status of a vertex can be read with the 
+<a href="#on_constraint" class="keyword">on_constraint</a> and 
+<a href="#hit_constraint" class="keyword">hit_constraint</a>
+attributes.  The status can be changed with the 
+<a href="commands.htm#set" class="keyword">set</a> or 
+<a href="commands.htm#unset" class="keyword">unset</a>
+ commands.  
+Examples:
+<br>  Datafile:
+<pre>
+  constraint 1
+  formula: z = 0
+  constraint wallcon nonpositive
+  formula: x = 4
+</pre>
+Runtime:
+<pre>
+  list vertex where on_constraint wallcon
+  set vertex constraint 1 where id == 4 or id == 6
+  unset vertex constraint 1
+</pre>
+
+<!--============================== Vertex on_constraint ============================-->
+<hr>
+See the <a href="#on_constraint" class="keyword">on_constraint</a>
+attribute for general elements.
+
+<!--============================== Vertex hit_constraint ============================-->
+
+<hr>
+<a   id="hit_constraint"></a><h2>Vertex hit_constraint</h2>
+<a href="#vertices">Vertex</a> read-only attribute.
+<a href="syntax.htm#boolean-ops">Boolean</a> attribute for whether a vertex exactly satisfies a given
+<a href="constrnt.htm#level-set-constraints">constraint</a>.  Particularly
+meant for vertices on 
+<a href="constrnt.htm#one-sided-constraints">one-sided constraints</a>.
+The full syntax of the attribute is "<code>hit_constraint</code> <em>n</em>"
+where <em>n</em> is the number or name of the constraint. Examples:
+<pre>
+   list vertex where hit_constraint 3
+   print vertex[3].hit_constraint 1
+</pre>
+
+<!--============================== Vertex value_of_constraint ============================-->
+
+<hr>
+<a   id="value_of_constraint"></a><h2>Vertex value_of_constraint</h2>
+<a href="#vertices">Vertex</a> read-only attribute giving the value
+of a  <a href="constrnt.htm#level-set-constraints"> level-set constraint</a>
+for the current position of a vertex. 
+ Particularly meant for vertices on 
+<a href="constrnt.htm#one-sided-constraints">one-sided constraints</a>.
+The full syntax of the attribute is "<code>value_of_constraint</code> <em>n</em>"
+where <em>n</em> is the number or name of the constraint. Examples:
+<pre>
+   print vertex[4] value_of_constraint 1
+   list vertex where on_constraint topcon and value_of_constraint topcon > 1e-5
+</pre>
+
+<!--============================== Vertex v_constraint_list ============================-->
+
+<hr>
+<a   id="v_constraint_list"></a><h2>Vertex v_constraint_list</h2>
+This read-only integer array attribute gives access to the list of constraints a
+vertex is on. <code>v_constraint_list[1]</code> is the number of constraints in
+the list, followed by the numbers of the constraints.  Note that for
+named constraints, the internally assigned numbers are used.  Because this is
+the actual internal datastructure, the entries may have some high bits used
+as flags, so to get the plain constraint numbers you should mask out the 
+high bits with "<code class="shortcode">imod 0x100000</code>".
+Example:
+<pre>
+   foreach vertex vv do
+   { for ( spot := 2 ; spot &lt;= vv.v_constraint_list[1]+1  ; spot++ )
+     { connum := vv.v_constraint_list[spot] imod 0x100000;
+       if vv hit_constraint connum then
+         printf "Vertex %d hits constraint %d.\n",vv.id,connum;
+     }
+   };
+</pre>
+
+<!--============================== constraint normal ============================-->
+<hr>
+<a   id="constraint-normal"></a>
+<h2>Constraint normal</h2>
+
+The unit normal vector of a level-set constraint at a vertex may be
+found with the vertex vector attribute
+<pre>        constraint[number].normal
+or      constraint[name].normal </pre>
+"number" may be an expression; "name" is the unquoted name of the
+constraint, if it has one.  Example: <pre>
+  print vertex[1].constraint[floorcon].normal
+</pre>
+would print the unit normal of constraint floorcon at vertex 1.  And
+you can put on a subscript to get individual components.  For example,
+the y component: <pre>
+  print vertex[1].constraint[floorcon].normal[2]
+</pre>
+There is no necessity for the constraint to be applied to the vertex;
+the vertex is just used as a source of coordinates for evaluating the
+gradient of the constraint formula.
+
+<!--============================== Vertex boundary ============================-->
+<hr>
+<a   id="boundary,-vertex"></a>
+<h2>Vertex boundary</h2>
+<a href="#vertices">Vertex</a> read-write attribute.  A vertex may be on 
+a <a href="constrnt.htm#boundary">parameterized boundary</a>, in which case
+its position is specified by parameter values; i.e. the space coordinates
+are functions of the parameters. The keyword <code>boundary</code> is used as
+an attribute only in the datafile declaration of elements being on boundaries.
+At runtime, one uses the attributes 
+<a href="#parameter-values" class="keyword">p1, p2, ..</a>
+for the parameter values, <a href="#on_boundary" class="keyword">on_boundary</a>
+to see if a vertex is on a particular boundary, and <a href="#v_boundary"
+class="keyword">v_boundary</a> to get the number of the boundary.  If you
+want to set a vertex on a boundary at runtime (tricky, since you have to set 
+the parameters yourself), the use the 
+"<a href="commands.htm#set" class="shortcode">set vertex boundary ...</a>" command.
+<hr>
+
+
+<!--============================== Vertex parameters ============================-->
+
+<a   id="p1"></a><a id="p2"></a>
+<a   id="parameter-values"></a><h2>Vertex parameters p1, p2, p[]</h2>
+<a href="#vertices">Vertex</a> read-write real attribute.
+ Vertices on parametric boundaries are located according to the
+parameter values.  Parameters are referred to as <code>p1</code>,<code>p2</code>,...  Usually
+only <code>p1</code> is used, since one-parameter curves used as boundary wires
+are most common.   There is also an array form of the name, <code>p</code>, which
+is useful in array computations such as dot product in the case of
+multiple parameters.  Such vertices in the original surface have
+their parameter values given in the 
+<a href="datafile.htm#vertices-section">vertices section</a> of the datafile
+instead of their coordinates. Vertex parameters may be read or modified
+with the command language. Example:
+<pre>
+  foreach vertex do printf "%d %f\n",id,p1
+  set vertex[1] p1 1.2
+  dotprod := vertex[1].p * vertex[2].p
+</pre>
+
+<hr>
+<!--============================= vertex on_boundary =========================-->
+
+<h2>Vertex on_boundary</h2>
+See <a href="#on_boundary" class="keyword">on_boundary</a> for general elements.
+
+
+<!--============================== Vertex v_boundary ============================-->
+
+<hr> <a   id="v_boundary"></a><h2>Vertex v_boundary</h2>
+<a href="#vertices">Vertex</a> read-only integer attribute.  Internal attribute
+containing the number of any parameterized boundary the vertex is on.
+Recall that named boundaries have internal id numbers, which are used here.
+
+<!--============================= vertex extra attributes =========================-->
+<hr>
+<h2>Vertex extra attributes</h2>
+See <a href="#extra-attributes">extra attributes</a> for general elements.
+
+<!--============================= vertex named quantity =========================-->
+<hr>
+<h2>Vertex named quantity</h2>
+See <a href="#quantity-attribute">named quantities</a> for general elements.
+
+<!--============================= vertex on_quantity =========================-->
+<hr>
+<h2>Vertex on_quantity</h2>
+See <a href="#on_quantity">on_quantity</a> for general elements.
+
+
+<!--======================= vertex named method instances =========================-->
+<hr>
+<h2>Vertex named method instances</h2>
+See <a href="#quantity-attribute">named quantities</a> for general elements.
+
+<!--============================= vertex on_method_instance =========================-->
+<hr>
+<a   id="vertex-on_method_instance"></a><h2>Vertex on_method_instance</h2>
+See <a href="#on_method_instance">on_method_instance</a> for general elements.
+
+<!--============================== Vertex v_method_list ============================-->
+
+<hr> <a   id="v_method_list"></a><h2>Vertex v_method_list</h2>
+<a href="#vertices">Vertex</a> read-only integer array attribute.  Internal name
+for the array holding the id numbers of the method instances
+to which this vertex contributes. Vertices do not directly record which quantities
+they are on, they only record which method instances.
+<hr>
+
+<!--============================== Vertex vertex_normal ============================-->
+
+<a   id="vertexnormal"></a>
+<a   id="vertex_normal"></a><h2>Vertex vertex_normal or vertexnormal </h2>
+<a href="#vertices">Vertex</a> read-only real array attribute.  
+One-dimensional, size is space dimension. This is an indexed
+attribute consisting of the components of a normal to the surface at
+a vertex, normalized to unit length.  This is the same normal as used
+in <a href="toggle.htm#hessian_normal">hessian_normal</a> mode.  For
+most vertices in the soapfilm model, the normal is the number average
+of the unit normals of the surrounding facets.  Along triple edges
+and such where hessian_normal has a multi-dimensional normal plane,
+the vertex_normal is the first basis vector of the normal plane.
+Example: To print the normal components of vertex 3:
+<pre> print vertex[3].vertex_normal[1];
+ print vertex[3].vertex_normal[2];
+ print vertex[3].vertex_normal[3]; </pre>
+The vertex_normal can also be printed as an array:
+<pre> 
+   print vertex[3].vertex_normal 
+</pre>
+
+<code>Vertexnormal</code> is an old synonym for <code>vertex_normal</code>.
+<hr>
+<!--============================== Vertex dihedral ============================-->
+
+
+<a   id="dihedral,-vertex"></a>
+<h2>Vertex dihedral</h2>
+
+<a href="#geometric-elements">Vertex</a> read-only real attribute in the string 
+model.  This is the angle in radians from straightness of two edges at a vertex.
+If there are less than two edges, the value is 0.  If two or more
+edges, the value is 2*asin(F/2), where F is the magnitude of the net
+force on the vertex, assuming each edge has tension 1.  Upper limit
+clamped to pi.
+<hr>
+<!--============================== Vertex mid_edge ============================-->
+
+<a   id="mid_edge"></a><h2>Vertex mid_edge</h2>
+<a href="#vertices">Vertex</a> read-only boolean attribute.  True (1) if the
+vertex is on an edge but not an endpoint.  Relevant in the 
+<a href="model.htm#quadratic-model">quadratic model</a> or
+<a href="model.htm#Lagrange-model">Lagrange model</a>.
+Example:
+<pre>
+   list edge[23].vertex vv where vv.mid_edge
+</pre>
+
+<hr>
+<!--============================== Vertex mid_facet ============================-->
+
+<a   id="mid_facet"></a><h2>Vertex mid_facet</h2>
+<a href="#vertices">Vertex</a> read-only boolean attribute.  True (1) if the
+vertex is an interior control point of a facet in the
+<a href="model.htm#Lagrange-model"><b>Lagrange model</b></a>.
+Example:
+<pre>
+   list facet[23].vertex vv where vv.mid_facet
+</pre>
+
+
+<hr>
+<!--============================== Vertex mean_curvature ============================-->
+
+<a   id="mean_curvature,-vertex"></a><h2>Vertex mean_curvature</h2>
+<a href="#vertices">Vertex</a> read-only ral attribute, available in the
+string and soapfilm model. The mean curvature is calculated as the 
+magnitude of the gradient of area (or length in the string model)
+divided by the area (or length) associated with the vertex, which is
+one-third the area of the facets adjacent to the vertex (or one-half of
+the length of adjacent edges).  It is divided by 2 in the soapfilm model
+to account for the "mean" part of the definition.  The sign of the
+mean curvature is relative to the orientation of the first adjacent
+facet (or edge) Evolver finds. This calculation can be done even if the 
+vertex is on a triple junction or other non-planar topology, even if it 
+doesn't interpret well as mean curvature there. 
+
+<hr>
+<!--============================== Vertex sqcurve ============================-->
+
+<a   id="sqcurve,-vertex"></a>
+<h2>Vertex sqcurve</h2>
+
+<a href="#geometric-elements">Geometric element</a> read-only real attribute.
+<code>Sqcurv</code>
+ is the squared mean curvature at a vertex.  This is only a discrete 
+approximation, of course, The method used to calculate it is the 
+same as the <a href="quants.htm#sq_mean_curvature" class="keyword">sq_mean_curvature</a>
+named method, except if the <a href="toggle.htm#normal_curvature" class="keyword">
+normal_curvature</a> toggle is on, in which case the calculation is as in
+the <a href="quants.htm#normal_sq_mean_curvature" class="keyword">
+normal_sq_mean_curvature</a> named method.  Does not require any other square
+mean curvature features to be active.
+<hr>
+<!--============================== Vertex axial_point ============================-->
+
+<a   id="axial_point"></a><h2>Vertex axial_point</h2>
+<a href="#vertices">Vertex</a> read-write boolean attribute.
+Certain <a href="model.htm#symmetry-groups">symmetry groups</a>
+(e.g. <a href="model.htm#cubocta">cubocta</a> or
+<a href="model.htm#rotate-symmetry-group">rotate</a>)
+have axes of rotation that are invariant under some non-identity
+group element.  A vertex on such an axis must be labeled in the
+datafile with the attribute <code>axial_point</code>, since these
+vertices pose special problems for the wrap algorithms.
+If you are only using a subgroup of the full group, then you
+only need to label vertices on the axes of the subgroup.
+The net wrap around a facet containing an axial point need not
+be the identity. Edges out of an
+axial point must have the axial point at their tail, and must have zero 
+wrap.  Facets including an axial point must have the axial point at
+the tail of the first edge in the facet.  It is your responsibility 
+to use constraints to guarantee the vertex remains on the axis.
+
+
+<hr>
+<!--============================== Vertex triple_point ============================-->
+
+<a   id="triple_point"></a><h2>Vertex triple_point</h2>
+<a href="#vertices">Vertex</a> read-write boolean attribute. For telling Evolver
+three films meet at this vertex.  Used when effective_area is on to
+adjust motion of vertex by making the effective area around the vertex
+1/sqrt(3) of actual.
+<hr>
+<!--============================== Vertex triple_point ============================-->
+
+<a   id="tetra_point"></a><h2>Vertex tetra_point</h2>
+<a href="#vertices">Vertex</a> read-write booloean attribute. For telling Evolver
+six films meet at this vertex.  Used when effective_area is on to
+adjust motion of vertex by making the effective area around the vertex
+1/sqrt(6) of actual.
+
+
+<hr>
+<!--============================== Vertex v_force ============================-->
+
+<a   id="v_force"></a><h2>Vertex v_force</h2>
+<a href="#vertices">Vertex</a> read-only real array attribute.  This is an indexed
+attribute giving the components of the force (negative energy
+gradient as projected to constraints). One-dimensional, size is space dimension.
+ Meant for debugging use.
+This is not directly used for the motion; see <a href="#v_velocity">
+v_velocity</a>. 
+<hr>
+
+<!--============================== Vertex v_velocity ============================-->
+
+<a   id="v_velocity"></a><h2>Vertex v_velocity</h2>
+<a href="#vertices">Vertex</a> read-only real array attribute.  This is an indexed
+attribute giving the components of the vector used for vertex motion
+in the '<a href="single.htm#g" class="keyword">g</a>' command.  
+The motion of a vertex is the <a href="iterate.htm#scale-factor">scale factor</a>
+times this vector.  The velocity vector is calculated from the force vector
+by applying area normalization, mobilty, etc.  Also, if a vertex is
+on a boundary, the velocity is projected back to parameters. 
+One-dimensional, size is space dimension.
+
+
+<hr>
+<!--============================== Vertex raw_velocity ============================-->
+
+<a   id="raw_velocity"></a><h2>Vertex raw_velocity</h2>
+<a href="#vertices">Vertex</a> read-only real array attribute. Internal vertex attribute 
+used when one-sided level-set constraints are present, so the Lagrange multipliers 
+for said constraints can be calculated.  This is the velocity before any projection 
+to volume or level-set constraints.  One-dimensional, size is space dimension.
+Not of interest to the ordinary user.
+ 
+<!--============================== Vertex v_oldx ============================-->
+
+<hr> <a   id="v_oldx"></a><h2>Vertex v_oldx</h2>
+<a href="#vertices">Vertex</a> read-only real array attribute. 
+Internal vertex array attribute used to store old coordinates when
+doing an optimizing move. One-dimensional, size is space dimension.
+
+
+<!--============================== Vertex no_hessian_normal ============================-->
+
+<a   id="no_hessian_normal"></a><h2>Vertex no_hessian_normal</h2>
+<a href="#vertices">Vertex</a> read-write attribute.
+If you wish to run in hessian_normal mode but exempt particular vertices
+from the restriction, you can "set" the vertices' no_hessian_normal
+attribute, for example
+<pre>   set vertex no_hessian_normal where z > 1.2 </pre>
+
+
+
+
+
+<!--============================== Edge attributes ============================-->
+
+
+<hr>
+<hr>
+<h1>Edge attributes</h1>
+
+<hr>
+<!--============================== Edge id ============================-->
+
+<H2>Edge id</h2> See <a href="#id" class="keyword">id</a> for general elements.
+
+<hr>
+<!--============================== Edge oid ============================-->
+
+<H2>Edge oid</h2> See <a href="#oid" class="keyword">oid</a> for general elements.
+
+<!--============================== Edge original ============================-->
+
+<hr>
+<H2>Edge original</h2> See <a href="#original" class="keyword">original</a> 
+for general elements.
+
+
+<hr>
+<!--============================== Edge length ============================-->
+
+<a   id="length"></a>
+<h2>Edge length</h2>
+<a href="#edges">Edge</a> read-only real attribute. Length of the edge.
+Examples:
+<pre> histogram(edge where on_constraint 1, length)
+ print edge[3].length
+</pre>
+<hr>
+<!--============================== Edge tension ============================-->
+
+<a   id="density,-edge"></a><a   id="tension,-edge"></a>
+<h2>Edge density or tension</h2>
+<a href="#edges">Edge</a> read-write real attribute.  
+"Density" and "tension" are synonyms. 
+Energy per unit
+length of edge. Default 1 in string model, 0 in soapfilm model.
+The tension may be modified in the datafile 
+<a href="datafile.htm#edges-section">edges section</a> by
+adding "<code>tension</code> <em>value</em>" to the line defining the edge.
+The tension may be modified with the <a href="commands.htm#set">set</a>
+command.
+Examples:
+<pre>  set edge tension .5 where id &lt; 10
+  loghistogram(edge,density)
+</pre>
+<hr>
+<!--============================== Edge fixed ============================-->
+
+<a   id="fixed,-edge"></a><h2>Fixed edge</h2>
+<a href="#edges">Edge</a> read-write attribute.
+For an edge to be "fixed" means that any vertex or edge created
+by refining the edge will inherit the "fixed" attribute.
+Declaring an edge fixed in the datafile will not fix vertices
+on the edge, and fixing an edge from the command prompt
+will not fix any vertices.
+An edge may be declared fixed in the datafile 
+<a href="datafile.htm#edges-section">edges section</a>
+by adding <code>fixed</code> to the line defining the edge.
+ From the command prompt, one can fix or unfix edges
+with the <a href="commands.htm#fix" class="keyword">fix</a> and
+<a href="commands.htm#unfix" class="keyword">unfix</a> commands.
+Examples:
+<pre>  fix edge where on_constraint 1
+  list edges where fixed
+  set edge color red where fixed
+  unfix edge[3]
+</pre>
+<hr>
+<!--============================== Edge vertices ============================-->
+
+<a   id="edge-vertices"></a><h2>Edge vertices</h2>
+<a href="#edges">Edge</a> read-only attribute. Acts as a
+<a href="commands.htm#generators">generator</a>
+ for the vertices on an edge. In 
+the <a href="model.htm#linear-model">linear model</a>, this
+means the tail and head vertices. In the
+<a href="model.htm#quadratic-model">quadratic</a> model,
+it means the tail, head, and middle vertices. 
+For the <a href="model.htm#Lagrange-model">Lagrange</a> model,
+it means all the vertices from tail to head in order. 
+For the <a href="model.htm#simplex-model">simplex</a> model,
+it means the vertices in the stored order.
+Example:
+<pre>
+   list edge[2].vertices
+   list edge ee where ee.vertex[1].on_constraint 1 
+</pre>
+<hr>
+<!--============================== Edge midv ============================-->
+
+<a   id="midv"></a><h2>Edge midv</h2>
+<a href="#edges">Edge</a> read-only attribute.
+In the <a href="model.htm#quadratic-model">quadratic model</a>, gives
+the id of the midpoint vertex of an edge.  Example:
+<pre>  print edge[23].midv </pre>
+<hr>
+
+<!--============================== Edge facets ============================-->
+<a   id="edge-facets"></a><h2>Edge facets</h2>
+<a href="#edges">Edge</a> read-only attribute. 
+<a href="commands.htm#generators">Generates</a>
+facets
+attached to an edge, in order around the edge when meaningful,
+ with facet orientation agreeing with edge orientation. 
+Examples:
+<pre>
+   list edge[2].facets
+   foreach edge ee do print max(ee.facets,area)
+</pre>
+<hr>
+<!--============================== Edge valence ============================-->
+
+<a   id="valence,-edge"></a><h2>Edge valence</h2>
+<a href="#edges">Edge</a> read-only integer attribute.
+The valence of an edge is the number of facets adjacent to it.
+Examples:
+<pre>  list edges where valence == 1
+  refine edge where valence != 2
+</pre>
+<hr>
+
+<!--============================== Edge bare ============================-->
+
+<a   id="bare,-edge"></a><h2>Bare edge</h2>
+<a href="#edges">Edge</a> read-write boolean attribute. 
+Declaring an edge "bare" indicates that an edge does not have an
+adjacent facet (soapfilm model).  Best declared in the
+<a href="datafile.htm#edges-section">datafile</a>, by adding the
+keyword <code>bare</code> to the line defining an edge.
+  Useful in avoiding warning
+messages.   Bare edges are useful to show wires, frameworks, outlines, axes,
+etc. in graphics. Example:
+<pre>
+  list edge where bare
+</pre>
+<hr>
+<!--============================== Edge constraints ============================-->
+
+<a   id="constraints,-edge"></a><h2>Edge constraints</h2>
+<a href="#edges">Edge</a> read-write attribute.
+An edge may be put on a <a href="constrnt.htm#level-set-constraints">
+level set constraint</a>.
+For such an edge,
+any vertices and edges generated
+by refining the edge will inherit the constraint.  An edge may
+be put on constraints in the 
+<a href="datafile.htm#edges-section">edges section</a> of the datafile
+by listing the constraint numbers after the keyword <code>constraint</code>
+on the line defining the edge.
+Putting an edge
+on a constraint does not put its existing vertices on the constraint.
+In commands, the status of an edge can be read with the 
+"<a href="#on_constraint">on_constraint</a>"
+attribute.  The status can be changed with the 
+<a href="commands.htm#set">set</a> or <a href="commands.htm#unset">unset</a>
+ commands.
+Examples:
+<pre>
+  list edge where on_constraint 2
+  set edge constraint 1 where id == 4 or id == 6
+  unset edge constraint 3
+</pre>
+
+<hr>
+<!--==============================Edge on_constraint ============================-->
+
+<a   id="on_constraint,-edge"></a><h2>Edge on_constraint</h2>
+See the <a href="#on_constraint" class="keyword">on_constraint</a>
+attribute for general elements.
+<hr>
+<!--============================== Edge e_constraint_list ============================-->
+
+<a   id="e_constraint_list"></a><h2>Edge e_constraint_list</h2>
+This read-only attribute gives access to the list of constraints an
+edge is on. e_constraint_list[1] is the number of constraints in
+the list, followed by the numbers of the constraints.  Note that for
+named constraints, the internally assigned numbers are used.
+
+<hr>
+<!--============================== Edge boundary ============================-->
+
+<a   id="boundary,-edge"></a><h2>Edge boundary</h2>
+<a href="#edges">Edge</a> read-write attribute.
+          If an edge is on a 
+<a href="constrnt.htm#boundary">parametric boundary</a>,
+ then any edges and vertices
+          generated from the edge will inherit the boundary.  By default,
+          new vertex parameter values are calculated by extrapolating
+          from one end of the edge.  This avoids wrap-around problems
+          that would arise from interpolating parameter values.  But if
+          the interp_bdry_param toggle is on, then interpolation is used.
+The status of whether an edge is on a 
+boundary can be
+queried with the <a href="syntax.htm#boolean-ops">Boolean</a> attribute <a href="#on_boundary">on_boundary</a>.
+  Edges can be <a href="commands.htm#unset">unset</a>
+from boundaries, and set on them (but care is needed to do this properly).
+Examples:
+<pre>
+  list edges where on_boundary 1
+  unset edges boundary 2
+</pre>
+
+<hr>
+<!--============================= Edge on_boundary =========================-->
+
+<a   id="edge-on_boundary"></a><h2>Edge on_boundary</h2>
+See <a href="#on_boundary" class="keyword">on_boundary</a> for general elements.
+
+<hr>
+<!--============================== Edge e_boundary ============================-->
+
+<a   id="e_boundary"></a> <h2>Edge e_boundary</h2>
+<a href="#edges">Edge</a> read-only integer attribute. 
+Internal edge attribute holding the id numbers of the
+boundary an edge is on.  Recall that named boundaries
+have internal id numbers, which are used here.
+
+<hr>
+<!--============================== Edge color ============================-->
+
+<a   id="color,-edge"></a><h2>Edge color</h2>
+<a href="#edges">Edge</a> read-write attribute.   
+<a href="syntax.htm#colors">Color</a> for graphics.  
+The default color is black. Color may be set in the 
+<a href="datafile.htm#edges-section">datafile</a>, or with
+the <a href="commands.htm#set">set</a> command.
+In <a href="graphics.htm#geomview">geomview</a>, the edge color
+will show up only for edges satisfying the 
+<a href="commands.htm#show">show</a> edge condition, and then
+they will have to compete with the edges geomview draws, unless you
+turn off geomview's drawing of edges with "ae" in the geomview window.
+Examples:
+<pre>
+  set edge color red where length &gt; 1
+  show edge where color != black
+</pre>
+<hr>
+<!--============================== Edge edge_vector ============================-->
+
+<a   id="edge_vector"></a>
+<a   id="edge-vector"></a><h2>Edge edge_vector</h2>
+<a href="#edges">Edge</a> read-only attribute. The components of the edge vector
+in the <a href="model.htm#linear-model">linear model</a> can be accessed
+as edge attributes x,y,z or x1,x2,x3,..., or x[1],x[2],x[3].  
+edge_vector is another way to refer to the vector as a vector; it is useful
+for expressions like dot products where x won't work.
+ In a command, the vector between
+edge endpoints is used in <a href="model.htm#quadratic-model">quadratic model</a>
+or <a href="model.htm#Lagrange-model">lagrange model</a>.  But when used in an
+integral, the tangent is evaluated at the Gaussian integration points.
+Not defined in the
+<a href="model.htm#simplex-model">simplex model</a>. Example to list nearly
+vertical edges:
+<pre>   list edges where z^2 &gt; 10*(x^2 + y^2)
+   print edge[1].edge_vector * edge[2].edge_vector
+</pre>
+<hr>
+<!--============================== Edge no_refine ============================-->
+
+<a   id="no_refine,-edge"></a><h2>Edge no_refine</h2>
+<a href="#edges">Edge</a> and <a href="#facets">facet</a>
+read-write Boolean attribute.  An edge with the "no_refine" attribute
+will not be refined by the <a href="single.htm#r">r</a> command.
+This is useful for avoiding needless refining of lines or planes
+that are used only for display.  The <code>no_refine</code> attribute
+may be specified on the datafile line for an edge, or
+the <a href="commands.htm#set" class="keyword">set</a> command may be used.
+Examples:
+<pre>  set edge no_refine where fixed
+  unset edge[2] no_refine
+  list edge where no_refine
+  print edge[3].no_refine
+</pre>
+
+<hr>
+<!--============================ edge no_transform =============================-->
+
+<a   id="no_transform,-edge"></a><h2>Edge no_transform</h2>
+<a href="#edges">Edge</a> and <a href="#facets">facet</a>
+read-write Boolean attribute. An edge or facet with the
+"no_transform" attribute will not be duplicated by the view_transform
+mechanism; only the original element will occur.  For example, you might
+have edges that form a display of coordinate axes, which you would not want
+duplicated.
+Example:
+<pre>   set edge no_transform where valence == 0
+</pre>
+
+<hr>
+<!--============================== Edge wrap ============================-->
+
+<a   id="wrap"></a><h2>Edge wrap</h2>
+<a href="#edges">Edge</a> read-write attribute. When a 
+<a href="model.htm#symmetry-groups">symmetry group</a>
+is in effect (such as the <a href="model.htm#torus-model">torus model</a>)
+ and an edge crosses the boundary of a fundamental domain,
+the edge is labelled with the group element that moves the edge head
+vertex to its proper position relative to the tail vertex.  The label
+is internally encoded as an integer, the encoding peculiar 
+to each symmetry group. 
+Edge wrappings are set in the <a href="datafile.htm#edges-section">datafile</a>.
+The <a href="model.htm#torus-model">torus model</a>
+ has its own peculiar wrap representation in the datafile:
+<code>*</code> for no wrap, <code>+</code> for positive wrap, and <code>-</code>
+for negative wrap.
+Wraps are maintained automatically by Evolver during surface manipulations.
+The numeric edge wrap values can be queried with attribute syntax. Example:
+<pre>
+  list edge where wrap != 0
+</pre>
+Unfortunately, the torus model wraps come out rather opaquely, since
+one cannot print hex.  The torus wrap number is the sum of numbers
+for the individual directions: +x = 1; -x = 31; +y = 64; -y = 1984;
++z = 4096; -z = 127040.
+Caution: even though this attribute can be written by the user at runtime,
+only gurus should try it.
+
+
+
+<hr>
+<!--============================== Edge wrap_list ============================-->
+
+<a   id="wrap_list"></a> <h2>Edge wrap_list</h2>
+<a href="#edges">Edge</a> read-write integer array attribute. 
+In a torus or symmetry model, this holds the
+integer used to encode the wrap of an edge. Note that this is implemented
+as an array of length 1 rather than just a value; I forget why, maybe so
+it could be length 0 if not needed.
+Example:  
+<pre>  print edge[3].wrap_list[1] 
+</pre>
+
+
+<!--============================== Edge show ============================-->
+
+<hr>
+<a   id="show,-edge"></a><h2>Edge show</h2>
+<a href="#edges">Edge</a> and <a href="#facets">facet</a> 
+read-only Boolean attribute giving the current status of an
+edge or facet according to the <a href="commands.htm#show">show edge</a>
+ or <a href="commands.htm#show">show facet</a>
+criterion in effect.
+
+<hr>
+<!--============================== Edge orientation ============================-->
+
+<a   id="orientation,-edge"></a><h2>Edge orientation</h2>
+<a href="#edges">Edge</a> integer read-write attribute. 
+              Controls  the sign of oriented integrals on
+	      an edge.  Value +1 or -1.  Useful when triangulation
+manipulations create an edge going the wrong way.
+Example:
+<pre>  set edge[2] orientation -1
+</pre>
+
+
+<hr>
+<!--============================== Edge frontbody ============================-->
+
+<a   id="frontbody,-edge"></a><h2>Edge frontbody</h2>
+<a href="#edges">Edge</a> read-only integer attribute. In the 
+<a href="model.htm#string-model">string model</a>, this is the id number
+of the body attached to the front of the edge, that is, the body on the 
+facet that has positive orientation with respect to the edge.  Invalid
+in the <a href="model.htm#soapfilm-model">soapfilm model</a>.
+
+<hr>
+<!--============================== Edge backbody ============================-->
+
+<a   id="backbody,-edge"></a><h2>Edge backbody</h2>
+<a href="#edges">Edge</a> read-only integer attribute. In the 
+<a href="model.htm#string-model">string model</a>, this is the id number
+of the body attached to the back of the edge, that is, the body on the 
+facet that has negative orientation with respect to the edge.  Invalid
+in the <a href="model.htm#soapfilm-model">soapfilm model</a>.
+
+<!--============================== Edge dihedral ============================-->
+
+<a   id="dihedral,-edge"></a><h2>Edge dihedral</h2>
+<a href="#edges">Edge</a> read-only real attribute.
+The angle in radians between the normals of two facets on an edge. Zero if there
+are not exactly two facets.  This attribute is not stored, but
+recalculated each time it is used.  If there are not exactly two facets on
+the edge, the value is 0.  
+
+
+
+<hr>
+<!--============================== Edge noncontent ============================-->
+
+<a   id="noncontent,-edge"></a><h2>Edge noncontent</h2>
+<a href="#edges">Edge</a> read-write boolean attribute.  When set, indicates
+this facet should not be used in volume calculations in the soapfilm model
+or facet area calculations in the string model.  Useful, for example,
+if you want to have edges be part of a body boundary for display purposes,
+but want to use constraint integrands for greater accuracy in volume
+calculations.
+Example:
+<pre>   set edge noncontent where on_constraint 1
+</pre>
+
+<!--============================= Edge named quantity =========================-->
+<hr>
+<a   id="edge-named-quantity"></a><h2>Edge named quantity</h2>
+See <a href="#quantity-attribute">named quantities</a> for general elements.
+
+<!--============================= Edge on_quantity =========================-->
+<hr>
+<a   id="edge-on_quantity"></a><h2>Edge on_quantity</h2>
+See <a href="#on_quantity">on_quantity</a> for general elements.
+
+
+<!--======================= Edge named method instances =========================-->
+<hr>
+<a   id="edge-named-instances"></a><h2>Edge named method instances</h2>
+See <a href="#quantity-attribute">named quantities</a> for general elements.
+
+<!--============================= Edge on_method_instance =========================-->
+<hr>
+<a   id="edge-on_method_instance"></a><h2>Edge on_method_instance</h2>
+See <a href="#on_method_instance">on_method_instance</a> for general elements.
+
+
+<hr>
+<!--============================== Edge e_method_list ============================-->
+
+<a   id="e_method_list"></a> <h2>Edge e_method_list</h2>
+<a href="#edges">Edge</a> read-only integer array attribute. 
+Internal edge attribute holding the id numbers of the method
+instances that this edge contributes to.  Size expands as needed.
+Read-only.  Use "<a href="commands.htm#set" class="shortcode">set edge method ... </a>" 
+or <a href="commands.htm#unset" class="shortcode">"unset edge method ..</a>"
+to change the status of a edge.
+
+
+<!--============================= Edge extra attributes =========================-->
+<hr>
+<a   id="edge-extra-attributes"></a><h2>Edge extra attributes</h2>
+See <a href="#extra-attributes">extra attributes</a> for general elements.
+
+
+
+<!--============================== Facet attributes ============================-->
+
+<hr>
+<hr>
+<h1>Facet attributes</h1>
+
+
+<!--============================== Facet id ============================-->
+
+<hr>
+<H2>Facet id</h2> See <a href="#id" class="keyword">id</a> for general elements.
+
+<!--============================== Facet oid ============================-->
+
+<hr>
+<H2>Facet oid</h2> See <a href="#oid" class="keyword">oid</a> for general elements.
+
+
+<!--============================== Facet original ============================-->
+
+<hr>
+<H2>Facet original</h2> See <a href="#original" class="keyword">original</a> 
+for general elements.
+<hr>
+<!--============================== Facet tension ============================-->
+
+<a   id="density,-facet"></a>
+<a   id="tension"></a>
+<a   id="tension,-facet"></a><h2>Facet tension or density</h2>
+<a href="#facets">Facet</a> read-write attribute.  
+Energy per unit
+area of facet; surface tension. 
+Default 0 in <a href="model.htm#string-model">string model</a>,
+ 1 in <a href="model.htm#soapfilm-model">soapfilm model</a>.
+ May be set in the datafile by adding "<code>tension</code> <em>value</em>"
+ to the line defining the facet.  The density is inherited by any
+ facets generated by refining.  "Tension" and "density" are synonyms.
+Examples:
+<pre>
+  set facet tension 3 where original == 1
+  list facet where density &lt; .4
+</pre>
+
+<!--============================== Facet area ============================-->
+
+<hr>
+<a   id="area,-facet"></a><h2>Facet area</h2>
+<a href="#facets">Facet</a> read-only attribute.
+The area of the facet.  Example:
+<pre>  list facet where area &lt; .1
+</pre>
+
+<hr>
+<!--============================== Facet fixed ============================-->
+
+<a   id="fixed,-facet"></a><h2>Facet fixed</h2>
+<a href="#facets">Facet</a> read-write attribute.
+For a facet to be "fixed" means that any vertex, edge, or facet created
+by refining a facet will inherit the fixed attribute.  Fixing a facet
+in the datafile or at the command prompt does not fix any edges or
+vertices.
+A face may be declared fixed in the datafile
+by putting <code>fixed</code> on the line defining the face, after the
+coordinates.  From the command prompt, one can fix or unfix facets
+with the <a href="commands.htm#fix">fix</a> and
+<a href="commands.htm#unfix">unfix</a> commands.
+<hr>
+<!--============================== Facet vertices ============================-->
+
+<a   id="facet-vertices"></a><h2>Facet vertices</h2>
+<a href="#facets">Facet</a> read-only attribute. 
+<a href="commands.htm#generators">Generates</a>
+vertices
+around a facet, oriented as the facet boundary. "vertex" and
+"vertices" are synonymous.  In the string model, if the facet is not
+a closed loop of edges, the vertices will be generated in order
+from one end.  If the given facet has negative orientation, then
+the vertices will be generated accordingly. Example:
+<pre>  list facet[3].vertex
+</pre>
+<hr>
+<!--============================== Facet edges ============================-->
+
+<a   id="facet-edges"></a><h2>Facet edges</h2>
+<a href="#facets">Facet</a> read-only attribute. 
+<a href="commands.htm#generators">Generates</a>
+edges
+around a facet, oriented as the facet boundary.  "edge" and "edges"
+are synonymous. In the string model, if the edges of the facet do not 
+make a closed loop, then the edges will be listed in order starting
+from one end.  If the given facet has negative orientation, the edges will
+be listed accordingly.  Example:
+<pre>  list facet[3].edges
+  list facet[-3].edges
+</pre>
+
+<hr>
+<!--============================== Facet bodies============================-->
+
+<a   id="facet-bodies"></a><h2>Facet bodies</h2>
+<a href="#facets">Facet</a> body generator attribute.  
+<a href="commands.htm#generators">Generates</a> the bodies
+adjacent to a facet, in frontbody-backbody order.
+Example:
+<pre>
+   list facet[2] bodies
+</pre>
+<hr>
+<!--============================== Facet frontbody ============================-->
+
+<a   id="frontbody,-facet"></a><h2>Frontbody</h2>
+<a href="#facets">Facet</a> read-write attribute. 
+The id of the body of which the facet is on the
+		 positively oriented boundary.  Useful
+after creating a new body with the <a href="commands.htm#new_body">
+new_body</a> command. As a read attribute, the value is 0 if
+there is no such body. Examples:
+<pre>
+  newb := new_body; set facet frontbody newb where color == red
+  print facet[2].frontbody
+</pre>
+Frontbody also works for adding edges to a facet in the string model,
+but the added edge must be attach to one end of the edge arc, or
+close the arc.
+
+<hr>
+<!--============================== Facet backbody ============================-->
+
+<a   id="backbody,-facet"></a><h2>Backbody</h2>
+<a href="#facets">Facet</a> read-write attribute. 
+The id of the body of which the facet is on the
+		 negatively oriented boundary.  Useful
+after creating a new body with the <a href="commands.htm#new_body">
+new_body</a> command. As a read attribute, the value is 0 if
+there is no such body. Examples:
+<pre>
+  newb := new_body; set facet[1] frontbody newb;
+  set facet backbody newb where id == 2 or id == 4;
+  print facet[4].backbody
+</pre>
+Backbody also works for adding edges to a facet in the string model,
+but the added edge must be attach to one end of the edge arc, or
+close the arc.
+<hr>
+<!--============================== Facet f_body_list ============================-->
+
+<a   id="f_body_list"></a>
+<h2>f_body_list</h2>
+<a href="#facets">Facet</a> internal array attribute. 
+Contains the frontbody and backbody ids of the facet.  Not too useful directly;
+listed here because it shows up in <a href="commands.htm#list-attributes"
+class="keyword">list_attributes</a>.
+
+
+<hr>
+<!--============================== Facet valence ============================-->
+
+<a   id="valence,-facet"></a><h2>Facet valence</h2>
+<a href="#facets">Facet</a> read-only attribute.
+The valence of a facet is the number of edges (or vertices)
+that it contains.  Most useful in the 
+<a href="model.htm#string-model">string model</a>.  Example:
+<pre>
+  list facets where valence != 3
+</pre>
+<hr>
+<!--============================== Facet constraints ============================-->
+
+<a   id="constraints,-facet"></a><h2>Facet constraints</h2>
+<p>
+<a href="#facets">Facet</a> read-write attribute.
+Putting a facet on a 
+<a href="constrnt.htm#level-set-constraints">constraint</a>
+ means that every vertex, edge, or facet
+generated by refining the facet will inherit that constraint.  Setting
+a facet on a constraint does not set any of its existing edges or vertices
+on the constraint.  Facets may be put on constraints in the 
+<a href="datafile.htm#faces-section">datafile</a> by listing the 
+constraint numbers after the keyword <code>constraint</code> on the line
+defining the facet, or with the
+<a href="commands.htm#set">set</a> command.  They may be removed
+with the <a href="commands.htm#unset">unset</a> command.
+Examples:
+<pre>
+  list facets where on_constraint 1
+  set facet[2] constraint 2
+  unset facet constraint 1
+</pre>
+<hr>
+<!--============================== Facet on_constraint ============================-->
+
+<a   id="facet-on_constraint"></a><h2>Facet on_constraint</h2>
+See the <a href="#on_constraint" class="keyword">on_constraint</a>
+attribute for general elements.
+<hr>
+<!--============================== Facet f_constraint_list ============================-->
+
+<a   id="f_constraint_list"></a><h2>f_constraint_list</h2>
+This read-only attribute gives access to the list of constraints a
+facet is on. f_constraint_list[1] is the number of constraints in
+the list, followed by the numbers of the constraints.  Note that for
+named constraints, the internally assigned numbers are used.
+
+
+<hr>
+<!--============================== Facet boundary ============================-->
+
+<a   id="boundary,-facet"></a><h2>Facet boundary</h2>
+<a href="#facets">Facet</a> read-write attribute.
+          If a facet is on a 
+<a href="constrnt.htm#boundary">parametric boundary</a>,
+ then any facets, edges, and vertices
+          generated from the facet will inherit the boundary. By default,
+          new vertex parameter values are calculated by extrapolating
+          from one vertex of the facet.  This avoids wrap-around problems
+          that would arise from interpolating parameter values.  But if
+          the interp_bdry_param toggle is on, then interpolation is used.
+The status of whether a facet is on a 
+boundary can be
+queried with the <a href="syntax.htm#boolean-ops">Boolean</a> attribute 
+<a href="#on_boundary">on_boundary</a>.  The actual boundary number is stored in
+the attribute f_boundary, which can be read but should not be written
+directly.
+  Facets can be <a href="commands.htm#unset">unset</a>
+from boundaries, and set on them (but care is needed to do this properly).
+Examples:
+<pre>
+  list facets where on_boundary 1
+  unset facet[2] boundary 2
+</pre>
+
+<hr>
+<!--============================== Facet f_boundary ============================-->
+
+<a   id="f_boundary"></a><h2>Facet f_boundary</h2>
+<a href="#facets">Facet</a> read-only integer attribute.  The number of any 
+<a href="constrnt.htm#boundary">parameterized boundary</a>
+ the facet is on.  Note that named boundaries have internal
+numbers, and those are used here.
+
+
+<hr>
+<!--============================== Facet color ============================-->
+
+<a   id="color,-facet"></a><h2>Facet color</h2>
+<a href="#facets">Facet</a> read-write attribute.   
+<a href="syntax.htm#colors">Color</a> of both sides of facet for graphics.
+Default is white.
+Datafile example:
+<pre>  Faces
+  1   1 2 3 color red
+</pre>
+Command examples:
+<pre>  list facets where color == red
+  set facet[3] color green
+  set facet color red where area &gt; 2
+</pre>
+<hr>
+<!--============================== Facet frontcolor ============================-->
+
+<a   id="frontcolor"></a><h2>Facet frontcolor</h2>
+<a href="#facets">Facet</a> read-write attribute.   
+<a href="syntax.htm#colors">Color</a> of positive side of facet for graphics.
+Default is white.
+Datafile example:
+<pre>  Faces
+  1   1 2 3 frontcolor green backcolor red
+</pre>
+Command examples:
+<pre>  list facets where frontcolor == red
+  set facet[3] frontcolor green
+  set facet frontcolor red where area &gt; 2
+</pre>
+<hr>
+<!--============================== Facet backcolor ============================-->
+
+<a   id="backcolor"></a><h2>Facet backcolor</h2>
+<a href="#facets">Facet</a> read-write attribute.   
+<a href="syntax.htm#colors">Color</a> of negative side of facet for graphics.
+Default is white.  Set also when the "color" attribute is set.
+Datafile example:
+<pre>  Faces
+  1   1 2 3 frontcolor green backcolor red
+</pre>
+Command examples:
+<pre>  list facets where backcolor == red
+  set facet[3] backcolor green
+  set facet backcolor red where area &gt; 2
+</pre>
+
+<hr>
+<!--============================== Facet opacity ============================-->
+
+<a   id="opacity"></a><h2>Facet opacity</h2>
+<a href="#facets">Facet</a> read-write attribute for transparency. Syntax:
+   set facet opacity value where condition
+where value is between 0 (clear) and 1 (opaque).  Screen graphics will
+show transparency, but PostScript output will not.   Hitting the 'O'
+key in the graphics window will toggle transparency, if the opacity
+attribute has been assigned values.
+Datafile example:
+<pre>  Faces
+  1   1 2 3  opacity 0.5
+</pre>
+Command examples:
+<pre> 
+  set facet opacity 0.6
+  set facet opacity 0.6 where original == 2
+</pre>
+
+<hr>
+<!--============================== Facet facet_normal ============================-->
+
+<a   id="facet_normal"></a>
+<a   id="facet-normal"></a><h2>Facet facet_normal</h2>
+<a href="#facets">Facet</a> read-only attribute. 
+The components of the facet normal vector may be referred to as
+x,y,z or x1,x2,x3 or x[1],x[2],x[3]
+in the <a href="model.htm#linear-model">linear model</a>.  Length is equal
+to facet area.  facet_normal is the internal name of the attribute,
+and is useful to refer to the entire vector in array expressions
+such as dot product.
+In <a href="model.htm#quadratic-model">quadratic model</a>
+or <a href="model.htm#Lagrange-model">lagrange model</a>, only the three facet
+corner vertices are used to calculate the normal.  When used in 
+integrals, the normal is calculated at each integration points.
+  Not defined in 
+<a href="model.htm#simplex-model">simplex model</a>. 
+
+
+
+
+
+
+<hr>
+<!--============================== Facet no_display ============================-->
+
+<a   id="no_display"></a>
+<a   id="nodisplay"></a><h2>Facet no_display</h2>
+<a href="#facets">Facet</a> read-write attribute.   
+When set, suppresses the display of the facet in graphics.  Can
+be set in the <a href="datafile.htm#faces-section">datafile</a>
+by adding <code>nodisplay</code> to the line defining the facet. Can
+also be manipulated by the <a href="commands.htm#set">set</a>
+and <a href="commands.htm#unset">unset</a> commands. <code>No_display</code>
+is a synonym provided since that's what I kept typing in.
+ Example:
+<pre>   set facet nodisplay where color != red
+</pre>
+<hr>
+<!--============================== Facet no_refine ============================-->
+
+<a   id="no_refine,-facet"></a><h2>Facet no_refine</h2>
+<a href="#facets">Facet</a>
+read-write Boolean attribute.  Giving a facet the <code>no_refine</code>
+attribute has no effect except that edges created within the
+facet by refining will inherit the <code>no_refine</code> attribute.  So to
+avoid refinement of a plane, all edges and facets in the plane
+must be given the <code>no_refine</code> attribute.  The <code>no_refine</code> attribute
+may be specified on the datafile line for a facet, or
+the <a href="commands.htm#set" class="keyword">set</a> command may be used.
+Examples:
+<pre>  set facet no_refine where fixed
+  unset facet[2] no_refine
+  list facet where no_refine
+  print facet[3].no_refine
+</pre>
+
+<hr>
+<!--============================ facet no_transform =============================-->
+
+<a   id="no_transform,-facet"></a><h2>Facet no_transform</h2>
+<a href="#edges">Edge</a> and <a href="#facets">facet</a>
+read-write Boolean attribute. An edge or facet with the
+"no_transform" attribute will not be duplicated by the view_transform
+mechanism; only the original element will occur.  For example, you might
+have facets that form a display of outer walls which you would not want
+duplicated.
+Example:
+<pre>   set facet no_transform where color == brown
+</pre>
+
+<hr>
+<!--============================== Facet orientation ============================-->
+
+<a   id="orientation,-facet"></a><h2>Facet orientation</h2>
+<a href="#facets">Facet</a> read-write attribute. 
+              Controls  the sign of oriented integrals on
+	      a facet.  Value +1 or -1.  Useful when triangulation
+manipulations create a facet with an undesired orientation.
+Example:
+<pre>   set facet[123] orientation -1
+</pre>
+Also see the <a href="commands.htm#reverse_orientation" class="keyword">
+reverse_orientation</a> command to physically reverse a facet's orientation.
+
+<hr>
+<!--============================== Facet noncontent ============================-->
+
+<a   id="noncontent,-facet"></a>
+<a   id="facet-noncontent"></a><h2>Facet noncontent</h2>
+<a href="#facets">Facet</a> read-write attribute.  When set, indicates
+this facet should not be used in volume calculations.  Useful, for example,
+if you want to have facets be part of a body boundary for display purposes,
+but want to use constraint integrands for greater accuracy in volume
+calculations.
+Example:
+<pre>   set facet noncontent where on_constraint 1
+</pre>
+
+<hr>
+<!--============================== Facet phase ============================-->
+
+<a   id="phase,-facet"></a><h2>Facet phase</h2>
+<a href="#facets">Facet</a> read-write attribute. 
+     If there is a <a href="datafile.htm#phase-decl">phasefile</a>,
+      this attribute determines the
+edge tension of an edge between two facets in the string model.
+Example:
+<pre>   list facet where phase == 1
+</pre>
+
+<!--============================= Facet named quantity =========================-->
+<hr>
+<a   id="named-quantity,-facet"></a><h2>Facet named quantity</h2>
+See <a href="#quantity-attribute">named quantities</a> for general elements.
+
+<!--============================= Facet on_quantity =========================-->
+<hr>
+<a   id="on_quantity-facet"></a><h2>Facet on_quantity</h2>
+See <a href="#on_quantity">on_quantity</a> for general elements.
+
+
+<!--======================= Facet named method instances =========================-->
+<hr>
+<a   id="named-instances,-facet"></a><h2>Facet named method instances</h2>
+See <a href="#quantity-attribute">named quantities</a> for general elements.
+
+<!--============================= Facet on_method_instance =========================-->
+<hr>
+<a   id="facet-on_method_instance"></a><h2>Facet on_method_instance</h2>
+See <a href="#on_method_instance">on_method_instance</a> for general elements.
+
+
+
+<!--============================= Facet extra attributes =========================-->
+<hr>
+<a   id="extra-attributes,-facet"></a><h2>Facet extra attributes</h2>
+See <a href="#extra-attributes">extra attributes</a> for general elements.
+
+<!--============================== Facet f_method_list ============================-->
+
+<hr> <a   id="f_method_list"></a><h2>Facet f_method_list</h2>
+<a href="#facets">Facet</a> array attribute.  Internal name
+for the array holding the id numbers of the method instances
+to which this facet contributes.  Read-only.
+
+<hr>
+<!--============================== Facet f_next_bfacet ============================-->
+
+<a   id="f_next_bfacet"></a><h2>Facet f_next_bfacet</h2>
+<a href="#facets">Facet</a> read-only attribute.  Used internally
+when iterating over the facets comprising a body.
+ 
+
+<!--============================== Facet f_next_vfacet ============================-->
+
+<hr> <a   id="f_next_vfacet"></a><h2>Facet f_next_vfacet</h2>
+<a href="#vertices">Vertex</a> integer attribute.  Internal attribute
+used for the linked list that is used when iterating over the facets
+adjacent to a vertex.  Not accessible to user since it uses internal 
+element id type.
+
+
+
+
+<!--============================== Body attributes ============================-->
+
+
+<hr>
+<hr>
+<h1>Body attributes</h1>
+<!--============================== Body id ============================-->
+
+
+<hr>
+<H2>Body id</h2> See <a href="#id" class="keyword">id</a> for general elements.
+
+<!--============================== Body original ============================-->
+
+<hr>
+<H2>Body original</h2> See <a href="#original" class="keyword">original</a> 
+for general elements.
+
+
+<hr>
+<!--============================== Body facets ============================-->
+
+
+<a   id="body-facets"></a><h2>Body facets</h2>
+<a href="#bodies">Body</a> read-only attribute. 
+<a href="commands.htm#generators">Generates</a>
+facets
+bounding a body, with proper facet orientation with respect to the body. 
+Example:
+<pre>  list body[1].facets
+</pre>
+<hr>
+<!--============================== Body density ============================-->
+
+<a   id="density,-body"></a><h2>Body density</h2>
+<a href="#bodies">Body</a> read-write attribute. 
+              Density used for gravitational potential energy.
+It can be set in the <a href="datafile.htm#bodies-section">bodies section</a>
+of the datafile, or with the <a href="commands.htm#set">set</a> command,
+or by assignment.  Command examples:
+<pre>  print body[2].density
+  set body density 3
+  body[2].density := 5
+</pre>
+
+<hr>
+<!--============================== Body volume ============================-->
+
+<a   id="volume"></a>
+<a   id="body-volume"></a><h2>Body volume</h2>
+<a href="#bodies">Body</a> read-only attribute. 
+               Actual volume of a body.  This is the sum of three
+parts, in the soapfilm model:
+<ul>
+<li> An integral over the facets bounding the body. This is 
+\int z dx dy normally, but \int (x dy dz + y dz dx + z dx dy)/3
+if <a href="datafile.htm#symmetric_content" class="keyword">symmetric_content</a>
+ is in effect.
+<li> Any constraint content edge integrals applying to the body.
+<li> The body's volconst attribute.
+</ul>
+In the string model, the parts are
+<ul>
+<li> An integral over the edges bounding the body's facet. This is 
+\int -y dx.
+<li> Any constraint content vertex integrals applying to the body.
+<li> The body's volconst attribute.
+</ul>
+Body volumes can be displayed with the <a href="single.htm#v">v</a>
+command, or with standard attribute syntax. Example:
+<pre>  print body[1].volume
+  foreach body where volume &gt; 2 do print id
+</pre>
+
+
+<hr>
+<!--============================== Body target ============================-->
+
+<a   id="target"></a>
+<a   id="target-volume"></a><h2>Body target</h2>
+<a href="#bodies">Body</a> read-write attribute. 
+           The target volume of a volume constraint.  May be set in 
+the 
+<a href="datafile.htm#bodies-section">datafile</a>,
+ by the <a href="single.htm#b">b</a> command, or the 
+<a href="commands.htm#set">set</a> command.
+A volume constraint may be removed by the 
+<a href="commands.htm#unset">unset</a>, or with the 
+<a href="single.htm#b">b</a> command.
+Command examples:
+<pre>  set body[1] target 23
+  unset body target where id == 2
+  print body[2].target
+</pre>
+<hr>
+
+<!--============================== Body volfixed ============================-->
+
+<a   id="volfixed"></a><h2>Body volfixed</h2>
+<a href="#bodies">Body</a> Boolean read-only attribute. 
+Value is 1 if the volume of the body is fixed, 0 if not.
+
+<hr>
+<!--============================== Body volconst ============================-->
+
+<a   id="volconst"></a>
+<a   id="body-volconst"></a><h2>Body volconst</h2>
+<a href="#bodies">Body</a> read-write attribute. 
+     A constant added to the calculated volume. Useful for 
+correcting for omitted parts of body boundaries.  Also used 
+internally as a correction in the <a href="model.htm#torus-model">torus model
+</a>, which will use the target volume to calculate volconst internally.  
+In the torus model, the target volume should be set within 1/12 of a
+torus volume of the actual volume for each body, so the correct volconst
+can be computed.  Each volconst will be adjusted proportionately when
+the volume of a fundamental torus domain is change by changing the
+period formulas.
+Volconst can be set
+ in the datafile <a href="datafile.htm#bodies-section">bodies section</a>,
+or interactively by the <a href="commands.htm#set">set</a> command or
+by assignment.  Examples:
+<pre>  print body[1].volconst
+  set body[2] volconst 1.2
+  body[2].volconst := 1.2
+</pre>
+It is best to avoid using volconst except in the torus model.  Rather,
+use <a href="datafile.htm#constraint-decl">edge content integrals</a>
+so that the proper adjustments will be made if the boundary
+of the surface is moved, or <a href="commands.htm#rebody">rebody</a>
+is done.
+
+
+<hr>
+<!--============================== Body actual_volume ============================-->
+
+<a   id="actual_volume"></a><h2>Body actual_volume</h2>
+<a href="#bodies">Body</a> datafile attribute. 
+ Actual_volume is a number that can be specified in the
+ datafile definition of a body
+ in the rare circumstances where the  torus model volume
+  volconst calculation gives the wrong answer; volconst
+  will be adjusted to give this volume of the body.
+
+<hr>
+<!--============================== Body pressure ============================-->
+
+<a   id="pressure,-body"></a><h2>Body pressure</h2>
+<a href="#bodies">Body</a> read-write real attribute. 
+        If a body has a prescribed volume, this is a read-only attribute,
+which is the Lagrange multiplier for the volume constraint.
+If a body is given a prescribed pressure, then there is an energy
+term equal to pressure times volume.  A body cannot have a prescribed
+volume and a prescribed pressure at the same time.  Prescribed 
+volume or pressure
+can be set in the <a href="datafile.htm#bodies-section">bodies section</a>
+of the datafile.  If pressure is prescribed, then the value can be
+changed interactively with the <a href="single.htm#b">b</a> command,
+the  <a href="commands.htm#set">set</a> command, or by assignment.
+Examples:
+<pre>  print body[2].pressure
+  body[2].pressure := 1.3
+  set body[2] pressure 1.3
+</pre>
+
+
+<hr>
+<!--============================== Body phase ============================-->
+
+<a   id="phase,-body"></a><h2>Body phase</h2>
+<a href="#bodies">Body</a> read-write attribute. 
+     If there is a <a href="datafile.htm#phase-decl">phasefile</a>,
+      this attribute determines the
+facet tension of an edge between two bodies in the soapfilm model.
+Example:
+<pre>   list body where phase == 1
+</pre>
+
+
+<hr>
+<!--============================== Body centerofmass ============================-->
+
+<a   id="centerofmass"></a><h2>Body centerofmass</h2>
+<a href="#bodies">Body</a> read-write boolean attribute. 
+Boolean body attribute.  Applies to the "connected" bodies mode of graphical
+display in the torus model. When this is set for a body, the center of mass
+of the body as displayed is remembered, and the next time a body is graphed,
+its wrap is such that its new center of mass is near its previous center
+of mass.  This prevents bodies near the boundaries of the fundamental
+region from jumping back and forth as they shift slightly during evolution.
+Default on.  Example:
+<pre> set bodies centerofmass </pre>
+
+<!--============================== Body quantity ============================-->
+<a   id="named-quantity,body"></a>
+<a   id="method-instance,body"></a>
+<a   id="on_quantity,body"></a>
+<a   id="on_method_instance,body"></a>
+<hr> <a   id="b_method_list"></a><h2>Body quantities</h2>
+There are no named methods currently implemented for bodies, so named quantities
+and methods do not apply.
+
+<!--============================== Facetedge attributes ============================-->
+
+<hr>
+<hr>
+<h1>Facetedge attributes</h1>
+
+<!--============================== Facetedge id ============================-->
+
+<hr>
+<H2>Facetedge id</h2> See <a href="#id" class="keyword">id</a> for general elements.
+
+<!--============================== Facetedge oid ============================-->
+
+<hr>
+<H2>Facetedge oid</h2> See <a href="#oid" class="keyword">oid</a> for general elements.
+
+<!--============================== Facetedge edge ============================-->
+
+<a   id="facetedge-edge"></a><h2>Facetedge edge</h2>
+<a href="#facetedges">Facetedge</a> read-only attribute. 
+<a href="commands.htm#generators">Generates</a> the single  edge
+of the facetedge.
+Example:
+<pre>  print facetedge[1].edge[1].id
+</pre>
+<hr>
+
+<!--============================== Facetedge facet ============================-->
+
+<a   id="facetedge-facet"></a><h2>Facetedge facet</h2>
+<a href="#facetedges">Facetedge</a> read-only attribute. 
+<a href="commands.htm#generators">Generates</a> the single  facet
+of the facetedge.
+Example:
+<pre>  print facetedge[1].facet[1].id
+</pre>
+<hr>
+
+
+<!--============================== Facetedge nextedge ============================-->
+
+
+<a   id="nextedge"></a><h2>Facetedge nextedge</h2>
+<a href="#facetedges">Facetedge</a> internal attribute. 
+Oriented id number of the next facetedge in the facet edge loop.  May be 0 in
+the string model for the last edge of a facet. Not available
+to users except in the output of a "list facetedges ... " command.
+<hr>
+
+<!--============================== Facetedge prevedge ============================-->
+
+<a   id="prevedge"></a><h2>Facetedge prevedge</h2>
+<a href="#facetedges">Facetedge</a> internal attribute. 
+Oriented id number of the previous facetedge in the facet edge loop.  May be 0 in
+the string model for the first edge of a facet. Not available
+to users except in the output of a "list facetedges ... " command.
+<hr>
+
+<!--============================== Facetedge nextfacet ============================-->
+
+<a   id="nextfacet"></a><h2>Facetedge nextfacet</h2>
+<a href="#facetedges">Facetedge</a> internal attribute. 
+Oriented id number of the next facetedge in the loop of facets around the edge.  Not available
+to users except in the output of a "list facetedges ... " command.
+<hr>
+
+<!--============================== Facetedge prevfacet ============================-->
+
+<a   id="prevfacet"></a><h2>Facetedge prevfacet</h2>
+<a href="#facetedges">Facetedge</a> internal attribute. 
+Oriented id number of the previous facetedge in the loop of facets around an edge.  Not available
+to users except in the output of a "list facetedges ... " command.
+<hr>
+
+
+<hr>
+
+
+<a href="evolver.htm#doc-top">Back to top of Surface Evolver documentation.</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.htm">Index.</a>
+</body>
+</html>
